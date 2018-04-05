@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -16,6 +16,7 @@
     "koa-router": "^7.1.0",
     "next": "^5.1.0",
     "react": "^16.3.0",
-    "react-dom": "^16.3.0"
+    "react-dom": "^16.3.0",
+    "lokijs": "^1.5.3"
   }
 }

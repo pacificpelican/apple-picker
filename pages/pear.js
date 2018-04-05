@@ -18,7 +18,9 @@ export default class Pear extends Component {
   render() {
     return (
       <div id="pear">
-        <div className="pear-content">BASIC COMPONENT _</div>
+        <div className="pear-content">
+          <h2 id="snapshot">Your Financial Snapshot</h2>
+        </div>
         <style>
           {`
             div.pear-content {

@@ -1,11 +1,14 @@
-const Koa = require('koa')
-const next = require('next')
-const Router = require('koa-router')
+const Koa = require('koa');
+const next = require('next');
+const Router = require('koa-router');
 
-const port = parseInt(process.env.PORT, 10) || 3005
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3005;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
+
+const loki = require("lokijs");
+var AccountsDB = new loki(__dirname + "/db/accountsdb.json");
 
 app.prepare()
 .then(() => {
@@ -20,6 +23,12 @@ app.prepare()
   router.get('/b', async ctx => {
     await app.render(ctx.req, ctx.res, '/a', ctx.query)
     ctx.respond = false
+  })
+
+  router.get('/api/1/addexpense/amount/:total/user/:account/company/:enterprise/', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    //  ctx.respond = false;
   })
 
   router.get('*', async ctx => {
