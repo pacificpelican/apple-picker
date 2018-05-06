@@ -1,7 +1,7 @@
 apple-picker
 ****
 
-A software tool for accountancy by <a href="http://danmckeown.info">Dan McKeown</a>
+A software tool for accountancy by [Dan McKeown](http://danmckeown.info)
 
 ***QuickStart***
 - `yarn`
