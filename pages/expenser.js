@@ -20,6 +20,7 @@ export default class Expenser extends Component {
 
   handleSubmitExpense(event) {
     console.log('Expense data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee);
+    http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
   }
 

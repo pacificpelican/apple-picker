@@ -31,6 +31,13 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
