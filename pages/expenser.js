@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Expenser extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '' };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '' };
 
   constructor(props) {
     super(props);
@@ -15,25 +15,31 @@ export default class Expenser extends Component {
     this.updateAmount = this.updateAmount.bind(this);
     this.updateDate = this.updateDate.bind(this);
     this.updateDescription = this.updateDescription.bind(this);
+    this.updatePayee = this.updatePayee.bind(this);
   }
 
   handleSubmitExpense(event) {
-    alert('Expense data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc);
+    console.log('Expense data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee);
     event.preventDefault();
   }
 
   updateAmount(event) {
-    console.log("submitted amount value: " + event.target.value)
+    console.log("updated amount value: " + event.target.value)
     this.setState({amount: event.target.value});
   }
 
   updateDate(event) {
-    console.log("submitted date value: " + event.target.value)
+    console.log("updated date value: " + event.target.value)
     this.setState({amountdate: event.target.value});
   }
 
+  updatePayee(event) {
+    console.log("updated payee value: " + event.target.value)
+    this.setState({payee: event.target.value});
+  }
+
   updateDescription(event) {
-    console.log("submitted description value: " + event.target.value)
+    console.log("updated description value: " + event.target.value)
     this.setState({desc: event.target.value});
   }
 
@@ -54,9 +60,9 @@ export default class Expenser extends Component {
             <Textframe notData="9"></Textframe>
             <h2 id="snapshot">Enter an Expense</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
-              <section className="expense-form"><span className="input-span">Amount: $</span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
+              <section className="expense-form"><span className="input-span">Amount: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
-              <section className="expense-form"><span className="input-span">Payed To: </span><input id="payee-description"  /></section>
+              <section className="expense-form"><span className="input-span">Payed To: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input id="input-description"  value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes" /></section>
               <section className="expense-form"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section>
@@ -68,6 +74,9 @@ export default class Expenser extends Component {
           {`
             div.pear-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;
+            }
+            span {
+              line-height: 1.5;
             }
             `}
         </style>
