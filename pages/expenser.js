@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Expenser extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '' };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: `` };
 
   constructor(props) {
     super(props);
@@ -16,12 +16,36 @@ export default class Expenser extends Component {
     this.updateDate = this.updateDate.bind(this);
     this.updateDescription = this.updateDescription.bind(this);
     this.updatePayee = this.updatePayee.bind(this);
+    this.updateNotes = this.updateNotes.bind(this);
   }
 
   handleSubmitExpense(event) {
-    console.log('Expense data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee);
-    http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
+    console.log('Expense data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee + " notes: " + this.state.notes);
+  //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
+
+    let dest = "/api/1/addexpense/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/payee/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
+    let that = this;
+
+    fetch(dest, {})
+      .then(function(response) {
+        if (response.ok) {
+          console.log("response ok");
+          // console.log(response.json);
+          // for (var e in response.json) {
+          //   console.log(e.toString());
+          // }
+          // console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function(myReturn) {
+        console.log(myReturn);
+        
+      //  that.setState({ pricesAndCaps: oldArr });
+      });
   }
 
   updateAmount(event) {
@@ -37,6 +61,11 @@ export default class Expenser extends Component {
   updatePayee(event) {
     console.log("updated payee value: " + event.target.value)
     this.setState({payee: event.target.value});
+  }
+
+  updateNotes(event) {
+    console.log("updated notes value: " + event.target.value)
+    this.setState({notes: event.target.value});
   }
 
   updateDescription(event) {
@@ -64,8 +93,8 @@ export default class Expenser extends Component {
               <section className="expense-form"><span className="input-span">Amount: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span">Payed To: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
-              <section className="expense-form"><span className="input-span">Description: </span><input id="input-description"  value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes" /></section>
+              <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes"  value={this.state.notes} onChange={this.updateNotes} /></section>
               <section className="expense-form"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section>
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add expense" id="submit-expenses" /></section>
             </form>

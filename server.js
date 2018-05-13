@@ -35,6 +35,10 @@ app.prepare()
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
+
+  //  return Object.assign({}, {"success": "ok"});
+
+    ctx.response.body = Object.assign({}, {"success": "ok"});
     //  ctx.respond = false;
   })
 
