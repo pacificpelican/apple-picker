@@ -22,7 +22,7 @@ export default class Expenseform extends Component {
       <div id="basicComponentDiv">
         <div className="apple-picker-header">apple-picker _ Expense Entry </div>
         <Expenser />
-        <style>
+        <style jsx>
           {`
             div.apple-picker-header {
               font-family: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;

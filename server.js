@@ -36,9 +36,34 @@ app.prepare()
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
-  //  return Object.assign({}, {"success": "ok"});
+    let umbrella = "expenses";
 
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        amount: ctx.params.total,
+        date: ctx.params.paydate,
+        payee: ctx.params.payee,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
     ctx.response.body = Object.assign({}, {"success": "ok"});
+    
     //  ctx.respond = false;
   })
 
