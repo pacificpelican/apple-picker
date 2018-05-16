@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Link from "next/link";
 
-//  expenser.js ReactJS 16.3+ component for apple-picker
+//  revenant.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
 
-export default class Expenser extends Component {
+export default class Revenant extends Component {
   state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: `` };
 
   constructor(props) {

@@ -58,11 +58,51 @@ app.prepare()
         org: ctx.params.org
       });
 
+      console.log("saving expense data");
+
       AccountsDB.saveDatabase();
 
   //  return Object.assign({}, {"success": "ok"});
     })
-    ctx.response.body = Object.assign({}, {"success": "ok"});
+    ctx.response.body = Object.assign({}, {"update": "expenses", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
+  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "revenues";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        amount: ctx.params.total,
+        date: ctx.params.paydate,
+        payer: ctx.params.payer,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      console.log("saving revenue data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "revenues", "success": "ok"});
     
     //  ctx.respond = false;
   })
