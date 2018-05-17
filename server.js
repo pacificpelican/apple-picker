@@ -107,6 +107,8 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  var apiData = {};
+
   router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
@@ -134,25 +136,10 @@ app.prepare()
 
       console.log(retData);
 
-      // _collection.insertOne({
-      //   amount: ctx.params.total,
-      //   date: ctx.params.paydate,
-      //   payer: ctx.params.payer,
-      //   description: ctx.params.desc,
-      //   notes: ctx.params.notes,
-      //   org: ctx.params.org
-      // });
-
-      // console.log("saving revenue data");
-
-      // AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
-     
+      apiData = retData;
     })
-         ctx.response.body = retData;
-    
-    //  ctx.respond = false;
+
+    ctx.response.body = Object.assign({}, apiData);
   })
 
   router.get('*', async ctx => {
