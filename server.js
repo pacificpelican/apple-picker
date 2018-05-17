@@ -107,6 +107,54 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "revenues";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      // _collection.insertOne({
+      //   amount: ctx.params.total,
+      //   date: ctx.params.paydate,
+      //   payer: ctx.params.payer,
+      //   description: ctx.params.desc,
+      //   notes: ctx.params.notes,
+      //   org: ctx.params.org
+      // });
+
+      // console.log("saving revenue data");
+
+      // AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+     
+    })
+         ctx.response.body = retData;
+    
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
