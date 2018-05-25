@@ -10,6 +10,8 @@ const handle = app.getRequestHandler();
 const loki = require("lokijs");
 var AccountsDB = new loki(__dirname + "/db/accountsdb.json");
 
+const convertObj = require("object-array-converter");
+
 app.prepare()
 .then(() => {
   const server = new Koa()
@@ -139,7 +141,13 @@ app.prepare()
       apiData = retData;
     })
 
-    ctx.response.body = Object.assign({}, apiData);
+  //  ctx.response.body = Object.assign({}, apiData);
+
+    let respObj = Object.assign({}, apiData);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
   })
 
   router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
@@ -172,7 +180,11 @@ app.prepare()
       apiData = retData;
     })
 
-    ctx.response.body = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiData);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
   })
 
   router.get('*', async ctx => {

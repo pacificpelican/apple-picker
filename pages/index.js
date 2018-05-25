@@ -18,8 +18,8 @@ export default () => (
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/some-notes/org/the-org'><a>Add expense API route example</a></Link></li>
 
       <h6>read API</h6>
-      <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON object</a></Link></li>
-
+      <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getrevenue/org/lovebirdsconsulting/limit/10'><a>Get revenue as a JSON array</a></Link></li>
 
       <h6>Boilerplate</h6>
       <li><Link href='/b' as='/a'><a>a</a></Link></li>

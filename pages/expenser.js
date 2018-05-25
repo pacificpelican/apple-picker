@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Revenant extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: `` };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: '' };
 
   constructor(props) {
     super(props);

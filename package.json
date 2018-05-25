@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -17,6 +17,7 @@
     "next": "^5.1.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "lokijs": "^1.5.3"
+    "lokijs": "^1.5.3",
+    "object-array-converter": "~1.0.1"
   }
 }
