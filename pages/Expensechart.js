@@ -1,0 +1,62 @@
+import React, { Component } from "react";
+import Link from "next/link";
+
+//  Expensechart.js ReactJS 16.3+ component for apple-picker
+//  by Dan McKeown http://danmckeown.info copyright 2018
+
+export default class Expensechart extends Component {
+  state = { Ok: true, expeneseArray: [] };
+
+  constructor() {
+    super();
+  }
+
+  componentDidMount() {
+    let that = this;
+    let dest = "http://localhost:3005/api/1/getexpenses/org/lovebirdsconsulting/limit/10";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        that.setState({ expeneseArray: myReturn });
+      });
+  }
+
+  render() {
+    let renderBlock = '';
+    this.state.expeneseArray.forEach(element => {
+          renderBlock = renderBlock + `<li>` + element.value.amount + `</li>`;
+    });
+    console.log(renderBlock);
+    return (
+      <div id="basicComponentDiv">
+        <div className="apple-picker-header">apple-picker _ Expense Data </div>
+        <section id="rBlock">
+         <div dangerouslySetInnerHTML={{__html: renderBlock}} />
+          </section>
+        <style jsx>
+          {`
+            div.apple-picker-header {
+              font-family: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
+            }
+            div.apple-picker-content {
+                font-family: "Hack", "Fira Code", "Menlo", monospace;
+            }
+            `}
+        </style>
+      </div>
+    );
+  }
+}
