@@ -37,25 +37,32 @@ export default class Expensechart extends Component {
   render() {
     let renderBlock = '';
     this.state.expeneseArray.forEach(element => {
-          renderBlock = renderBlock + `<li>` + element.value.amount + `</li>`;
+          renderBlock = renderBlock + `<li className="data-zone">` + `<span className="expense-amount">` + element.value.amount + `</span>` + `<span className="expense-date">` + element.value.date + `</span>` + `<span className="expense-description">` + element.value.description + `</span>` + `</li>`;
     });
     console.log(renderBlock);
     return (
       <div id="basicComponentDiv">
         <div className="apple-picker-header">apple-picker _ Expense Data </div>
         <section id="rBlock">
-         <div dangerouslySetInnerHTML={{__html: renderBlock}} />
-          </section>
-        <style jsx>
-          {`
+          <div dangerouslySetInnerHTML={{__html: renderBlock}}></div>
+        </section>
+        <style jsx>{`
+            :root {
+              --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
+              --fonts-ui: "Hack", "Fira Code", "Menlo", monospace;
+            }
             div.apple-picker-header {
-              font-family: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
+              font-family: var(--fonts-default, "sans-serif");
             }
             div.apple-picker-content {
-                font-family: "Hack", "Fira Code", "Menlo", monospace;
+              font-family: var(--fonts-ui, "sans-serif");
             }
-            `}
-        </style>
+            .data-zone {
+              display: grid;
+              grid-template-columns: 100px 100px 100px 100px;
+              grid-column-gap: 10px;
+            }
+            `}</style>
       </div>
     );
   }
