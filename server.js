@@ -71,10 +71,11 @@ app.prepare()
     //  ctx.respond = false;
   })
 
-  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
+    console.log("payer: " + ctx.params.payer);
 
     let umbrella = "revenues";
 

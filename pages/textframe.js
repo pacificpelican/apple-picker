@@ -13,6 +13,12 @@ export default class Textframe extends Component {
     super();
   }
 
+  reloadOnce() {
+    console.log("about to reload");
+    return window.location.reload();
+    return false;
+  }
+
   UNSAFE_componentWillMount() {}
 
   componentDidMount() {}
@@ -22,7 +28,7 @@ export default class Textframe extends Component {
       <div id="ladder">
         <ul className="ladder-content">
           <li id="homelink"><Homelink /></li>
-          <li id="file-link"><Link href="/file">File</Link></li>
+          <li id="file-link"><a onClick={this.reloadOnce} href="#">Refresh()</a></li>
           <li id="file-link"><Link href="/edit">Edit</Link></li>
           <li id="file-link"><Link href="/view">View</Link></li>
           <li id="file-link"><Link href="/settings">Settings</Link></li>
