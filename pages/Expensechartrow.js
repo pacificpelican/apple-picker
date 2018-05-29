@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
-//  Expensechart.js ReactJS 16.3+ component for apple-picker
+//  Expensechartrow.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 const Expensechartrow = ({interVal}) => (

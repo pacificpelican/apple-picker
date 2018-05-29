@@ -11,6 +11,7 @@ export default () => (
       <li><Link href='/Expenseform'><a>Expenseform</a></Link></li>
       <li><Link href='/Revenueform'><a>Revenueform</a></Link></li>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
+      <li><Link href='/Expensechart'><a>Revenuechart</a></Link></li>
 
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>
