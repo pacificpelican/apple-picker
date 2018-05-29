@@ -37,14 +37,16 @@ export default class Textframe extends Component {
         <section id="content-section">
         
         </section>
-        <style>
-          {`
+        <style>{`
             div.pear-content {
               font-family: "Hack", "Fira Code", "Menlo", monospace;
             }
             ul.ladder-content li {
               display: inline-block;
               padding-right: 1rem;
+            }
+            ul.ladder-content li {
+              font-family: "Hack", "Fira Code", "Menlo", monospace;
             }
             `}
         </style>
