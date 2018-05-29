@@ -57,7 +57,7 @@ export default class Revenuechart extends Component {
             div.apple-picker-header {
               font-family: var(--fonts-default, "sans-serif");
             }
-            div.apple-picker-content {
+            div#data-container {
               font-family: var(--fonts-ui, "sans-serif");
             }
             div.dataZone {
