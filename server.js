@@ -188,6 +188,47 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+    console.log("miles: " + ctx.params.total);
+
+    let umbrella = "miles";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        miles: ctx.params.total,
+        date: ctx.params.paydate,
+        destination: ctx.params.dest,
+        embarkment: ctx.params.emb,
+        roundtrip: ctx.params.round,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      console.log("saving revenue data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "miles", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
