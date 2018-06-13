@@ -10,6 +10,7 @@ export default () => (
       <h6>Main Components</h6>
       <li><Link href='/Expenseform'><a>Expenseform</a></Link></li>
       <li><Link href='/Revenueform'><a>Revenueform</a></Link></li>
+      <li><Link href='/Carform'><a>Carform</a></Link></li>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
       <li><Link href='/Revenuechart'><a>Revenuechart</a></Link></li>
 
