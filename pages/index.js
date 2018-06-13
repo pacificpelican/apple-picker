@@ -13,6 +13,7 @@ export default () => (
       <li><Link href='/Carform'><a>Carform</a></Link></li>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
       <li><Link href='/Revenuechart'><a>Revenuechart</a></Link></li>
+      <li><Link href='/Mileschart'><a>Mileschart</a></Link></li>
 
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>
