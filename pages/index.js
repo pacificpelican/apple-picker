@@ -21,9 +21,9 @@ export default () => (
       <li><Link href='/api/1/getmiles/org/altaredwood/limit/10'><a>Get miles as a JSON array</a></Link></li>
       
       <h6>write API</h6>
-      <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/some-notes/org/the-org'><a>Add expense API route example</a></Link></li>
-      <li><Link href='/api/1/addrevenue/amount/500/date/5-19-2018/payer/yoga-studio-client/description/design-services/notes/schedule-integration/org/altaredwood'><a>Add revenue API route example</a></Link></li>
-      <code>similar write route for /addmiles </code>
+      <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
+      <li><Link href='/api/1/addrevenue/amount/500/date/5-19-2018/payer/yoga-studio-client/description/design-services-schedule-integration/notes/api-example/org/altaredwood'><a>Add revenue API route example</a></Link></li>
+      <li><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add time API route example</a></Link></li>
       <li><Link href='/api/1/addtime/amount/445.50/date/6-20-2018/client/corporateClient/description/contract-work/notes/ecommerce/org/altaredwood'><a>Add time API route example</a></Link></li>
       
       <h6>UI Components</h6>
