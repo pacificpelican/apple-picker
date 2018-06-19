@@ -188,6 +188,43 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+    console.log("miles: " + ctx.params.total);
+
+    let umbrella = "miles";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        timeWorked: ctx.params.total,
+        date: ctx.params.paydate,
+        client: ctx.params.dest,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      console.log("saving time data");
+
+      AccountsDB.saveDatabase();
+      
+    })
+    ctx.response.body = Object.assign({}, {"update": "time", "success": "ok"});
+
+  })
+
   router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
