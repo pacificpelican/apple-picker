@@ -192,9 +192,9 @@ app.prepare()
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
-    console.log("miles: " + ctx.params.total);
+    console.log("time: " + ctx.params.total);
 
-    let umbrella = "miles";
+    let umbrella = "timesheet";
 
     AccountsDB.loadDatabase({}, function() {
       let _collection = AccountsDB.getCollection(umbrella);
@@ -272,6 +272,43 @@ app.prepare()
     console.log("description: " + ctx.params.desc);
 
     let umbrella = "miles";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      apiData = retData;
+    })
+
+    let respObj = Object.assign({}, apiData);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
+  })
+
+  router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "timesheet";
 
     let retData = {};
 
