@@ -7,13 +7,17 @@ export default () => (
     <h5 id="apple-picker-credit">by <a href="http://danmckeown.info">Dan McKeown</a></h5>
     <ul>
 
-      <h6>Main Components</h6>
+      <h6>Main Components - Data Entry</h6>
       <li><Link href='/Expenseform'><a>Expenseform</a></Link></li>
       <li><Link href='/Revenueform'><a>Revenueform</a></Link></li>
       <li><Link href='/Carform'><a>Carform</a></Link></li>
+      <li><Link href='/Timeform'><a>Timeform</a></Link></li>
+
+      <h6>Main Components - Data Views</h6>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
       <li><Link href='/Revenuechart'><a>Revenuechart</a></Link></li>
       <li><Link href='/Mileschart'><a>Mileschart</a></Link></li>
+      <li><Link href='/Timechart'><a>Timechart</a></Link></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON array</a></Link></li>
@@ -24,8 +28,8 @@ export default () => (
       <h6>write API</h6>
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
       <li><Link href='/api/1/addrevenue/amount/500/date/5-19-2018/payer/yoga-studio-client/description/design-services-schedule-integration/notes/api-example/org/altaredwood'><a>Add revenue API route example</a></Link></li>
-      <li><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add time API route example</a></Link></li>
-      <li><Link href='/api/1/addtime/amount/445.50/date/6-20-2018/client/corporateClient/description/contract-work/notes/ecommerce/org/altaredwood'><a>Add time API route example</a></Link></li>
+      <li><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add miles API route example</a></Link></li>
+      <li><Link href='/api/1/addtime/amount/4.5/date/6-20-2018/client/corporateClient/description/contract-work/notes/api-example/org/altaredwood'><a>Add time API route example</a></Link></li>
       
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>

@@ -95,7 +95,7 @@ export default class Timer extends Component {
               <section className="milage-form"><span className="input-span">Client: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
 
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
+              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add time" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
             </form>
           </section>
         </div>
