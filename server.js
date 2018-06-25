@@ -340,6 +340,82 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "receivables";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        amount: ctx.params.total,
+        date: ctx.params.paydate,
+        debtor: ctx.params.payee,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      console.log("saving expense data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "receivables", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
+  router.get('/api/1/addpayable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "payables";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        amount: ctx.params.total,
+        date: ctx.params.paydate,
+        creditor: ctx.params.payee,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        org: ctx.params.org
+      });
+
+      console.log("saving expense data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "payables", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
