@@ -21,6 +21,7 @@ export default () => (
       <li><Link href='/Mileschart'><a>Mileschart</a></Link></li>
       <li><Link href='/Timechart'><a>Timechart</a></Link></li>
       <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link></li>
+      <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON array</a></Link></li>
