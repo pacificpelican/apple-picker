@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
 
 export default () => (
-  <div>
-    <h1 id="apple-picker-index-header">Apple Picker software</h1>
+  <div id="apple-picker-container">
+    <h1 id="title">Apple Picker software</h1>
     <h5 id="apple-picker-credit">by <a href="http://danmckeown.info">Dan McKeown</a></h5>
     <ul>
 
@@ -48,5 +48,30 @@ export default () => (
       <li><Link href='/Carform'><a>Carform</a></Link></li>
       <li><Link href='/api/1/addexpense/amount/8/user/djm/company/danco/'><a>Add expense API route example [old]</a></Link></li>
     </ul>
+
+    <footer id="apple-picker-footer">
+      Apple Picker was created by <a href="http://danmckeown.info">Dan McKeown</a>
+    </footer>
+    <style>{`
+            div#apple-picker-container {
+              border-radius: 8px;
+              padding: 0.25em 1em;
+              margin: 0 1em;
+              background: #e8dddc;
+              color: black;
+              border: 2px solid;
+              border-color: #f2bbb8;
+              font-family: Hack, Menlo, monospace;
+            }
+            h1#title {
+              color: red;
+              font-size: 40px;
+            }
+            footer#apple-picker-footer {
+              border: 1px solid;
+              border-color: limegreen;
+            }
+            `}
+    </style>
   </div>
 )
