@@ -16,7 +16,7 @@ export default class Accountsreceivableschart extends Component {
 
   componentDidMount() {
     let that = this;
-    let dest = "http://localhost:3005/api/1/getreceivables/org/lovebirdsconsulting/limit/10";
+    let dest = "api/1/getreceivables/org/lovebirdsconsulting/limit/10";
     fetch(dest, {})
       .then(function (response) {
         if (response.ok) {

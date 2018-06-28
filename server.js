@@ -71,7 +71,7 @@ app.prepare()
     //  ctx.respond = false;
   })
 
-  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org/arid/:arid', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -96,7 +96,8 @@ app.prepare()
         payer: ctx.params.payer,
         description: ctx.params.desc,
         notes: ctx.params.notes,
-        org: ctx.params.org
+        org: ctx.params.org,
+        accountsreceivableid: ctx.params.arid
       });
 
       console.log("saving revenue data");

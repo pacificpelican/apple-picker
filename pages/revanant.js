@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Revenant extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: `` };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, ar: null, receivablesArray: [] };
 
   constructor(props) {
     super(props);
@@ -17,6 +17,7 @@ export default class Revenant extends Component {
     this.updateDescription = this.updateDescription.bind(this);
     this.updatePayer = this.updatePayer.bind(this);
     this.updateNotes = this.updateNotes.bind(this);
+    this.updateap = this.updateap.bind(this);
   }
 
   handleSubmitExpense(event) {
@@ -24,7 +25,7 @@ export default class Revenant extends Component {
   /////  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payer/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
 
-    let dest = "/api/1/addrevenue/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/payer/" + this.state.payer + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
+    let dest = "/api/1/addrevenue/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/payer/" + this.state.payer + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + /arid/ + this.state.ar;
     let that = this;
 
     fetch(dest, {})
@@ -73,6 +74,10 @@ export default class Revenant extends Component {
     this.setState({desc: event.target.value});
   }
 
+  updateap(event) {
+    console.log("updated ap: " + event.target.value)
+    this.setState({ar: event.target.value});
+  }
 
   noop() {
     // do nothing
@@ -80,7 +85,28 @@ export default class Revenant extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() {
+    let that = this;
+    let dest = "api/1/getreceivables/org/lovebirdsconsulting/limit/1000";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        that.setState({ receivablesArray: myReturn });
+      });
+  }
 
   render() {
     return (
@@ -95,7 +121,17 @@ export default class Revenant extends Component {
               <section className="expense-form"><span className="input-span">Received From: </span><input required id="payer-description" value={this.state.payer} onChange={this.updatePayer} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes"  value={this.state.notes} onChange={this.updateNotes} /></section>
-              <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section>
+              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
+              <section className="expense-form" id="dropdown">
+                <span className="input-span">A/R:
+                  <select value={this.state.ar} onChange={this.updateap}><option value={null}>none</option>
+                    {this.state.receivablesArray.map(function (interVal) {
+                      console.log("interVal.value.debtor: " + interVal.value.debtor);
+                      return <option value={interVal.key}>{interVal.value.debtor} {interVal.value.date}</option>
+                    })}
+                  </select>
+                </span>
+              </section>
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add expense" id="submit-expenses" /></section>
             </form>
           </section>
