@@ -33,7 +33,7 @@ app.prepare()
     //  ctx.respond = false;
   })
 
-  router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -57,7 +57,8 @@ app.prepare()
         payee: ctx.params.payee,
         description: ctx.params.desc,
         notes: ctx.params.notes,
-        org: ctx.params.org
+        org: ctx.params.org,
+        accountspayableid: ctx.params.arid
       });
 
       console.log("saving expense data");
