@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Timer extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '' };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false };
 
   constructor(props) {
     super(props);
@@ -21,61 +21,105 @@ export default class Timer extends Component {
     this.updateDest = this.updateDest.bind(this);                     // utilized in Miler
     this.updateEmb = this.updateEmb.bind(this);                      // utilized in Miler
     this.updateRate = this.updateRate.bind(this);
-  //  this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
+    this.updateARstatus = this.updateARstatus.bind(this);
+    //  this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
   }
 
   handleSubmitMilage(event) {
-  //  window.alert();
+    //  window.alert();
     console.log('Time sheet data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc);
-   
+
     event.preventDefault();
-  
-      let dest = "/api/1/addtime/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.emb + "/description/" + this.state.desc + "/notes/" + this.state.dest + "/org/" + this.state.org + "/rate/" + this.state.rate;
-      let that = this;
-  
-      fetch(dest, {})
-        .then(function(response) {
-          if (response.ok) {
-            console.log("response ok");
-            // console.log(response.json);
-            // for (var e in response.json) {
-            //   console.log(e.toString());
-            // }
-            // console.log(response.text);
-            return response.json();
-          }
-          throw new Error("Network did not respond.");
-          return response.blob();
-        })
-        .then(function(myReturn) {
-          console.log(myReturn);
-          
+
+    let dest = "/api/1/addtime/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.emb + "/description/" + this.state.desc + "/notes/" + this.state.dest + "/org/" + this.state.org + "/rate/" + this.state.rate;
+    let that = this;
+
+    let total = Number(this.state.amount * this.state.rate);
+
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          // console.log(response.json);
+          // for (var e in response.json) {
+          //   console.log(e.toString());
+          // }
+          // console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+
         //  that.setState({ pricesAndCaps: oldArr });
-        });
+        // let total = Number(this.state.amount * this.state.rate);
+        let dest2 = "/api/1/addreceivable/amount/" + total + "/date/" + that.state.amountdate + "/payee/" + that.state.emb + "/description/" + that.state.desc + "/notes/" + that.state.dest + "/org/" + that.state.org;
+        //    /api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org
+    
+        console.log("shouldAR is " + that.state.shouldAR);
+        if (that.state.shouldAR === true) {
+          fetch(dest2, {})
+            .then(function (response) {
+              if (response.ok) {
+                console.log("response ok");
+                // console.log(response.json);
+                // for (var e in response.json) {
+                //   console.log(e.toString());
+                // }
+                // console.log(response.text);
+                return response.json();
+              }
+              throw new Error("Network did not respond.");
+              return response.blob();
+            })
+            .then(function (myReturn) {
+              console.log(myReturn);
+    
+              //  that.setState({ pricesAndCaps: oldArr });
+            });
+        }
+        else {
+          
+        }
+      });
+
   }
   updateAmount(event) {
     console.log("updated amount value: " + event.target.value)
-    this.setState({amount: event.target.value});
+    this.setState({ amount: event.target.value });
   }
   updateDate(event) {
     console.log("updated date value: " + event.target.value)
-    this.setState({amountdate: event.target.value});
+    this.setState({ amountdate: event.target.value });
   }
   updateDescription(event) {
     console.log("updated description value: " + event.target.value)
-    this.setState({desc: event.target.value});
+    this.setState({ desc: event.target.value });
   }
   updateDest(event) {
     console.log("updated destination value: " + event.target.value)
-    this.setState({dest: event.target.value});
+    this.setState({ dest: event.target.value });
   }
   updateEmb(event) {
     console.log("updated embarkment point value: " + event.target.value)
-    this.setState({emb: event.target.value});
+    this.setState({ emb: event.target.value });
   }
   updateRate(event) {
-    this.setState({rate: event.target.value});
+    this.setState({ rate: event.target.value });
     console.log("updated rate value: " + event.target.rate)
+  }
+  updateARstatus(event) {
+    console.log('running updateARstatus');
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    console.log('shouldAR is ' + value);
+    this.setState({
+      shouldAR: value
+    });
   }
   // updateRound(event) {
   //   console.log("updated roundtrip value: " + event.target.value)
@@ -98,9 +142,13 @@ export default class Timer extends Component {
               <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="milage-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.dest} onChange={this.updateDest} /></section>
               <section className="milage-form"><span className="input-span">Client: </span><input id="input-emb" value={this.state.emb} onChange={this.updateEmb} /></section>
-
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="milage-form"><span className="input-span">Rate (hourly $): </span><input id="input-description" value={this.state.rate} onChange={this.updateRate} /></section>
+              <section><span>Create A/R?</span><input
+                name="isGoing"
+                type="checkbox"
+                checked={this.state.shouldAR}
+                onChange={this.updateARstatus} /></section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add time" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
             </form>
           </section>
