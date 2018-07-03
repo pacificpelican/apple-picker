@@ -7,7 +7,7 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Timer extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting' };
+  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '' };
 
   constructor(props) {
     super(props);
@@ -20,6 +20,7 @@ export default class Timer extends Component {
 
     this.updateDest = this.updateDest.bind(this);                     // utilized in Miler
     this.updateEmb = this.updateEmb.bind(this);                      // utilized in Miler
+    this.updateRate = this.updateRate.bind(this);
   //  this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
   }
 
@@ -29,7 +30,7 @@ export default class Timer extends Component {
    
     event.preventDefault();
   
-      let dest = "/api/1/addtime/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.emb + "/description/" + this.state.desc + "/notes/" + this.state.dest + "/org/" + this.state.org;
+      let dest = "/api/1/addtime/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.emb + "/description/" + this.state.desc + "/notes/" + this.state.dest + "/org/" + this.state.org + "/rate/" + this.state.rate;
       let that = this;
   
       fetch(dest, {})
@@ -72,6 +73,10 @@ export default class Timer extends Component {
     console.log("updated embarkment point value: " + event.target.value)
     this.setState({emb: event.target.value});
   }
+  updateRate(event) {
+    this.setState({rate: event.target.value});
+    console.log("updated rate value: " + event.target.rate)
+  }
   // updateRound(event) {
   //   console.log("updated roundtrip value: " + event.target.value)
   //   this.setState({roundTrip: event.target.value});
@@ -91,10 +96,11 @@ export default class Timer extends Component {
             <form id="expense">
               <section className="milage-form"><span className="input-span">Hours: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
               <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
-              <section className="milage-form"><span className="input-span">Notes: </span><input id="input-description" value={this.state.dest} onChange={this.updateDest} /></section>
-              <section className="milage-form"><span className="input-span">Client: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
+              <section className="milage-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.dest} onChange={this.updateDest} /></section>
+              <section className="milage-form"><span className="input-span">Client: </span><input id="input-emb" value={this.state.emb} onChange={this.updateEmb} /></section>
 
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="milage-form"><span className="input-span">Rate (hourly $): </span><input id="input-description" value={this.state.rate} onChange={this.updateRate} /></section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add time" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
             </form>
           </section>

@@ -264,7 +264,7 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
-  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -289,6 +289,7 @@ app.prepare()
         client: ctx.params.dest,
         description: ctx.params.desc,
         notes: ctx.params.notes,
+        rate: ctx.params.rate,
         org: ctx.params.org
       });
 
