@@ -7,26 +7,21 @@ import Link from "next/link";
 import Textframe from "./textframe";
 
 export default class Timer extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false };
+  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false };
 
   constructor(props) {
     super(props);
     this.handleSubmitMilage = this.handleSubmitMilage.bind(this);
-    this.updateAmount = this.updateAmount.bind(this);                // utilized in Miler
-    this.updateDate = this.updateDate.bind(this);                     // utilized in Miler
-    this.updateDescription = this.updateDescription.bind(this);       // utilized in Miler
-    // this.updatePayer = this.updatePayer.bind(this);
-    // this.updateNotes = this.updateNotes.bind(this);
-
-    this.updateDest = this.updateDest.bind(this);                     // utilized in Miler
-    this.updateEmb = this.updateEmb.bind(this);                      // utilized in Miler
+    this.updateAmount = this.updateAmount.bind(this);               
+    this.updateDate = this.updateDate.bind(this);                
+    this.updateDescription = this.updateDescription.bind(this);
+    this.updateDest = this.updateDest.bind(this);
+    this.updateEmb = this.updateEmb.bind(this);
     this.updateRate = this.updateRate.bind(this);
     this.updateARstatus = this.updateARstatus.bind(this);
-    //  this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
   }
 
   handleSubmitMilage(event) {
-    //  window.alert();
     console.log('Time sheet data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc);
 
     event.preventDefault();
@@ -40,11 +35,6 @@ export default class Timer extends Component {
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
           return response.json();
         }
         throw new Error("Network did not respond.");
@@ -52,23 +42,15 @@ export default class Timer extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
-        // let total = Number(this.state.amount * this.state.rate);
         let dest2 = "/api/1/addreceivable/amount/" + total + "/date/" + that.state.amountdate + "/payee/" + that.state.emb + "/description/" + that.state.desc + "/notes/" + that.state.dest + "/org/" + that.state.org;
         //    /api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org
-    
+
         console.log("shouldAR is " + that.state.shouldAR);
         if (that.state.shouldAR === true) {
           fetch(dest2, {})
             .then(function (response) {
               if (response.ok) {
                 console.log("response ok");
-                // console.log(response.json);
-                // for (var e in response.json) {
-                //   console.log(e.toString());
-                // }
-                // console.log(response.text);
                 return response.json();
               }
               throw new Error("Network did not respond.");
@@ -76,12 +58,7 @@ export default class Timer extends Component {
             })
             .then(function (myReturn) {
               console.log(myReturn);
-    
-              //  that.setState({ pricesAndCaps: oldArr });
             });
-        }
-        else {
-          
         }
       });
 
@@ -121,11 +98,7 @@ export default class Timer extends Component {
       shouldAR: value
     });
   }
-  // updateRound(event) {
-  //   console.log("updated roundtrip value: " + event.target.value)
-  //   this.setState({roundTrip: event.target.value});
-  // }
-
+  
   UNSAFE_componentWillMount() { }
 
   componentDidMount() { }
@@ -139,7 +112,8 @@ export default class Timer extends Component {
             <h2 id="snapshot">Enter Time Sheet Data</h2>
             <form id="expense">
               <section className="milage-form"><span className="input-span">Hours: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
-              <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
+              {/* <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section> */}
+              <section className="milage-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="milage-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.dest} onChange={this.updateDest} /></section>
               <section className="milage-form"><span className="input-span">Client: </span><input id="input-emb" value={this.state.emb} onChange={this.updateEmb} /></section>
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>

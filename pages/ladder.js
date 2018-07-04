@@ -20,11 +20,11 @@ export default class Ladder extends Component {
       <div id="ladder">
         <ul className="ladder-content">
           <li id="homelink"><a href="../../../../..">Home</a></li>
-          <li id="file-link"><Link href="/file">File</Link></li>
-          <li id="file-link"><Link href="/edit">Edit</Link></li>
-          <li id="file-link"><Link href="/view">View</Link></li>
-          <li id="file-link"><Link href="/settings">Settings</Link></li>
-          <li id="file-link"><Link href="/help">Help</Link></li>
+          <li id="file-link"><Link href="/file"><a>File</a></Link></li>
+          <li id="file-link"><Link href="/edit"><a>Edit</a></Link></li>
+          <li id="file-link"><Link href="/view"><a>View</a></Link></li>
+          <li id="file-link"><Link href="/settings"><a>Settings</a></Link></li>
+          <li id="file-link"><Link href="/help"><a>Help</a></Link></li>
         </ul>
         <style>
           {`

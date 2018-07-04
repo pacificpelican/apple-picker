@@ -21,56 +21,51 @@ export default class Payer extends Component {
 
   handleSubmitExpense(event) {
     console.log('Payable data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee + " notes: " + this.state.notes);
-  //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
+    //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
 
     let dest = "/api/1/addpayable/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/payee/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
     let that = this;
 
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
           return response.json();
         }
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
-        
-      //  that.setState({ pricesAndCaps: oldArr });
+
+        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
   updateAmount(event) {
     console.log("updated amount value: " + event.target.value)
-    this.setState({amount: event.target.value});
+    this.setState({ amount: event.target.value });
   }
 
   updateDate(event) {
     console.log("updated date value: " + event.target.value)
-    this.setState({amountdate: event.target.value});
+    this.setState({ amountdate: event.target.value });
   }
 
   updatePayee(event) {
     console.log("updated payee value: " + event.target.value)
-    this.setState({payee: event.target.value});
+    this.setState({ payee: event.target.value });
   }
 
   updateNotes(event) {
     console.log("updated notes value: " + event.target.value)
-    this.setState({notes: event.target.value});
+    this.setState({ notes: event.target.value });
   }
 
   updateDescription(event) {
     console.log("updated description value: " + event.target.value)
-    this.setState({desc: event.target.value});
+    this.setState({ desc: event.target.value });
   }
 
 
@@ -94,9 +89,9 @@ export default class Payer extends Component {
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span">Creditor: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes"  value={this.state.notes} onChange={this.updateNotes} /></section>
+              <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
-              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add expense" id="submit-expenses" /></section>
+              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add payable" id="submit-expenses" /></section>
             </form>
           </section>
         </div>

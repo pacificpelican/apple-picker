@@ -8,7 +8,7 @@ import Textframe from "./textframe";
 import Ladder from "./ladder";
 
 export default class Miler extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'null' };
+  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'null' };
 
   constructor(props) {
     super(props);
@@ -91,7 +91,8 @@ export default class Miler extends Component {
             <h2 id="snapshot">Enter a Milage Estimate</h2>
             <form id="expense">
               <section className="milage-form"><span className="input-span">Miles: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
-              <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
+              <section className="milage-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
+              {/* <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section> */}
               <section className="milage-form"><span className="input-span">Destination: </span><input id="input-description" value={this.state.dest} onChange={this.updateDest} /></section>
               <section className="milage-form"><span className="input-span">Embarkment Point: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
               {/* <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section> */}
