@@ -94,7 +94,7 @@ export default class Miler extends Component {
               <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="milage-form"><span className="input-span">Destination: </span><input id="input-description" value={this.state.dest} onChange={this.updateDest} /></section>
               <section className="milage-form"><span className="input-span">Embarkment Point: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
-              <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section>
+              {/* <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section> */}
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
             </form>
