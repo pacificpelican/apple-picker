@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 
+import Textframe from "./textframe";
+
 export default () => (
   <div id="apple-picker-container">
     <h1 id="title">Apple Picker software</h1>
+    <Textframe />
     <h5 id="apple-picker-credit">by <a href="http://danmckeown.info">Dan McKeown</a></h5>
     <ul>
 

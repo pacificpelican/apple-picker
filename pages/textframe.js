@@ -29,10 +29,10 @@ export default class Textframe extends Component {
         <ul className="ladder-content">
           <li id="homelink"><Homelink /></li>
           <li id="file-link"><a onClick={this.reloadOnce} href="#">Refresh()</a></li>
-          <li id="file-link"><Link href="/edit">Edit</Link></li>
-          <li id="file-link"><Link href="/view">View</Link></li>
-          <li id="file-link"><Link href="/settings">Settings</Link></li>
-          <li id="file-link"><Link href="/help">Help</Link></li>
+          <li id="file-link"><Link href="/edit"><a>Edit</a></Link></li>
+          <li id="file-link"><Link href="/view"><a>View</a></Link></li>
+          <li id="file-link"><Link href="/settings"><a>Settings</a></Link></li>
+          <li id="file-link"><Link href="/help"><a>Help</a></Link></li>
         </ul>
         <section id="content-section">
         
