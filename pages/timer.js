@@ -6,8 +6,12 @@ import Link from "next/link";
 
 import Textframe from "./textframe";
 
+import convertDate from "./convert-date";
+
+const defaultDate = convertDate();
+
 export default class Timer extends Component {
-  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false };
 
   constructor(props) {
     super(props);

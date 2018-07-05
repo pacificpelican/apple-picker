@@ -6,8 +6,12 @@ import Link from "next/link";
 
 import Textframe from "./textframe";
 
+import convertDate from "./convert-date";
+
+const defaultDate = convertDate();
+
 export default class Revenant extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payer: '', notes: ``, ar: null, receivablesArray: [] };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, ar: null, receivablesArray: [] };
 
   constructor(props) {
     super(props);

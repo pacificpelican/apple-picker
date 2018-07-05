@@ -6,8 +6,12 @@ import Link from "next/link";
 
 import Textframe from "./textframe";
 
+import convertDate from "./convert-date";
+
+const defaultDate = convertDate();
+
 export default class Payer extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: '' };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '' };
 
   constructor(props) {
     super(props);

@@ -5,10 +5,13 @@ import Link from "next/link";
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
-import Ladder from "./ladder";
+
+import convertDate from "./convert-date";
+
+const defaultDate = convertDate();
 
 export default class Miler extends Component {
-  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'null' };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'null' };
 
   constructor(props) {
     super(props);
