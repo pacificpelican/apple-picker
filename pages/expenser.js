@@ -5,9 +5,12 @@ import Link from "next/link";
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
+import convertDate from "./convert-date";
+
+const defaultDate = convertDate();
 
 export default class Revenant extends Component {
-  state = { Ok: true, amountdate: new Date(), amount: '', desc: '', payee: '', notes: '', ar: null, receivablesArray: [] };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', ar: null, receivablesArray: [] };
 
   constructor(props) {
     super(props);
