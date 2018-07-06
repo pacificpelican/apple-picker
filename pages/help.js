@@ -17,6 +17,7 @@ export default () => (
       <li><Link href='/Timeform'><a>Timeform</a></Link></li>
       <li><Link href='/Accountspayableform'><a>Accountspayableform</a></Link></li>
       <li><Link href='/Accountsreceivableform'><a>Accountsreceivableform</a></Link></li>
+      <li><Link href='/Invoiceform'><a>Invoiceform</a></Link></li>
 
       <h6>Main Components - Data Views</h6>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
@@ -25,6 +26,7 @@ export default () => (
       <li><Link href='/Timechart'><a>Timechart</a></Link></li>
       <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link></li>
       <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
+      <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON array</a></Link></li>
