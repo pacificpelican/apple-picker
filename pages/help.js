@@ -35,6 +35,7 @@ export default () => (
       <li><Link href='/api/1/gettime/org/altaredwood/limit/10'><a>Get time sheet data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getpayables/org/altaredwood/limit/10'><a>Get A/P data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getreceivables/org/altaredwood/limit/10'><a>Get A/R data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getinvoices/org/someOrg/limit/100'><a>Get Invoice data as a JSON array</a></Link></li>
       
       <h6>write API [will create sample data in database]</h6>
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
@@ -42,10 +43,9 @@ export default () => (
       <li><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add miles API route example</a></Link></li>
       <li><Link href='/api/1/addtime/amount/4.5/date/6-20-2018/client/corporateClient/description/contract-work/notes/api-example/org/altaredwood'><a>Add time API route example</a></Link></li>
       <li><Link href='/api/1/addpayable/amount/100/date/2018-07-04/payee/Indiana-Store/description/fireworks/notes/api-write-test/org/undefined'><a>Add A/P API route example</a></Link></li>
-      <li><Link href='/api/1/addreceivable/amount/75/date/2018-07-04/payee/BigCo/description/web-design-services/notes/API-example/org/undefined'>
-        <a>Add A/R API route example</a>
-      </Link></li>
-      
+      <li><Link href='/api/1/addreceivable/amount/75/date/2018-07-04/payee/BigCo/description/web-design-services/notes/API-example/org/undefined'><a>Add A/R API route example</a></Link></li>
+      <li><Link href='/api/1/addinvoice/amount/50/date/2018-07-04/payee/BigCo/description/sample/notes/sample-data/org/LoveBirdsConsulting/arid/null'><a>Add InvoiceAPI route example</a></Link></li>
+    
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>
 
