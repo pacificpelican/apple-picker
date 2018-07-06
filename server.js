@@ -569,6 +569,47 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  // "/api/1/addclient/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.prospectid;
+
+  router.get('/api/1/addclient/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "clients";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        client: ctx.params.payee,
+        date: ctx.params.paydate,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        expectedAmount: ctx.params.total,
+        org: ctx.params.org,
+        prospectID: ctx.params.pid
+      });
+
+      console.log("saving expense data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "clients", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
