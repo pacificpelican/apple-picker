@@ -31,13 +31,14 @@ export default () => (
       <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
       
       <h6>read API</h6>
-      <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/10'><a>Get expenses as a JSON array</a></Link></li>
-      <li><Link href='/api/1/getrevenue/org/lovebirdsconsulting/limit/10'><a>Get revenue as a JSON array</a></Link></li>
-      <li><Link href='/api/1/getmiles/org/altaredwood/limit/10'><a>Get miles as a JSON array</a></Link></li>
-      <li><Link href='/api/1/gettime/org/altaredwood/limit/10'><a>Get time sheet data as a JSON array</a></Link></li>
-      <li><Link href='/api/1/getpayables/org/altaredwood/limit/10'><a>Get A/P data as a JSON array</a></Link></li>
-      <li><Link href='/api/1/getreceivables/org/altaredwood/limit/10'><a>Get A/R data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getrevenue/org/lovebirdsconsulting/limit/100'><a>Get revenue as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getmiles/org/altaredwood/limit/100'><a>Get miles as a JSON array</a></Link></li>
+      <li><Link href='/api/1/gettime/org/altaredwood/limit/100'><a>Get time sheet data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getpayables/org/altaredwood/limit/100'><a>Get A/P data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getreceivables/org/altaredwood/limit/100'><a>Get A/R data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getinvoices/org/someOrg/limit/100'><a>Get Invoice data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getprospects/org/null/limit/100'><a>Get Prospect data as a JSON array</a></Link></li>
       
       <h6>write API [will create sample data in database]</h6>
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>

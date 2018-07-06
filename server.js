@@ -647,6 +647,43 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "prospects";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      apiData = retData;
+    })
+
+    let respObj = Object.assign({}, apiData);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
