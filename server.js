@@ -517,7 +517,7 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        arid: ctx.params.arid
+        accountsreceivableid: ctx.params.arid
       });
 
       console.log("saving invoice data");
