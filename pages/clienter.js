@@ -11,7 +11,7 @@ import convertDate from "./convert-date";
 const defaultDate = convertDate();
 
 export default class Clienter extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, prospect: null, prospectsArray: [] };
 
   constructor(props) {
     super(props);
@@ -21,6 +21,8 @@ export default class Clienter extends Component {
     this.updateDescription = this.updateDescription.bind(this);
     this.updatePayee = this.updatePayee.bind(this);
     this.updateNotes = this.updateNotes.bind(this);
+
+    this.updateNOW = this.updateNOW.bind(this);
   }
 
   handleSubmitExpense(event) {
@@ -28,7 +30,7 @@ export default class Clienter extends Component {
     //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
 
-    let dest = "/api/1/addclient/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.pid;
+    let dest = "/api/1/addclient/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.prospect;
     let that = this;
 
     fetch(dest, {})
@@ -77,6 +79,10 @@ export default class Clienter extends Component {
     this.setState({ desc: event.target.value });
   }
 
+  updateNOW(event) {
+    console.log("updated p value: " + event.target.value);
+    this.setState({ prospect: event.target.value });
+  }
 
   noop() {
     // do nothing
@@ -84,7 +90,28 @@ export default class Clienter extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() {
+    let that = this;
+    let dest = "api/1/getprospects/org/lovebirdsconsulting/limit/1000";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        that.setState({ prospectsArray: myReturn });
+      });
+  }
 
   render() {
     return (
@@ -99,6 +126,16 @@ export default class Clienter extends Component {
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
+              <section className="expense-form" id="dropdown">
+                <span className="input-span">Prospect:
+                  <select value={this.state.prospect} onChange={this.updateNOW}><option value={null}>none</option>
+                    {this.state.prospectsArray.map(function (interVal) {
+                      console.log("interVal.value.prospect: " + interVal.value.prospect);
+                      return <option value={interVal.key}>{interVal.value.prospect} {interVal.value.date}</option>
+                    })}
+                  </select>
+                </span>
+              </section>
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add receivable" id="submit-expenses" /></section>
             </form>
