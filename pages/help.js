@@ -18,6 +18,8 @@ export default () => (
       <li><Link href='/Accountspayableform'><a>Accountspayableform</a></Link></li>
       <li><Link href='/Accountsreceivableform'><a>Accountsreceivableform</a></Link></li>
       <li><Link href='/Invoiceform'><a>Invoiceform</a></Link></li>
+      <li><Link href='/Clientsform'><a>Clientsform</a></Link></li>
+      <li><Link href='/Clientsform'><a>Prospectsform</a></Link></li>
 
       <h6>Main Components - Data Views</h6>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
@@ -45,6 +47,8 @@ export default () => (
       <li><Link href='/api/1/addpayable/amount/100/date/2018-07-04/payee/Indiana-Store/description/fireworks/notes/api-write-test/org/undefined'><a>Add A/P API route example</a></Link></li>
       <li><Link href='/api/1/addreceivable/amount/75/date/2018-07-04/payee/BigCo/description/web-design-services/notes/API-example/org/undefined'><a>Add A/R API route example</a></Link></li>
       <li><Link href='/api/1/addinvoice/amount/50/date/2018-07-04/payee/BigCo/description/sample/notes/sample-data/org/LoveBirdsConsulting/arid/null'><a>Add InvoiceAPI route example</a></Link></li>
+      <li><Link href='/api/1/addclient/amount/100000/date/2018-07-06/client/New-Client/description/local-company/notes/sample-data/org/undefined/prospectid/null'><a>Add Client route example</a></Link></li>
+      <li><Link href='/api/1/addprospect/amount/1000000/date/2018-07-06/client/Company-A/description/corporate/notes/sample-data/org/undefined'><a>Add Prospect route example</a></Link></li>
     
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>

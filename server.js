@@ -610,6 +610,43 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  router.get('/api/1/addprospect/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "prospects";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        prospect: ctx.params.payee,
+        date: ctx.params.paydate,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        expectedAmount: ctx.params.total,
+        org: ctx.params.org
+      });
+
+      console.log("saving expense data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "prospects", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
