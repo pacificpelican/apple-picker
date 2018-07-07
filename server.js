@@ -455,7 +455,7 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
-  router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/client/:clientID', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -479,7 +479,8 @@ app.prepare()
         debtor: ctx.params.payee,
         description: ctx.params.desc,
         notes: ctx.params.notes,
-        org: ctx.params.org
+        org: ctx.params.org,
+        clientID: ctx.params.clientID
       });
 
       console.log("saving expense data");
