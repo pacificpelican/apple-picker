@@ -19,7 +19,7 @@ export default () => (
       <li><Link href='/Accountsreceivableform'><a>Accountsreceivableform</a></Link></li>
       <li><Link href='/Invoiceform'><a>Invoiceform</a></Link></li>
       <li><Link href='/Clientsform'><a>Clientsform</a></Link></li>
-      <li><Link href='/Clientsform'><a>Prospectsform</a></Link></li>
+      <li><Link href='/Prospectsform'><a>Prospectsform</a></Link></li>
       <li><Link href='/Pitchesform'><a>Pitchesform</a></Link></li>
       <li><Link href='/Interactionsform'><a>Interactionsform</a></Link></li>
 
