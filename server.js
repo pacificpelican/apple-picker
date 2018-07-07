@@ -340,7 +340,7 @@ app.prepare()
 
   })
 
-  router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org', async ctx => {
+  router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org/clientid/:cid', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -367,7 +367,8 @@ app.prepare()
         roundtrip: ctx.params.round,
         description: ctx.params.desc,
         notes: ctx.params.notes,
-        org: ctx.params.org
+        org: ctx.params.org,
+        clientID: ctx.params.cid
       });
 
       console.log("saving revenue data");

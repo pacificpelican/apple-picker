@@ -92,7 +92,7 @@ export default class Prospector extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
-            <h2 id="snapshot">Enter an new Prospect</h2>
+            <h2 id="snapshot">Enter a new Prospect</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
             <section className="expense-form"><span className="input-span">Prospect: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Projected Revenue: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
@@ -100,7 +100,7 @@ export default class Prospector extends Component {
               <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
-              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add receivable" id="submit-expenses" /></section>
+              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add prospect" id="submit-expenses" /></section>
             </form>
           </section>
         </div>

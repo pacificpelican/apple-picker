@@ -55,6 +55,9 @@ export default () => (
       <li><Link href='/api/1/addinvoice/amount/50/date/2018-07-04/payee/BigCo/description/sample/notes/sample-data/org/LoveBirdsConsulting/arid/null'><a>Add InvoiceAPI route example</a></Link></li>
       <li><Link href='/api/1/addclient/amount/100000/date/2018-07-06/client/New-Client/description/local-company/notes/sample-data/org/undefined/prospectid/null'><a>Add Client route example</a></Link></li>
       <li><Link href='/api/1/addprospect/amount/1000000/date/2018-07-06/client/Company-A/description/corporate/notes/sample-data/org/undefined'><a>Add Prospect route example</a></Link></li>
+      <li><Link href='api/1/addpitch/amount/8000000/date/2018-07-06/client/CorpCo/description/Redmond%20company/notes/sample-data/org/undefined/prospectid/null'><a>Add Pitch route example</a></Link></li>
+      <li><Link href='/api/1/addinteraction/amount/100/date/2018-07-06/client/City%20of%20Seattle/description/the%20city/notes/sample-data/org/undefined/prospectid/null'><a>Add Interaction route example</a></Link></li>
+  
     
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>

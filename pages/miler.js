@@ -5,13 +5,10 @@ import Link from "next/link";
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
-
-import convertDate from "./convert-date";
-
-const defaultDate = convertDate();
+import Ladder from "./ladder";
 
 export default class Miler extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'null' };
+  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: null, dest: '', emb: '', roundTrip: true, org: 'null', ar: '', receivablesArray: [] };
 
   constructor(props) {
     super(props);
@@ -25,6 +22,7 @@ export default class Miler extends Component {
     this.updateDest = this.updateDest.bind(this);                     // utilized in Miler
     this.updateEmb = this.updateEmb.bind(this);                      // utilized in Miler
     this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
+    this.updateap = this.updateap.bind(this);
   }
 
   handleSubmitMilage(event) {
@@ -33,7 +31,7 @@ export default class Miler extends Component {
     /////  http://localhost:3005/api/1/addmiles/amount/50/date/paydate/destination/dest/embarkment/emb/description/desc/roundtrip/round/notes/notes/org/org
     event.preventDefault();
   
-      let dest = "/api/1/addmiles/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/destination/" + this.state.dest + "/embarkment/" + this.state.emb + "/description/" + this.state.desc + "/roundtrip/" + this.state.round + "/notes/" + this.state.notes + "/org/" + this.state.org;
+      let dest = "/api/1/addmiles/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/destination/" + this.state.dest + "/embarkment/" + this.state.emb + "/description/" + this.state.desc + "/roundtrip/" + this.state.round + "/notes/" + this.state.notes + "/org/" + this.state.org + "/clientid/" + this.state.ar;
       let that = this;
   
       fetch(dest, {})
@@ -81,9 +79,35 @@ export default class Miler extends Component {
     this.setState({roundTrip: event.target.value});
   }
 
+  updateap(event) {
+    console.log("updated ap: " + event.target.value)
+    this.setState({ar: event.target.value});
+  }
+
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() {
+    let that = this;
+    let dest = "/api/1/getclients/org/altaredwood/limit/100";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        that.setState({ receivablesArray: myReturn });
+      });
+  }
 
   render() {
     return (
@@ -100,6 +124,16 @@ export default class Miler extends Component {
               <section className="milage-form"><span className="input-span">Embarkment Point: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
               {/* <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section> */}
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="expense-form" id="dropdown">
+                <span className="input-span">A/P:
+                  <select value={this.state.ar} onChange={this.updateap}><option value={null}>none</option>
+                    {this.state.receivablesArray.map(function (interVal) {
+                      console.log("interVal.value.client: " + interVal.value.client);
+                      return <option value={interVal.key}>{interVal.value.client} {interVal.value.date}</option>
+                    })}
+                  </select>
+                </span>
+              </section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
             </form>
           </section>
