@@ -20,6 +20,8 @@ export default () => (
       <li><Link href='/Invoiceform'><a>Invoiceform</a></Link></li>
       <li><Link href='/Clientsform'><a>Clientsform</a></Link></li>
       <li><Link href='/Clientsform'><a>Prospectsform</a></Link></li>
+      <li><Link href='/Pitchesform'><a>Pitchesform</a></Link></li>
+      <li><Link href='/Interactionsform'><a>Interactionsform</a></Link></li>
 
       <h6>Main Components - Data Views</h6>
       <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>

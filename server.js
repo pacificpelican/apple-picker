@@ -685,6 +685,121 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  router.get('/api/1/addpitch/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "pitches";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        audience: ctx.params.payee,
+        date: ctx.params.paydate,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        companyMarketCap: ctx.params.total,
+        org: ctx.params.org,
+        prospectID: ctx.params.pid
+      });
+
+      console.log("saving pitch data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
+  router.get('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "interactions";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        audience: ctx.params.payee,
+        date: ctx.params.paydate,
+        description: ctx.params.desc,
+        notes: ctx.params.notes,
+        estimatedValueAdded: ctx.params.total,
+        org: ctx.params.org,
+        clientID: ctx.params.pid
+      });
+
+      console.log("saving pitch data");
+
+      AccountsDB.saveDatabase();
+
+  //  return Object.assign({}, {"success": "ok"});
+    })
+    ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
+    
+    //  ctx.respond = false;
+  })
+
+  router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
+    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "clients";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      apiData = retData;
+    })
+
+    let respObj = Object.assign({}, apiData);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
+  })
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
