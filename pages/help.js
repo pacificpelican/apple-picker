@@ -6,10 +6,10 @@ import Textframe from "./textframe";
 export default () => (
   <div id="apple-picker-container">
     <h1 id="title">Apple Picker software <i>HELP</i></h1>
-    <Textframe />
-    <h5 id="apple-picker-credit">by <a href="http://danmckeown.info">Dan McKeown</a></h5>
-    <ul>
 
+    <Textframe />
+    
+    <ul>
       <h6>Main Components - Data Entry</h6>
       <li><Link href='/Expenseform'><a>Expenseform</a></Link></li>
       <li><Link href='/Revenueform'><a>Revenueform</a></Link></li>
@@ -41,6 +41,9 @@ export default () => (
       <li><Link href='/api/1/getreceivables/org/altaredwood/limit/100'><a>Get A/R data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getinvoices/org/someOrg/limit/100'><a>Get Invoice data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getprospects/org/null/limit/100'><a>Get Prospect data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getclients/org/null/limit/100'><a>Get Client data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getpitches/org/null/limit/100'><a>Get Pitch data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/getinteractions/org/null/limit/100'><a>Get Interaction data as a JSON array</a></Link></li>
       
       <h6>write API [will create sample data in database]</h6>
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
@@ -68,7 +71,7 @@ export default () => (
     </ul>
 
     <footer id="apple-picker-footer">
-      Apple Picker was created by <a href="http://danmckeown.info">Dan McKeown</a>
+      Apple Picker was created by <a href="http://danmckeown.info">Dan McKeown</a> at <a href="http://altaredwood.work">Alta Redwood</a>
     </footer>
     <style>{`
             div#apple-picker-container {
