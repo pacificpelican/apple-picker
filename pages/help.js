@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 import Textframe from "./textframe";
+import Dataentry from "./dataentry";
+import Dataviews from "./dataviews";
 
 export default () => (
   <div id="apple-picker-container">
@@ -10,28 +12,9 @@ export default () => (
     <Textframe />
     
     <ul>
-      <h6>Main Components - Data Entry</h6>
-      <li><Link href='/Expenseform'><a>Expenseform</a></Link></li>
-      <li><Link href='/Revenueform'><a>Revenueform</a></Link></li>
-      <li><Link href='/Carform'><a>Carform</a></Link></li>
-      <li><Link href='/Timeform'><a>Timeform</a></Link></li>
-      <li><Link href='/Accountspayableform'><a>Accountspayableform</a></Link></li>
-      <li><Link href='/Accountsreceivableform'><a>Accountsreceivableform</a></Link></li>
-      <li><Link href='/Invoiceform'><a>Invoiceform</a></Link></li>
-      <li><Link href='/Clientsform'><a>Clientsform</a></Link></li>
-      <li><Link href='/Prospectsform'><a>Prospectsform</a></Link></li>
-      <li><Link href='/Pitchesform'><a>Pitchesform</a></Link></li>
-      <li><Link href='/Interactionsform'><a>Interactionsform</a></Link></li>
+      <Dataentry />
 
-      <h6>Main Components - Data Views</h6>
-      <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
-      <li><Link href='/Revenuechart'><a>Revenuechart</a></Link></li>
-      <li><Link href='/Mileschart'><a>Mileschart</a></Link></li>
-      <li><Link href='/Timechart'><a>Timechart</a></Link></li>
-      <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link></li>
-      <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
-      <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
-      <li><Link href='/Clientschart'><a>Clientschart</a></Link></li>
+      <Dataviews />
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>
