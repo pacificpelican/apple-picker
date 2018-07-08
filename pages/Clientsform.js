@@ -22,13 +22,37 @@ export default class Clientsform extends Component {
       <div id="basicComponentDiv">
         <div className="apple-picker-header">apple-picker _ Client Onboarding </div>
         <Clienter />
-        <style jsx>
+        <style jsx global>
           {`
             div.apple-picker-header {
               font-family: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
             }
             div.apple-picker-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;
+            }
+            input {
+              border: 1px solid #ccc;
+              box-shadow: inset 0 1px 3px #ddd;
+              border-radius: 4px;
+              vertical-align: middle;
+              box-sizing: border-box;
+            }
+            select {
+              height: 2.25em;
+              border: 1px solid #ccc;
+              background-color: #fff;
+              -webkit-writing-mode: horizontal-tb !important;
+            }
+            textarea {
+              width: calc(15vw + 15rem);
+              height: 30vh;
+              border: 1px solid #ccc;
+            }
+            input, select, textarea {
+              padding: .5em .6em;
+              margin-bottom: 0.3em;
+              margin-top: 0.2em;
+              display: inline-block;
             }
             `}
         </style>

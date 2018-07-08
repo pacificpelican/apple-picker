@@ -119,7 +119,7 @@ export default class Clienter extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
-            <h2 id="snapshot">Enter an new Client</h2>
+            <h2 id="snapshot">Enter a new Client</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
             <section className="expense-form"><span className="input-span">Client: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Expcected Revenue: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>

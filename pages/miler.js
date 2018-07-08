@@ -125,7 +125,7 @@ export default class Miler extends Component {
               {/* <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section> */}
               <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form" id="dropdown">
-                <span className="input-span">A/P:
+                <span className="input-span">Client:
                   <select value={this.state.ar} onChange={this.updateap}><option value={null}>none</option>
                     {this.state.receivablesArray.map(function (interVal) {
                       console.log("interVal.value.client: " + interVal.value.client);
