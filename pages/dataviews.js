@@ -14,6 +14,10 @@ export default () => (
       <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
       <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
       <li><Link href='/Clientschart'><a>Clientschart</a></Link></li>
+      <li><Link href='/Prospectschart'><a>Prospectschart</a></Link></li>
+      <li><Link href='/Pitcheschart'><a>Pitcheschart</a></Link></li>
+      <li><Link href='/Interactionschart'><a>Interactionschart</a></Link></li>
+
   </ul>
     <style>{`
             div#apple-picker-container {
