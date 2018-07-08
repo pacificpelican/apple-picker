@@ -31,6 +31,7 @@ export default () => (
       <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link></li>
       <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
       <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
+      <li><Link href='/Clientschart'><a>Clientschart</a></Link></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>

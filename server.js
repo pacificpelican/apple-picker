@@ -28,13 +28,13 @@ app.prepare()
   })
 
   router.get('/api/1/addexpense/amount/:total/user/:account/company/:enterprise/', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+
     console.log(ctx.req.url);
-    //  ctx.respond = false;
+
   })
 
   router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -64,16 +64,11 @@ app.prepare()
       console.log("saving expense data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "expenses", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org/arid/:arid/invid/:inv', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
     console.log("payer: " + ctx.params.payer);
@@ -105,18 +100,13 @@ app.prepare()
       console.log("saving revenue data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "revenues", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   var apiData = {};
 
   router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -145,8 +135,6 @@ app.prepare()
       apiData = retData;
     })
 
-  //  ctx.response.body = Object.assign({}, apiData);
-
     let respObj = Object.assign({}, apiData);
     
     let respArr = convertObj.toArray(respObj);
@@ -155,7 +143,6 @@ app.prepare()
   })
 
   router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -192,7 +179,6 @@ app.prepare()
   })
 
   router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -229,7 +215,6 @@ app.prepare()
   })
 
   router.get('/api/1/getreceivables/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -266,9 +251,6 @@ app.prepare()
   })
 
   router.get('/api/1/getinvoices/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    // console.log(ctx.req.url);
-    // console.log("description: " + ctx.params.desc);
 
     let umbrella = "invoices";
 
@@ -303,7 +285,6 @@ app.prepare()
   })
 
   router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
     console.log("time: " + ctx.params.total);
@@ -374,16 +355,11 @@ app.prepare()
       console.log("saving revenue data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "miles", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -420,7 +396,6 @@ app.prepare()
   })
 
   router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -457,7 +432,6 @@ app.prepare()
   })
 
   router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/client/:clientID', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -487,16 +461,11 @@ app.prepare()
       console.log("saving expense data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "receivables", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/addinvoice/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/arid/:arid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -526,16 +495,11 @@ app.prepare()
       console.log("saving invoice data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "invoices", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/addpayable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -564,18 +528,11 @@ app.prepare()
       console.log("saving expense data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "payables", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
-  // "/api/1/addclient/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.prospectid;
-
   router.get('/api/1/addclient/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
 
@@ -605,12 +562,8 @@ app.prepare()
       console.log("saving expense data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "clients", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/addprospect/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
@@ -642,8 +595,6 @@ app.prepare()
       console.log("saving expense data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "prospects", "success": "ok"});
     
