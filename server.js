@@ -284,7 +284,7 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
-  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate', async ctx => {
+  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate/clientid/:clientid', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
     console.log("time: " + ctx.params.total);
@@ -305,11 +305,12 @@ app.prepare()
       _collection.insertOne({
         timeWorked: ctx.params.total,
         date: ctx.params.paydate,
-        client: ctx.params.dest,
+        stakeholder: ctx.params.dest,
         description: ctx.params.desc,
         notes: ctx.params.notes,
         rate: ctx.params.rate,
-        org: ctx.params.org
+        org: ctx.params.org,
+        clientID: ctx.params.clientid
       });
 
       console.log("saving time data");
