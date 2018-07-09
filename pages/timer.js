@@ -11,7 +11,7 @@ import convertDate from "./convert-date";
 const defaultDate = convertDate();
 
 export default class Timer extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false, prospect: null, prospectsArray: [] };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payer: '', notes: ``, dest: '', emb: '', roundTrip: true, notes: 'null', org: 'lovebirdsconsulting', rate: '', shouldAR: false, prospect: null, prospectsArray: [], seconds: 0 };
 
   constructor(props) {
     super(props);
@@ -24,6 +24,9 @@ export default class Timer extends Component {
     this.updateRate = this.updateRate.bind(this);
     this.updateARstatus = this.updateARstatus.bind(this);
     this.updateNOW = this.updateNOW.bind(this);
+    this.tick = this.tick.bind(this);
+    this.stopTimerCount = this.stopTimerCount.bind(this);
+    this.startTimerCount = this.startTimerCount.bind(this);
   }
 
   handleSubmitMilage(event) {
@@ -108,6 +111,40 @@ export default class Timer extends Component {
     this.setState({ prospect: event.target.value });
   }
 
+  tick() {
+    this.setState(prevState => ({
+      seconds: prevState.seconds + 1
+    }));
+  }
+
+  startTimerCount() {
+    
+    //let self = this;
+    //alert(self);
+  //  setInterval(() => this.tick.bind(this), 1000);
+    // setInterval(function() {
+    //   this.tick.bind(this);
+    // }, 1000);
+    // function doTick() {
+    //   this.tick();
+    // }
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  stopTimerCount(event) {
+    //setInterval(() => this.tick(), 1000);
+    let hours =  Number(this.state.seconds/60/60);
+    this.setState(prevState => ({
+      amount: hours, seconds: 0
+    }));
+    console.log("updated amount value: " + event.target.value);
+    // let secondsElement =  Document.getElementById('seconds-timer-view');
+    // secondsElement.textContent = '';
+    let inpSel = '#seconds-timer-view';
+    let elem = document.querySelector(inpSel);
+    elem.textContent = `done`;
+    //elem.visibility = 'hidden';
+  }
   
   UNSAFE_componentWillMount() { }
 
@@ -140,6 +177,13 @@ export default class Timer extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <section id="timer-readout">
+            <span id="seconds-timer-view">{this.state.seconds}</span>
+          </section>
+          <section id="timer-buttons">
+            <button id="timerOn" onClick={this.startTimerCount}>Timer On</button>
+            <button id="timerOff" onClick={this.stopTimerCount}>Timer Off</button>
+          </section>
             <h2 id="snapshot">Enter Time Sheet Data</h2>
             <form id="expense">
               <section className="milage-form"><span className="input-span">Hours: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
