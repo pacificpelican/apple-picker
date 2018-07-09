@@ -118,32 +118,19 @@ export default class Timer extends Component {
   }
 
   startTimerCount() {
-    
-    //let self = this;
-    //alert(self);
-  //  setInterval(() => this.tick.bind(this), 1000);
-    // setInterval(function() {
-    //   this.tick.bind(this);
-    // }, 1000);
-    // function doTick() {
-    //   this.tick();
-    // }
     this.interval = setInterval(() => this.tick(), 1000);
   }
 
   stopTimerCount(event) {
-    //setInterval(() => this.tick(), 1000);
     let hours =  Number(this.state.seconds/60/60);
     this.setState(prevState => ({
       amount: hours, seconds: 0
     }));
     console.log("updated amount value: " + event.target.value);
-    // let secondsElement =  Document.getElementById('seconds-timer-view');
-    // secondsElement.textContent = '';
+
     let inpSel = '#seconds-timer-view';
     let elem = document.querySelector(inpSel);
     elem.textContent = `done`;
-    //elem.visibility = 'hidden';
   }
   
   UNSAFE_componentWillMount() { }
@@ -185,14 +172,14 @@ export default class Timer extends Component {
             <button id="timerOff" onClick={this.stopTimerCount}>Timer Off</button>
           </section>
             <h2 id="snapshot">Enter Time Sheet Data</h2>
-            <form id="expense">
-              <section className="milage-form"><span className="input-span">Hours: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
+            <form onSubmit={this.handleSubmitMilage} id="expense">
+              <section className="milage-form"><span className="input-span">Hours: </span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
               {/* <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section> */}
-              <section className="milage-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
-              <section className="milage-form"><span className="input-span">Notes: </span><input id="input-notes" value={this.state.dest} onChange={this.updateDest} /></section>
-              <section className="milage-form"><span className="input-span">Stakeholder: </span><input id="input-emb" value={this.state.emb} onChange={this.updateEmb} /></section>
-              <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="milage-form"><span className="input-span">Rate (hourly $): </span><input id="input-description" value={this.state.rate} onChange={this.updateRate} /></section>
+              <section className="milage-form"><span className="input-span">Date: </span><input required type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
+              <section className="milage-form"><span className="input-span">Notes: </span><input required id="input-notes" value={this.state.dest} onChange={this.updateDest} /></section>
+              <section className="milage-form"><span className="input-span">Stakeholder: </span><input required id="input-emb" value={this.state.emb} onChange={this.updateEmb} /></section>
+              <section className="milage-form"><span className="input-span">Description: </span><input required id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="milage-form"><span className="input-span">Rate (hourly $): </span><input required id="input-description" value={this.state.rate} onChange={this.updateRate} /></section>
               <section><span>Create A/R?</span><input
                 name="isGoing"
                 type="checkbox"
@@ -209,7 +196,7 @@ export default class Timer extends Component {
                   </select>
                 </span>
               </section>
-              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add time" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
+              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add time" id="submit-miles" /></section>
             </form>
           </section>
         </div>
