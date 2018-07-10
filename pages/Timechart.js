@@ -63,7 +63,7 @@ export default class Timechart extends Component {
             }
             div.dataZone {
               display: grid;
-              grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+              grid-template-columns: repeat(auto-fill, 19%);
               grid-column-gap: 10px;
             }
             div#data-container span {
