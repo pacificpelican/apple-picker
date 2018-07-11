@@ -17,6 +17,7 @@ export default () => (
       <li><Link href='/Prospectsform'><a>Prospectsform</a></Link></li>
       <li><Link href='/Pitchesform'><a>Pitchesform</a></Link></li>
       <li><Link href='/Interactionsform'><a>Interactionsform</a></Link></li>
+      <li><Link href='/Taxesform'><a>Taxesform</a></Link></li>
   </ul>
     <style>{`
             div#apple-picker-container {

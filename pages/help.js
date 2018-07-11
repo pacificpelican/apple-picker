@@ -28,6 +28,7 @@ export default () => (
       <li><Link href='/api/1/getclients/org/null/limit/100'><a>Get Client data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getpitches/org/null/limit/100'><a>Get Pitch data as a JSON array</a></Link></li>
       <li><Link href='/api/1/getinteractions/org/null/limit/100'><a>Get Interaction data as a JSON array</a></Link></li>
+      <li><Link href='/api/1/gettaxes/org/org/limit/100'><a>Get tax payments data as a JSON array</a></Link></li>
       
       <h6>write API [will create sample data in database]</h6>
       <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
@@ -41,7 +42,7 @@ export default () => (
       <li><Link href='/api/1/addprospect/amount/1000000/date/2018-07-06/client/Company-A/description/corporate/notes/sample-data/org/undefined'><a>Add Prospect route example</a></Link></li>
       <li><Link href='api/1/addpitch/amount/8000000/date/2018-07-06/client/CorpCo/description/Redmond%20company/notes/sample-data/org/undefined/prospectid/null'><a>Add Pitch route example</a></Link></li>
       <li><Link href='/api/1/addinteraction/amount/100/date/2018-07-06/client/City%20of%20Seattle/description/the%20city/notes/sample-data/org/undefined/prospectid/null'><a>Add Interaction route example</a></Link></li>
-  
+      <li><Link href='/api/1/addtax/amount/850/date/2018-07-11/payee/an-agency/description/sample-data/notes/api-example/org/undefined/apid/null'><a>Add tax payment route example</a></Link></li>
     
       <h6>UI Components</h6>
       <li><Link href='/textframe'><a>Textframe: UI menu</a></Link></li>
