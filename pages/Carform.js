@@ -22,8 +22,7 @@ export default class Carform extends Component {
       <div id="basicComponentDiv">
         <div className="apple-picker-content">apple-picker _ Car Trip Entry </div>
         <Miler />
-        <style>
-          {`
+        <style>{`
             div.apple-picker-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;
             }
@@ -51,8 +50,7 @@ export default class Carform extends Component {
               margin-top: 0.2em;
               display: inline-block;
             }
-          `}
-        </style>
+          `}</style>
       </div>
     );
   }
