@@ -151,7 +151,7 @@ export default class Revenant extends Component {
         //  alert("AR: " + myReturn);
         that.setState({ receivablesArray: myReturn });
 
-       // let dest2 = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
+        // let dest2 = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
         fetch(dest2, {})
           .then(function(response) {
             if (response.ok) {
@@ -191,7 +191,7 @@ export default class Revenant extends Component {
                 />
               </section>
               <section className="revenue-form">
-                <span className="input-span">Date: </span>
+                <span className="input-span-date">Date: </span>
                 <input
                   type="date"
                   id="input-date"
@@ -226,41 +226,37 @@ export default class Revenant extends Component {
               </section>
 
               <section className="revenue-form" id="dropdown">
-                <span className="input-span">
-                  A/R:
-                  <select value={this.state.ar} onChange={this.updateap}>
-                    <option value={null}>none</option>
-                    {this.state.receivablesArray.map(function(interVal) {
-                      console.log(
-                        "interVal.value.debtor: " + interVal.value.debtor
-                      );
-                      return (
-                        <option value={interVal.key}>
-                          {interVal.value.debtor} {interVal.value.date}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </span>
+                <span className="input-span">A/R:</span>
+                <select value={this.state.ar} onChange={this.updateap}>
+                  <option value={null}>none</option>
+                  {this.state.receivablesArray.map(function(interVal) {
+                    console.log(
+                      "interVal.value.debtor: " + interVal.value.debtor
+                    );
+                    return (
+                      <option value={interVal.key}>
+                        {interVal.value.debtor} {interVal.value.date}
+                      </option>
+                    );
+                  })}
+                </select>
               </section>
 
               <section className="revenue-form" id="dropdown2">
-                <span className="input-span">
-                  Invoice:
-                  <select value={this.state.iState} onChange={this.updatei}>
-                    <option value={null}>none</option>
-                    {this.state.invoicesArray.map(function(interVal2) {
-                      console.log(
-                        "interVal2.value.debtor: " + interVal2.value.debtor
-                      );
-                      return (
-                        <option value={interVal2.key}>
-                          {interVal2.value.debtor} {interVal2.value.date}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </span>
+                <span className="input-span">Invoice:</span>
+                <select value={this.state.iState} onChange={this.updatei}>
+                  <option value={null}>none</option>
+                  {this.state.invoicesArray.map(function(interVal2) {
+                    console.log(
+                      "interVal2.value.debtor: " + interVal2.value.debtor
+                    );
+                    return (
+                      <option value={interVal2.key}>
+                        {interVal2.value.debtor} {interVal2.value.date}
+                      </option>
+                    );
+                  })}
+                </select>
               </section>
 
               <section className="revenue-form">
@@ -279,6 +275,14 @@ export default class Revenant extends Component {
             }
             section#org {
               visibility: hidden;
+            }
+            section.revenue-form span.input-span {
+              background-color: #eff4fc;
+              display: inline-block;
+              width: 135px;
+            }
+            section.revenue-form input, section.revenue-form select {
+              margin-left: 12px;
             }
             `}</style>
       </div>

@@ -114,6 +114,15 @@ export default class Prospector extends Component {
             section#org {
               visibility: hidden;
             }
+            section.expense-form span.input-span {
+              background-color: #eff4fc;
+              display: inline-block;
+              width: 135px;
+            }
+            section.expense-form input,
+            section.expense-form select {
+              margin-left: 12px;
+            }
             `}</style>
       </div>
     );

@@ -123,18 +123,17 @@ export default class Pitcher extends Component {
             <form id="expense" onSubmit={this.handleSubmitExpense}>
             <section className="expense-form"><span className="input-span">Audience: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Company Market Cap: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
-              <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
-              <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="expense-form"><span className="input-span">Notes: </span><textarea id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
+              <section className="expense-form"><span className="input-span">Date: </span><input required type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
+              <section className="expense-form"><span className="input-span">Description: </span><input required id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="expense-form"><span className="input-span">Notes: </span><br /><textarea required id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
               <section className="expense-form" id="dropdown">
-                <span className="input-span">Prospect:
+                <span className="input-span">Prospect:</span>
                   <select value={this.state.prospect} onChange={this.updateNOW}><option value={null}>none</option>
                     {this.state.prospectsArray.map(function (interVal) {
                       console.log("interVal.value.prospect: " + interVal.value.prospect);
                       return <option value={interVal.key}>{interVal.value.prospect} {interVal.value.date}</option>
                     })}
                   </select>
-                </span>
               </section>
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add pitch" id="submit-expenses" /></section>
@@ -150,6 +149,15 @@ export default class Pitcher extends Component {
             }
             section#org {
               visibility: hidden;
+            }
+            section.expense-form span.input-span {
+              background-color: #eff4fc;
+              display: inline-block;
+              width: 135px;
+            }
+            section.expense-form input,
+            section.expense-form select {
+              margin-left: 12px;
             }
             `}</style>
       </div>

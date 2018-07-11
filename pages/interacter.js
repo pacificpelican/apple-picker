@@ -11,7 +11,17 @@ import convertDate from "./convert-date";
 const defaultDate = convertDate();
 
 export default class Interacter extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, prospect: null, prospectsArray: [] };
+  state = {
+    Ok: true,
+    amountdate: defaultDate,
+    amount: "",
+    desc: "",
+    payee: "",
+    notes: "",
+    pid: null,
+    prospect: null,
+    prospectsArray: []
+  };
 
   constructor(props) {
     super(props);
@@ -26,15 +36,40 @@ export default class Interacter extends Component {
   }
 
   handleSubmitExpense(event) {
-    console.log('Receivable data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee + " notes: " + this.state.notes);
+    console.log(
+      "Receivable data: " +
+        this.state.amount +
+        " date: " +
+        this.state.amountdate +
+        " description: " +
+        this.state.desc +
+        " payee: " +
+        this.state.payee +
+        " notes: " +
+        this.state.notes
+    );
     //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
 
-    let dest = "/api/1/addinteraction/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.prospect;
+    let dest =
+      "/api/1/addinteraction/amount/" +
+      this.state.amount +
+      "/date/" +
+      this.state.amountdate +
+      "/client/" +
+      this.state.payee +
+      "/description/" +
+      this.state.desc +
+      "/notes/" +
+      this.state.notes +
+      "/org/" +
+      this.state.org +
+      "/prospectid/" +
+      this.state.prospect;
     let that = this;
 
     fetch(dest, {})
-      .then(function (response) {
+      .then(function(response) {
         if (response.ok) {
           console.log("response ok");
           // console.log(response.json);
@@ -47,7 +82,7 @@ export default class Interacter extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function (myReturn) {
+      .then(function(myReturn) {
         console.log(myReturn);
 
         //  that.setState({ pricesAndCaps: oldArr });
@@ -55,27 +90,27 @@ export default class Interacter extends Component {
   }
 
   updateAmount(event) {
-    console.log("updated amount value: " + event.target.value)
+    console.log("updated amount value: " + event.target.value);
     this.setState({ amount: event.target.value });
   }
 
   updateDate(event) {
-    console.log("updated date value: " + event.target.value)
+    console.log("updated date value: " + event.target.value);
     this.setState({ amountdate: event.target.value });
   }
 
   updatePayee(event) {
-    console.log("updated payee value: " + event.target.value)
+    console.log("updated payee value: " + event.target.value);
     this.setState({ payee: event.target.value });
   }
 
   updateNotes(event) {
-    console.log("updated notes value: " + event.target.value)
+    console.log("updated notes value: " + event.target.value);
     this.setState({ notes: event.target.value });
   }
 
   updateDescription(event) {
-    console.log("updated description value: " + event.target.value)
+    console.log("updated description value: " + event.target.value);
     this.setState({ desc: event.target.value });
   }
 
@@ -88,13 +123,13 @@ export default class Interacter extends Component {
     // do nothing
   }
 
-  UNSAFE_componentWillMount() { }
+  UNSAFE_componentWillMount() {}
 
   componentDidMount() {
     let that = this;
     let dest = "api/1/getclients/org/lovebirdsconsulting/limit/1000";
     fetch(dest, {})
-      .then(function (response) {
+      .then(function(response) {
         if (response.ok) {
           console.log("response ok");
           console.log(response.json);
@@ -107,7 +142,7 @@ export default class Interacter extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function (myReturn) {
+      .then(function(myReturn) {
         console.log(myReturn);
         that.setState({ prospectsArray: myReturn });
       });
@@ -118,40 +153,101 @@ export default class Interacter extends Component {
       <div id="picker">
         <div className="pear-content">
           <section id="snapshot">
-            <Textframe notData="9"></Textframe>
+            <Textframe notData="9" />
             <h2 id="snapshot">Enter a new Interaction</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
-            <section className="expense-form"><span className="input-span">Audience: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
-              <section className="expense-form"><span className="input-span">Estimated value added: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
-              <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
-              <section className="expense-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
-              <section className="expense-form"><span className="input-span">Notes: </span><textarea id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
+              <section className="expense-form">
+                <span className="input-span">Audience: </span>
+                <input
+                  required
+                  id="payee-description"
+                  value={this.state.payee}
+                  onChange={this.updatePayee}
+                />
+              </section>
+              <section className="expense-form">
+                <span className="input-span">Estimated value added: $</span>
+                <input
+                  required
+                  id="input-amount"
+                  value={this.state.amount}
+                  onChange={this.updateAmount}
+                />
+              </section>
+              <section className="expense-form">
+                <span className="input-span">Date: </span>
+                <input
+                  type="date"
+                  id="input-date"
+                  value={this.state.amountdate}
+                  onChange={this.updateDate}
+                />
+              </section>
+              <section className="expense-form">
+                <span className="input-span">Description: </span>
+                <input
+                  id="input-description"
+                  value={this.state.desc}
+                  onChange={this.updateDescription}
+                />
+              </section>
+              <section className="expense-form">
+                <span className="input-span">Notes: </span>
+                <br />
+                <textarea
+                  id="input-notes"
+                  value={this.state.notes}
+                  onChange={this.updateNotes}
+                />
+              </section>
               <section className="expense-form" id="dropdown">
-                <span className="input-span">Client:
-                  <select value={this.state.prospect} onChange={this.updateNOW}><option value={null}>none</option>
-                    {this.state.prospectsArray.map(function (interVal) {
-                      console.log("interVal.value.client: " + interVal.value.client);
-                      return <option value={interVal.key}>{interVal.value.client} {interVal.value.date}</option>
-                    })}
-                  </select>
-                </span>
+                <span className="input-span">Client:</span>
+                <select value={this.state.prospect} onChange={this.updateNOW}>
+                  <option value={null}>none</option>
+                  {this.state.prospectsArray.map(function(interVal) {
+                    console.log(
+                      "interVal.value.client: " + interVal.value.client
+                    );
+                    return (
+                      <option value={interVal.key}>
+                        {interVal.value.client} {interVal.value.date}
+                      </option>
+                    );
+                  })}
+                </select>
               </section>
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
-              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add interaction" id="submit-expenses" /></section>
+              <section className="expense-form">
+                <span className="input-span" />
+                <input
+                  type="submit"
+                  value="add interaction"
+                  id="submit-expenses"
+                />
+              </section>
             </form>
           </section>
         </div>
         <style jsx>{`
-            div.pear-content {
-                font-family: "Hack", "Fira Code", "Menlo", monospace;
-            }
-            span {
-              line-height: 1.5;
-            }
-            section#org {
-              visibility: hidden;
-            }
-            `}</style>
+          div.pear-content {
+            font-family: "Hack", "Fira Code", "Menlo", monospace;
+          }
+          span {
+            line-height: 1.5;
+          }
+          section#org {
+            visibility: hidden;
+          }
+          section.expense-form span.input-span {
+            background-color: #eff4fc;
+            display: inline-block;
+            width: 135px;
+          }
+          section.expense-form input,
+          section.expense-form select {
+            margin-left: 12px;
+          }
+        `}</style>
       </div>
     );
   }

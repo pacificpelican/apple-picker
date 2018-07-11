@@ -143,6 +143,15 @@ export default class Miler extends Component {
             div.pear-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;
             }
+            section.milage-form span.input-span {
+              background-color: #eff4fc;
+              display: inline-block;
+              width: 135px;
+            }
+            section.milage-form input,
+            section.milage-form select {
+              margin-left: 12px;
+            }
             `}
         </style>
       </div>

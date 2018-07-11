@@ -44,7 +44,7 @@ export default class Interactionsform extends Component {
               -webkit-writing-mode: horizontal-tb !important;
             }
             textarea {
-              width: calc(15vw + 15rem);
+              width: calc(15vw + 10rem);
               height: 30vh;
               border: 1px solid #ccc;
             }
