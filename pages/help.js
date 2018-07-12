@@ -31,10 +31,10 @@ export default () => (
       <li><Link href='/api/1/gettaxes/org/org/limit/100'><a>Get tax payments data as a JSON array</a></Link></li>
       
       <h6>write API [will create sample data in database]</h6>
-      <li><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
-      <li><Link href='/api/1/addrevenue/amount/500/date/5-19-2018/payer/yoga-studio-client/description/design-services-schedule-integration/notes/api-example/org/altaredwood'><a>Add revenue API route example</a></Link></li>
-      <li><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add miles API route example</a></Link></li>
-      <li><Link href='/api/1/addtime/amount/4.5/date/6-20-2018/client/corporateClient/description/contract-work/notes/api-example/org/altaredwood'><a>Add time API route example</a></Link></li>
+      <li className="wrong"><Link href='/api/1/addexpense/amount/8/date/jan-12-2018/payee/cityofseattle/description/utility-bill/notes/api-example/org/the-org'><a>Add expense API route example</a></Link></li>
+      <li className="wrong"><Link href='/api/1/addrevenue/amount/500/date/5-19-2018/payer/yoga-studio-client/description/design-services-schedule-integration/notes/api-example/org/altaredwood'><a>Add revenue API route example</a></Link></li>
+      <li className="wrong"><Link href='/api/1/addmiles/amount/68/date/7-7-2018/destination/Tacoma-Yoga-Studio/embarkment/home-office/description/guest-teaching/roundtrip/true/notes/api-example/org/South-Side-yoga'><a>Add miles API route example</a></Link></li>
+      <li className="wrong"><Link href='/api/1/addtime/amount/4.5/date/6-20-2018/client/corporateClient/description/contract-work/notes/api-example/org/altaredwood'><a>Add time API route example</a></Link></li>
       <li><Link href='/api/1/addpayable/amount/100/date/2018-07-04/payee/Indiana-Store/description/fireworks/notes/api-write-test/org/undefined'><a>Add A/P API route example</a></Link></li>
       <li><Link href='/api/1/addreceivable/amount/75/date/2018-07-04/payee/BigCo/description/web-design-services/notes/API-example/org/undefined'><a>Add A/R API route example</a></Link></li>
       <li><Link href='/api/1/addinvoice/amount/50/date/2018-07-04/payee/BigCo/description/sample/notes/sample-data/org/LoveBirdsConsulting/arid/null'><a>Add InvoiceAPI route example</a></Link></li>
@@ -79,6 +79,12 @@ export default () => (
             footer#apple-picker-footer {
               border: 1px solid;
               border-color: limegreen;
+            }
+            .wrong {
+              background-color: red;
+            }
+            .right {
+              background-color: green;
             }
             `}
     </style>

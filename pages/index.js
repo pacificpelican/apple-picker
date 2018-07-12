@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Help from "./help";
+import Home from "./Home";
 
 export default () => (
   <div id="apple-picker-container">
-    <Help />
+    <Home />
   </div>
 )
