@@ -116,14 +116,14 @@ export default class Miler extends Component {
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
             <h2 id="snapshot">Enter a Milage Estimate</h2>
-            <form id="expense">
-              <section className="milage-form"><span className="input-span">Miles: </span><input id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
+            <form id="expense" onSubmit={this.handleSubmitMilage}>
+              <section className="milage-form"><span className="input-span">Miles: </span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
               <section className="milage-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               {/* <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section> */}
-              <section className="milage-form"><span className="input-span">Destination: </span><input id="input-description" value={this.state.dest} onChange={this.updateDest} /></section>
-              <section className="milage-form"><span className="input-span">Embarkment Point: </span><input id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
+              <section className="milage-form"><span className="input-span">Destination: </span><input required id="input-description" value={this.state.dest} onChange={this.updateDest} /></section>
+              <section className="milage-form"><span className="input-span">Embarkment Point: </span><input required id="input-description" value={this.state.emb} onChange={this.updateEmb} /></section>
               {/* <section className="milage-form"><span className="input-span">Round Trip?: </span><input type="radio" id="radioButton-roundTrip" value={this.state.roundTrip} onChange={this.updateRound} /></section> */}
-              <section className="milage-form"><span className="input-span">Description: </span><input id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
+              <section className="milage-form"><span className="input-span">Description: </span><input required id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form" id="dropdown">
                 <span className="input-span">Client:
                   <select value={this.state.ar} onChange={this.updateap}><option value={null}>none</option>
@@ -134,7 +134,7 @@ export default class Miler extends Component {
                   </select>
                 </span>
               </section>
-              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" onClick={this.handleSubmitMilage} /></section>
+              <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" /></section>
             </form>
           </section>
         </div>

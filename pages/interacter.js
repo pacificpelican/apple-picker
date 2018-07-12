@@ -186,6 +186,7 @@ export default class Interacter extends Component {
               <section className="expense-form">
                 <span className="input-span">Description: </span>
                 <input
+                  required
                   id="input-description"
                   value={this.state.desc}
                   onChange={this.updateDescription}
@@ -195,6 +196,7 @@ export default class Interacter extends Component {
                 <span className="input-span">Notes: </span>
                 <br />
                 <textarea
+                  required
                   id="input-notes"
                   value={this.state.notes}
                   onChange={this.updateNotes}
