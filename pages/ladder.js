@@ -26,7 +26,7 @@ export default class Ladder extends Component {
           <li id="file-link"><Link href="/settings"><a>Settings</a></Link></li>
           <li id="file-link"><Link href="/help"><a>Help</a></Link></li>
         </ul>
-        <style>
+        <style jsx>
           {`
             div.pear-content {
               font-family: "Hack", "Fira Code", "Menlo", monospace;

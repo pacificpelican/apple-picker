@@ -28,7 +28,7 @@ export default class Picker extends Component {
             </form>
           </section>
         </div>
-        <style>
+        <style jsx>
           {`
             div.pear-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;

@@ -19,7 +19,7 @@ export default class Homelink extends Component {
     return (
       <span className="home-link">
         <a href="../../../../../..">Home</a>
-        <style>
+        <style jsx>
           {`
             div.home-link {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;

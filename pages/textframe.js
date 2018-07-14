@@ -37,7 +37,7 @@ export default class Textframe extends Component {
         <section id="content-section">
         
         </section>
-        <style>{`
+        <style jsx>{`
             div.pear-content {
               font-family: "Hack", "Fira Code", "Menlo", monospace;
             }

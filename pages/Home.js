@@ -89,7 +89,7 @@ export default class Homeß extends Component {
           <span>{this.state.revenueTotal}</span>
         </section>
         <section id="content-section" />
-        <style>
+        <style jsx>
           {`
             div.pear-content {
               font-family: "Hack", "Fira Code", "Menlo", monospace;

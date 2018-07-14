@@ -21,7 +21,7 @@ export default class Pear extends Component {
         <div className="pear-content">
           <h2 id="snapshot">Your Financial Snapshot</h2>
         </div>
-        <style>
+        <style jsx>
           {`
             div.pear-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;

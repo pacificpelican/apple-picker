@@ -138,7 +138,7 @@ export default class Miler extends Component {
             </form>
           </section>
         </div>
-        <style>
+        <style jsx>
           {`
             div.pear-content {
                 font-family: "Hack", "Fira Code", "Menlo", monospace;
