@@ -13,7 +13,7 @@ export default class Revenuechart extends Component {
   constructor() {
     super();
     this.doLookup = this.doLookup.bind(this);
-    this.doLookup();
+  //  this.doLookup();
   }
 
   doLookup() {
