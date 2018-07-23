@@ -142,6 +142,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataExp = {};
+
   router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -168,10 +170,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataExp = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataExp);
     
     let respArr = convertObj.toArray(respObj);
 

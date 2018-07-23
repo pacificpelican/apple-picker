@@ -12,11 +12,12 @@ export default class Expensechart extends Component {
 
   constructor() {
     super();
+    this.doLookupExpenses = this.doLookupExpenses.bind(this);
   }
 
-  componentDidMount() {
+  doLookupExpenses() {
     let that = this;
-    let dest = "http://localhost:3005/api/1/getexpenses/org/lovebirdsconsulting/limit/10";
+    let dest = "http://localhost:3005/api/1/getexpenses/org/lovebirdsconsulting/limit/100";
     fetch(dest, {})
       .then(function (response) {
         if (response.ok) {
@@ -37,6 +38,14 @@ export default class Expensechart extends Component {
       });
   }
 
+  // UNSAFE_componentWillMount() {
+  //   this.doLookupExpenses();
+  // }
+
+  componentDidMount() {
+    this.doLookupExpenses();
+  }
+
   render() {
     return (
       <div id="basicComponentDiv">
@@ -47,7 +56,8 @@ export default class Expensechart extends Component {
           {this.state.expeneseArray.map(function (interVal) {
             console.log("interVal.value.amount: " + interVal.value.amount);
             console.log("interVal: " + interVal);
-            return <Expensechartrow interVal={interVal} />
+            console.log("interVal key: " + interVal.key);
+            return <Expensechartrow key={interVal.key + 1} interVal={interVal} />
           })}
         </div>
        

@@ -40,7 +40,9 @@ export default class Revenuechart extends Component {
       });
   }
 
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() {
+    
+  }
 
   componentDidMount() {
     this.doLookup();
@@ -72,7 +74,7 @@ export default class Revenuechart extends Component {
           </div>
           {this.state.revenueArray.map(function(interVal) {
             console.log("interVal.value.amount: " + interVal.value.amount);
-            return <Revenuechartrow interVal={interVal} />;
+            return <Revenuechartrow key={interVal.key + 1} interVal={interVal} />;
           })}
         </div>
 
