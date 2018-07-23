@@ -398,6 +398,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataTime = {};
+
   router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -424,10 +426,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataTime = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataTime);
     
     let respArr = convertObj.toArray(respObj);
 
