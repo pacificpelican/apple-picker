@@ -51,7 +51,7 @@ export default class Timechart extends Component {
         <div id="dataHeader" className="dataZone"><span className="expense-date" key="date-header">date</span><span className="expense-amount" key="amount-header">time</span><span className="expense-description" key="description-header">description</span><span className="expense-payee" key="payee-header">stakeholder</span><span className="expense-notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {
             console.log("interVal.value.miles: " + interVal.value.miles);
-            return <Timechartrow interVal={interVal} />
+            return <Timechartrow key={interVal.key + 1} interVal={interVal} />
           })}
         </div>
        
