@@ -727,6 +727,8 @@ app.prepare()
     //  ctx.respond = false;
   })
 
+  var apiDataClients = {}
+
   router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
@@ -754,10 +756,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataClients = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataClients);
     
     let respArr = convertObj.toArray(respObj);
 
