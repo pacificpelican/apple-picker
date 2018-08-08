@@ -12,9 +12,10 @@ export default class Pitcheschart extends Component {
 
   constructor() {
     super();
+    this.doLookupPitches = this.doLookupPitches.bind(this);
   }
 
-  componentDidMount() {
+  doLookupPitches() {
     let that = this;
     let dest = "api/1/getpitches/org/lovebirdsconsulting/limit/100";
     fetch(dest, {})
@@ -35,6 +36,10 @@ export default class Pitcheschart extends Component {
         console.log(myReturn);
         that.setState({ expeneseArray: myReturn });
       });
+  }
+
+  componentDidMount() {
+    this.doLookupPitches();
   }
 
   render() {

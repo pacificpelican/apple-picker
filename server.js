@@ -758,6 +758,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataPitches = {};
+
   router.get('/api/1/getpitches/org/:org/limit/:limit', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
@@ -785,10 +787,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataPitches = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataPitches);
     
     let respArr = convertObj.toArray(respObj);
 
