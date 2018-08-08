@@ -180,6 +180,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataPay = {};
+
   router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -206,10 +208,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataPay = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataPay);
     
     let respArr = convertObj.toArray(respObj);
 

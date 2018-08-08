@@ -12,9 +12,10 @@ export default class Accountspayablechart extends Component {
 
   constructor() {
     super();
+    this.doLookup = this.doLookup.bind(this);
   }
 
-  componentDidMount() {
+  doLookup() {
     let that = this;
     let dest = "http://localhost:3005/api/1/getpayables/org/lovebirdsconsulting/limit/10";
     fetch(dest, {})
@@ -35,6 +36,10 @@ export default class Accountspayablechart extends Component {
         console.log(myReturn);
         that.setState({ expeneseArray: myReturn });
       });
+  }
+
+  componentDidMount() {
+    this.doLookup();
   }
 
   render() {
