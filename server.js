@@ -801,6 +801,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataInter = {};
+
   router.get('/api/1/getinteractions/org/:org/limit/:limit', async ctx => {
     //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
     console.log(ctx.req.url);
@@ -828,10 +830,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataInter = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataInter);
     
     let respArr = convertObj.toArray(respObj);
 
