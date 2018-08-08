@@ -8,7 +8,7 @@ import Textframe from "./textframe";
 import Ladder from "./ladder";
 
 export default class Miler extends Component {
-  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: null, dest: '', emb: '', roundTrip: true, org: 'null', ar: '', receivablesArray: [] };
+  state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: null, dest: '', emb: '', roundTrip: true, org: 'null', ar: '0', receivablesArray: [] };
 
   constructor(props) {
     super(props);

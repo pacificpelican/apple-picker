@@ -368,6 +368,8 @@ app.prepare()
     ctx.response.body = Object.assign({}, {"update": "miles", "success": "ok"});
   })
 
+  var apiDataMiles = {};
+
   router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -394,10 +396,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataMiles = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataMiles);
     
     let respArr = convertObj.toArray(respObj);
 
