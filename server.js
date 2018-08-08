@@ -216,6 +216,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataRec = {};
+
   router.get('/api/1/getreceivables/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -242,10 +244,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataRec = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataRec);
     
     let respArr = convertObj.toArray(respObj);
 
