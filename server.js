@@ -877,6 +877,8 @@ app.prepare()
     ctx.response.body = Object.assign({}, {"update": "taxes", "success": "ok"});
   })
 
+  var apiDataTax = {};
+
   router.get('/api/1/gettaxes/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
     console.log("description: " + ctx.params.desc);
@@ -903,10 +905,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataTax = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataTax);
     
     let respArr = convertObj.toArray(respObj);
 
