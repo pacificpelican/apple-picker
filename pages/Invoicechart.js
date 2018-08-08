@@ -12,9 +12,10 @@ export default class Invoicechart extends Component {
 
   constructor() {
     super();
+    this.doLookup = this.doLookup.bind(this);
   }
 
-  componentDidMount() {
+  doLookup() {
     let that = this;
     let dest = "api/1/getinvoices/org/lovebirdsconsulting/limit/100";
     fetch(dest, {})
@@ -35,6 +36,10 @@ export default class Invoicechart extends Component {
         console.log(myReturn);
         that.setState({ expeneseArray: myReturn });
       });
+  }
+
+  componentDidMount() {
+    this.doLookup();
   }
 
   render() {

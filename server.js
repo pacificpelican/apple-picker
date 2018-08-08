@@ -256,6 +256,8 @@ app.prepare()
     ctx.response.body = respArr;
   })
 
+  var apiDataInv = {};
+
   router.get('/api/1/getinvoices/org/:org/limit/:limit', async ctx => {
 
     let umbrella = "invoices";
@@ -280,10 +282,10 @@ app.prepare()
 
       console.log(retData);
 
-      apiData = retData;
+      apiDataInv = retData;
     })
 
-    let respObj = Object.assign({}, apiData);
+    let respObj = Object.assign({}, apiDataInv);
     
     let respArr = convertObj.toArray(respObj);
 
