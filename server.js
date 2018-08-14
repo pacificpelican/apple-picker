@@ -12,6 +12,33 @@ var AccountsDB = new loki(__dirname + "/db/accountsdb.json");
 
 const convertObj = require("object-array-converter");
 
+let crypto;
+try {
+  crypto = require("crypto");
+} catch (err) {
+  console.log("crypto not available in this NodeJS version");
+}
+
+const generateCrypto = function getCryptoNow() {
+  var retVal;
+  let that = this;
+  crypto.randomBytes(8, (err, buf) => {
+    if (err) throw err;
+    let rVal = buf.toString("hex");
+    console.log(
+      `${buf.length} bytes of random hex data: ${buf.toString("hex")}`
+    );
+    let rValHTML = `<span>${rVal}</span>`;
+    retVal = rVal;
+    // that.setState({
+    //   cryptonow: retVal
+    // });
+  });
+  return retVal;
+}
+
+const cryptoVal = generateCrypto();
+
 app.prepare()
 .then(() => {
   const server = new Koa()
@@ -487,6 +514,8 @@ app.prepare()
     AccountsDB.loadDatabase({}, function() {
       let _collection = AccountsDB.getCollection(umbrella);
 
+      const cryptoValLocal = generateCrypto();
+
       if (!_collection) {
         console.log(
           "Collection %s does not exist. Creating ... 🎮",
@@ -502,7 +531,8 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        accountsreceivableid: ctx.params.arid
+        accountsreceivableid: ctx.params.arid,
+        invoiceLocator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving invoice data");
@@ -919,6 +949,48 @@ app.prepare()
     let respArr = convertObj.toArray(respObj);
 
     ctx.response.body = respArr;
+  })
+
+  var apiDataInvOne = {};
+
+  router.get('/api/1/getinvoice/org/:org/locator/:theid', async ctx => {
+
+    let umbrella = "invoices";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection " + umbrella + " exists");
+      }
+
+    //  retData = _collection.find();
+
+      console.log("ctx.params: ");
+      console.log(ctx.params);
+
+      retData = _collection.find({'invoiceLocator': Number(ctx.params.theid)});
+
+      console.log(retData);
+
+      apiDataInvOne = retData[0];
+    })
+
+    let respObj = Object.assign({}, apiDataInvOne);
+    
+    let respArr = convertObj.toArray(respObj);
+
+  //  ctx.response.body = respArr;
+  ctx.response.body = apiDataInvOne;
   })
 
   router.get('*', async ctx => {
