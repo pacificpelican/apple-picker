@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Link from "next/link";
 
 import Textframe from "./textframe";
-import Accountsreceivablechartrow from "./Accountrecievablechartrow";
+import Invoicechartrow from "./Invoicechartrow";
 
 //  Invoicechart.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -51,7 +51,8 @@ export default class Invoicechart extends Component {
         <div id="dataHeader" className="dataZone"><span className="accountrecievable-date" key="date-header">date</span><span className="accountrecievable--amount" key="amount-header">amount</span><span className="accountrecievable--description" key="accountrecievable--header">description</span><span className="accountrecievable--payee" key="payee-header">debtor</span><span className="accountrecievable--notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {
             console.log("interVal.value.amount: " + interVal.value.amount);
-            return <Accountsreceivablechartrow interVal={interVal} />
+            console.log("interVal.value.invoiceLocator: " + interVal.value.invoiceLocator);
+            return <Invoicechartrow interVal={interVal} />
           })}
         </div>
        

@@ -14,19 +14,19 @@ export default class Invoicechart extends Component {
   }
 
   componentDidMount() {
-
+    console.log("this.props.invoicetracker " + this.props.invoicetracker);
   }
 
   render(props) {
-    let printoutid = "1975177";
-    if (this.props.invoicetracker) {
-      printoutid = this.props.invoicetracker;
-    }
+    // let printoutid = "1975177";
+    // if (this.props.invoicetracker) {
+    //   printoutid = this.props.invoicetracker;
+    // }
     return (
       <div id="basicComponentDiv">
        
         <div id="invoice">
-          <Invoiceprintout invoicetracker="1975177" />
+          <Invoiceprintout invoicetracker={this.props.invoicetracker} />
         </div>
        
         <style jsx global>{`
