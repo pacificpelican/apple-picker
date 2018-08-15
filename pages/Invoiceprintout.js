@@ -8,17 +8,28 @@ import Accountsreceivablechartrow from "./Accountrecievablechartrow";
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 export default class Invoicechart extends Component {
-  state = { Ok: true, exArray: [Object.assign({})], amount: 0 };
+  state = { Ok: true, exArray: [Object.assign({})], amount: 0, invoicetrackerID: "0" };
 
-  constructor() {
+  constructor(props) {
     super();
     this.doLookup = this.doLookup.bind(this);
+  }
+
+  UNSAFE_componentWillMount(props) {
+    if (this.props.invoicetracker) {
+      this.setState({invoicetrackerID: this.props.invoicetracker})
+    }
+    else {
+    //  this.setState({invoicetrackerID: "0"})
+    }
   }
 
   doLookup(props) {
     let that = this;
   //  let dest = "api/1/getinvoices/org/lovebirdsconsulting/limit/100";
-    let dest = "/api/1/getinvoice/org/anyorg/locator/" + this.props.id;
+    let dest = "/api/1/getinvoice/org/anyorg/locator/" + this.state.invoicetrackerID;
+    console.log("about to fetch:");
+    console.log(dest);
     fetch(dest, {})
       .then(function (response) {
         if (response.ok) {
@@ -40,6 +51,7 @@ export default class Invoicechart extends Component {
   }
 
   componentDidMount() {
+    
     this.doLookup();
   }
 
@@ -49,7 +61,7 @@ export default class Invoicechart extends Component {
         <div className="apple-picker-header">apple-picker _ Invoice </div>
         <Textframe />
         <div id="invoice">
-          <b>Invoice ID: { this.props.id }</b>
+          <b>Invoice ID: { this.state.invoicetrackerID }</b>
         </div>
         <div id="data-container">
         <div id="dataHeader" className="dataZone"><span className="accountrecievable-date" key="date-header">date</span><span className="accountrecievable--amount" key="amount-header">amount</span><span className="accountrecievable--description" key="accountrecievable--header">description</span><span className="accountrecievable--payee" key="payee-header">debtor</span><span className="accountrecievable--notes" key="notes-header">notes</span></div>
