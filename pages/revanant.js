@@ -127,31 +127,20 @@ export default class Revenant extends Component {
 
   componentDidMount() {
     let that = this;
-    // let dest = "api/1/getreceivables/org/lovebirdsconsulting/limit/1000";
 
-    //  INEXPLICABLY THESE TWO HAVE TO BE REVERSED FROM WHAT SHOULD WORK AND IT WORKS √
     let dest2 = "api/1/getreceivables/org/lovebirdsconsulting/limit/1000";
     let dest = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
     fetch(dest, {})
       .then(function(response) {
         if (response.ok) {
-          // console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
           return response.json();
         }
-        // throw new Error("Network did not respond.");
         return response.blob();
       })
       .then(function(myReturn) {
         console.log(myReturn);
-        //  alert("AR: " + myReturn);
-        
+
         that.setState({ invoicesArray: myReturn });
-        // let dest2 = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
         fetch(dest2, {})
           .then(function(response) {
             if (response.ok) {
@@ -237,7 +226,7 @@ export default class Revenant extends Component {
                       "interVal.value.debtor: " + interVal.value.debtor
                     );
                     return (
-                      <option value={interVal.key}>
+                      <option value={interVal.value.locator}>
                         {interVal.value.debtor} {interVal.value.date}
                       </option>
                     );
