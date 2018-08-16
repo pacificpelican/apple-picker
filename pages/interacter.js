@@ -211,7 +211,7 @@ export default class Interacter extends Component {
                       "interVal.value.client: " + interVal.value.client
                     );
                     return (
-                      <option value={interVal.key}>
+                      <option value={interVal.value.locator}>
                         {interVal.value.client} {interVal.value.date}
                       </option>
                     );

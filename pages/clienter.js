@@ -210,7 +210,7 @@ export default class Clienter extends Component {
                       "interVal.value.prospect: " + interVal.value.prospect
                     );
                     return (
-                      <option value={interVal.key}>
+                      <option value={interVal.value.locator}>
                         {interVal.value.prospect} {interVal.value.date}
                       </option>
                     );

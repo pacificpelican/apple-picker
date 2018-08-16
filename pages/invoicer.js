@@ -11,7 +11,7 @@ import convertDate from "./convert-date";
 const defaultDate = convertDate();
 
 export default class Invoicer extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', receivablesArray: [] };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', receivablesArray: [], arid: 0 };
 
   constructor(props) {
     super(props);
@@ -21,6 +21,7 @@ export default class Invoicer extends Component {
     this.updateDescription = this.updateDescription.bind(this);
     this.updatePayee = this.updatePayee.bind(this);
     this.updateNotes = this.updateNotes.bind(this);
+    this.updatear = this.updatear.bind(this);
   }
 
   handleSubmitExpense(event) {
@@ -74,7 +75,7 @@ export default class Invoicer extends Component {
 
   updatear(event) {
     console.log("updated ap: " + event.target.value)
-    this.setState({ ar: event.target.value });
+    this.setState({ arid: event.target.value });
   }
 
   noop() {
@@ -121,10 +122,11 @@ export default class Invoicer extends Component {
               <section className="expense-form"><span className="input-span">Notes: </span><input required id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
               <section className="revenue-form" id="dropdown">
                 <span className="input-span">A/R:
-                  <select value={this.state.ar} onChange={this.updatear}><option value={null}>none</option>
+                  <select value={this.state.arid} onChange={this.updatear}><option value={null}>none</option>
                     {this.state.receivablesArray.map(function (interVal) {
                       console.log("interVal.value.debtor: " + interVal.value.debtor);
-                      return <option value={interVal.key}>{interVal.value.debtor} {interVal.value.date}</option>
+                      console.log("interVal.value.locator: " + interVal.value.locator);
+                      return <option value={interVal.value.locator}>{interVal.value.debtor} {interVal.value.date}</option>
                     })}
                   </select>
                 </span>

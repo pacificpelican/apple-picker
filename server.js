@@ -121,7 +121,8 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         accountsreceivableid: ctx.params.arid,
-        invoiceID: ctx.params.inv
+        invoiceID: ctx.params.inv,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving revenue data");
@@ -345,7 +346,8 @@ app.prepare()
         notes: ctx.params.notes,
         rate: ctx.params.rate,
         org: ctx.params.org,
-        clientID: ctx.params.clientid
+        clientID: ctx.params.clientid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving time data");
@@ -385,7 +387,8 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        clientID: ctx.params.cid
+        clientID: ctx.params.cid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving revenue data");
@@ -533,7 +536,8 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         accountsreceivableid: ctx.params.arid,
-        invoiceLocator: Math.floor(Math.random() * 3000000 + 1)
+        invoiceLocator: Math.floor(Math.random() * 3000000 + 1),
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving invoice data");
@@ -712,7 +716,8 @@ app.prepare()
         notes: ctx.params.notes,
         companyMarketCap: ctx.params.total,
         org: ctx.params.org,
-        prospectID: ctx.params.pid
+        prospectID: ctx.params.pid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving pitch data");
@@ -748,7 +753,8 @@ app.prepare()
         notes: ctx.params.notes,
         estimatedValueAdded: ctx.params.total,
         org: ctx.params.org,
-        clientID: ctx.params.pid
+        clientID: ctx.params.pid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving pitch data");
@@ -900,7 +906,8 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        accountspayableid: ctx.params.arid
+        accountspayableid: ctx.params.arid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving tax data");

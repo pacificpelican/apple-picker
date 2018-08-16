@@ -131,7 +131,7 @@ export default class Pitcher extends Component {
                   <select value={this.state.prospect} onChange={this.updateNOW}><option value={null}>none</option>
                     {this.state.prospectsArray.map(function (interVal) {
                       console.log("interVal.value.prospect: " + interVal.value.prospect);
-                      return <option value={interVal.key}>{interVal.value.prospect} {interVal.value.date}</option>
+                      return <option value={interVal.value.locator}>{interVal.value.prospect} {interVal.value.date}</option>
                     })}
                   </select>
               </section>
