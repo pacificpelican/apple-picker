@@ -254,7 +254,7 @@ export default class Revenant extends Component {
                       "interVal2.value.debtor: " + interVal2.value.debtor
                     );
                     return (
-                      <option value={interVal2.key}>
+                      <option value={interVal2.value.invoiceLocator}>
                         {interVal2.value.debtor} {interVal2.value.date}
                       </option>
                     );
