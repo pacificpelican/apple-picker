@@ -208,7 +208,7 @@ export default class Revenant extends Component {
                       "interVal.value.creditor: " + interVal.value.creditor
                     );
                     return (
-                      <option value={interVal.key}>
+                      <option value={interVal.value.locator}>
                         {interVal.value.creditor} {interVal.value.date}
                       </option>
                     );
