@@ -129,7 +129,7 @@ export default class Miler extends Component {
                   <select value={this.state.ar} onChange={this.updateap}><option value={null}>none</option>
                     {this.state.receivablesArray.map(function (interVal) {
                       console.log("interVal.value.client: " + interVal.value.client);
-                      return <option value={interVal.key}>{interVal.value.client} {interVal.value.date}</option>
+                      return <option value={interVal.value.locator}>{interVal.value.client} {interVal.value.date}</option>
                     })}
                   </select>
                 </span>
