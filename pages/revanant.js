@@ -149,8 +149,8 @@ export default class Revenant extends Component {
       .then(function(myReturn) {
         console.log(myReturn);
         //  alert("AR: " + myReturn);
-        that.setState({ receivablesArray: myReturn });
-
+        
+        that.setState({ invoicesArray: myReturn });
         // let dest2 = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
         fetch(dest2, {})
           .then(function(response) {
@@ -168,7 +168,8 @@ export default class Revenant extends Component {
           })
           .then(function(myNewReturn) {
             console.log(myNewReturn);
-            that.setState({ invoicesArray: myNewReturn });
+            
+            that.setState({ receivablesArray: myNewReturn });
           });
       });
   }
