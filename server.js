@@ -495,7 +495,8 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        clientID: ctx.params.clientID
+        clientID: ctx.params.clientID,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving expense data");
@@ -565,7 +566,8 @@ app.prepare()
         creditor: ctx.params.payee,
         description: ctx.params.desc,
         notes: ctx.params.notes,
-        org: ctx.params.org
+        org: ctx.params.org,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving expense data");
@@ -599,7 +601,8 @@ app.prepare()
         notes: ctx.params.notes,
         expectedAmount: ctx.params.total,
         org: ctx.params.org,
-        prospectID: ctx.params.pid
+        prospectID: ctx.params.pid,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving expense data");
@@ -632,7 +635,8 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         expectedAmount: ctx.params.total,
-        org: ctx.params.org
+        org: ctx.params.org,
+        locator: Math.floor(Math.random() * 3000000 + 1)
       });
 
       console.log("saving expense data");
@@ -715,11 +719,8 @@ app.prepare()
 
       AccountsDB.saveDatabase();
 
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   router.get('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
@@ -753,12 +754,8 @@ app.prepare()
       console.log("saving pitch data");
 
       AccountsDB.saveDatabase();
-
-  //  return Object.assign({}, {"success": "ok"});
     })
     ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
-    
-    //  ctx.respond = false;
   })
 
   var apiDataClients = {}
