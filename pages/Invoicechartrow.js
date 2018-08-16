@@ -59,7 +59,7 @@ class Invoicechartrow extends Component {
         <span className="accountrecievable-notes" key={interVal.value.notes}>{interVal.value.notes}</span>
         <section className="details-printout">
           <details>
-            <button onClick={this.openModal}>Open Modal</button>
+            <button id="openPrintout" onClick={this.openModal}>Print Invoice</button>
             <Modal
               isOpen={this.state.modalIsOpen}
               onAfterOpen={this.afterOpenModal}

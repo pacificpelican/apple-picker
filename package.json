@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.9.20",
+  "version": "0.9.21",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -19,6 +19,7 @@
     "react-dom": "^16.3.0",
     "lokijs": "^1.5.3",
     "object-array-converter": "~1.0.1",
-    "react-modal": "^3.5.1"
+    "react-modal": "^3.5.1",
+    "react-x-editable": "0.0.10-beta"
   }
 }

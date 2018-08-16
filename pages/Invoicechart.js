@@ -88,6 +88,11 @@ export default class Invoicechart extends Component {
             div#dataHeader span {
               font-weight: bold;
             }
+            button#openPrintout {
+              width: 8.5rem;
+              height: 1.9rem;
+              background: lightgray;
+            }
             `}</style>
       </div>
     );

@@ -4,6 +4,8 @@ import Link from "next/link";
 import Textframe from "./textframe";
 import Accountsreceivablechartrow from "./Accountrecievablechartrow";
 
+import Editable from 'react-x-editable';
+
 //  Invoicechart.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
@@ -80,7 +82,16 @@ export default class Invoicechart extends Component {
           <div className="notesZone">
             <section className="accountrecievable--notes" key="notes-header">notes:</section>
             <br />
-            <section id="notesContent" className="accountrecievable-notes" key={this.state.exArray.notes}>{this.state.exArray.notes}</section>
+            <section id="notesContent" className="accountrecievable-notes" key={this.state.exArray.notes}>
+              <Editable
+                name="notesinput"
+                dataType="textarea"
+                mode="inline"
+                title="Please edit notes as needed"
+                value={this.state.exArray.notes}
+              />
+            </section>
+
           </div>
 
           <br /><br />
@@ -129,6 +140,20 @@ export default class Invoicechart extends Component {
             }
             div#dataHeader span {
               font-weight: bold;
+            }
+            section#notesContent a {
+              text-decoration: none;
+              color: black;
+            }
+            button.btn-success {
+              background: green;
+              width: 2.5rem;
+              height: 2rem;
+            }
+            button.btn-danger {
+              background: red;
+              width: 2.5rem;
+              height: 2rem;
             }
             `}</style>
       </div>
