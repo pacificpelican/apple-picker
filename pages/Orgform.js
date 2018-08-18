@@ -1,23 +1,67 @@
 import React, { Component } from "react";
 import Link from "next/link";
+// import { updateOrg, getOrg } from '../store'
 
 //  Orgform.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Orger from "./orger";
 
+import { connect } from 'react-redux'
+import { updateOrg, getOrg } from '../store'
+
 export default class Orgform extends Component {
-  state = { Ok: true };
+  state = { Ok: true, expeneseArray: [] };
 
   constructor() {
     super();
+    this.doLookup = this.doLookup.bind(this);
+  }
+
+  updateO = (newName) => {
+    const {dispatch} = this.props
+    dispatch(updateOrg(newName))
+  }
+
+  getO = () => {
+    const {dispatch} = this.props
+    dispatch(getOrg())
+  }
+
+  doLookup() {
+    let that = this;
+    let dest = "api/1/getorgs/limit/5";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        that.setState({ expeneseArray: myReturn });
+        // console.log('updating Redux store:');
+        // console.log(myReturn[0].orgName)
+        // that.updateO(myReturn[0].orgName);
+      });
   }
 
   UNSAFE_componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.doLookup();
+  }
 
   render() {
+
     return (
       <div id="basicComponentDiv">
         <div className="apple-picker-header">apple-picker _ Org Name Update</div>
