@@ -12,6 +12,8 @@ var AccountsDB = new loki(__dirname + "/db/accountsdb.json");
 
 const convertObj = require("object-array-converter");
 
+const locatorScale = 3000000;
+
 let crypto;
 try {
   crypto = require("crypto");
@@ -122,7 +124,7 @@ app.prepare()
         org: ctx.params.org,
         accountsreceivableid: ctx.params.arid,
         invoiceID: ctx.params.inv,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving revenue data");
@@ -347,7 +349,7 @@ app.prepare()
         rate: ctx.params.rate,
         org: ctx.params.org,
         clientID: ctx.params.clientid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving time data");
@@ -388,7 +390,7 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         clientID: ctx.params.cid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving revenue data");
@@ -499,7 +501,7 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         clientID: ctx.params.clientID,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving expense data");
@@ -536,8 +538,8 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         accountsreceivableid: ctx.params.arid,
-        invoiceLocator: Math.floor(Math.random() * 3000000 + 1),
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        invoiceLocator: Math.floor(Math.random() * locatorScale + 1),
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving invoice data");
@@ -571,7 +573,7 @@ app.prepare()
         description: ctx.params.desc,
         notes: ctx.params.notes,
         org: ctx.params.org,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving expense data");
@@ -606,7 +608,7 @@ app.prepare()
         expectedAmount: ctx.params.total,
         org: ctx.params.org,
         prospectID: ctx.params.pid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving expense data");
@@ -640,7 +642,7 @@ app.prepare()
         notes: ctx.params.notes,
         expectedAmount: ctx.params.total,
         org: ctx.params.org,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving expense data");
@@ -717,7 +719,7 @@ app.prepare()
         companyMarketCap: ctx.params.total,
         org: ctx.params.org,
         prospectID: ctx.params.pid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving pitch data");
@@ -754,7 +756,7 @@ app.prepare()
         estimatedValueAdded: ctx.params.total,
         org: ctx.params.org,
         clientID: ctx.params.pid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving pitch data");
@@ -907,7 +909,7 @@ app.prepare()
         notes: ctx.params.notes,
         org: ctx.params.org,
         accountspayableid: ctx.params.arid,
-        locator: Math.floor(Math.random() * 3000000 + 1)
+        locator: Math.floor(Math.random() * locatorScale + 1)
       });
 
       console.log("saving tax data");
@@ -996,6 +998,48 @@ app.prepare()
   //  ctx.response.body = respArr;
   ctx.response.body = apiDataInvOne;
   })
+
+  var apiDataDB = {};
+  //  http://localhost:3005/api/1/getdbdata/object/888
+  //  wildcard GET API call (via mlBench, to support Desk component)
+  router.get('/api/1/getdbdata/object/:obj', async ctx => {
+//  server.get("/api/1/getdbdata/object/:obj", (req, res) => {
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header(
+    //   "Access-Control-Allow-Headers",
+    //   "Origin, X-Requested-With, Content-Type, Accept"
+    // );
+    console.log(ctx.params);
+
+    const theParam = ctx.params.obj.toString();
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(theParam);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          theParam
+        );
+        _collection = AccountsDB.addCollection(theParam);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      apiDataDB = retData;
+    })
+
+    let respObj = Object.assign({}, apiDataDB);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    ctx.response.body = respArr;
+  });
 
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
