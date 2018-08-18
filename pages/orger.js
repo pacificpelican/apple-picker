@@ -8,13 +8,17 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+//const OrgContext = React.createContext();
+
+import { OrgContext } from './index';
+
 export default class Orger extends Component {
   state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null };
 
   constructor(props) {
     super(props);
     this.handleSubmitExpense = this.handleSubmitExpense.bind(this);
-    this.updateDate = this.updateDate.bind(this); 
+    this.updateDate = this.updateDate.bind(this);
     this.updatePayee = this.updatePayee.bind(this);
   }
 
@@ -24,7 +28,7 @@ export default class Orger extends Component {
     event.preventDefault();
 
     let dest = "/api/1/updateorg/date/" + this.state.amountdate + "/name/" + this.state.payee;
-  //  let dest = "/api/1/addprospect/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
+    //  let dest = "/api/1/addprospect/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
     let that = this;
 
     fetch(dest, {})
@@ -71,14 +75,17 @@ export default class Orger extends Component {
       <div id="picker">
         <div className="pear-content">
           <section id="snapshot">
-            
+
             <h2 id="snapshot">Enter an Org Name</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
-            <section className="expense-form"><span className="input-span">Current Org Name: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
+              <section className="expense-form"><span className="input-span">Current Org Name: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add org name" id="submit-expenses" /></section>
             </form>
           </section>
+          <OrgContext.Consumer>
+            {orgName => <button data-orgName={orgName}>{orgName}</button>}
+          </OrgContext.Consumer>
         </div>
         <style jsx>{`
             div.pear-content {

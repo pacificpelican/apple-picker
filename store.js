@@ -49,6 +49,6 @@ export const getOrg = () => dispatch => {
 //   return dispatch({ type: actionTypes.RESET })
 // }
 
-// export function initializeStore (initialState = exampleInitialState) {
-//   return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
-// }
+export function initializeStore (initialState = exampleInitialState) {
+  return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+}

@@ -1,15 +1,24 @@
-import React from 'react';
-
+import React, { Component } from "react";
 import Home from "./Home";
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-const store = createStore((x) => { return x; });
+import Textframe from "./textframe";
 
-export default () => (
-  <div id="apple-picker-container">
-    <Provider store={store}>
-      <Home />
-    </Provider>
-  </div>
-)
+let Company = "Lovebirdsconsulting.com";
+
+export const OrgContext = React.createContext(Company);
+
+//  index.js ReactJS component for apple-picker
+//  by Dan McKeown http://danmckeown.info copyright 2018
+
+export default class Index extends Component {
+
+  state = {orgName: Company}
+
+  render() {
+    return (
+        <div id="apple-picker-container">
+          <Home />
+        </div>
+    )
+  }
+}
