@@ -1041,18 +1041,90 @@ app.prepare()
     ctx.response.body = respArr;
   });
 
+  router.get('/api/1/updateorg/date/:paydate/name/:orgname', async ctx => {
+
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "orgs";
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+
+      _collection.insertOne({
+        orgName: ctx.params.orgname,
+        date: ctx.params.paydate,
+        locator: Math.floor(Math.random() * locatorScale + 1)
+      });
+
+      console.log("saving tax data");
+
+      AccountsDB.saveDatabase();
+    })
+    ctx.response.body = Object.assign({}, {"update": "orgname", "success": "ok"});
+  })
+
+  var apiDataOrgs = {};
+
+  router.get('/api/1/getorgs/limit/:limit', async ctx => {
+    console.log(ctx.req.url);
+    console.log("description: " + ctx.params.desc);
+
+    let umbrella = "orgs";
+
+    let retData = {};
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(umbrella);
+
+      if (!_collection) {
+        console.log(
+          "Collection %s does not exist. Creating ... 🎮",
+          umbrella
+        );
+        _collection = AccountsDB.addCollection(umbrella);
+      }
+      else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+
+      console.log(retData);
+
+      apiDataOrgs = retData;
+    })
+
+    let respObj = Object.assign({}, apiDataOrgs);
+    
+    let respArr = convertObj.toArray(respObj);
+
+    respArr.reverse();
+
+    ctx.response.body = respArr;
+  })
+  
+
   router.get('*', async ctx => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false
-  })
+  });
 
   server.use(async (ctx, next) => {
     ctx.res.statusCode = 200
     await next()
-  })
+  });
 
   server.use(router.routes())
   server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`)
-  })
-})
+  });
+});

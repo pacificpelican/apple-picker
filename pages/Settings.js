@@ -4,6 +4,8 @@ import Link from "next/link";
 import Textframe from "./textframe";
 import Expensechartrow from "./Expensechartrow";
 
+import Orgform from "./Orgform";
+
 //  Settings.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
@@ -27,10 +29,11 @@ export default class Settings extends Component {
       <div id="basicComponentDiv">
         <Textframe />
         <article id="no-settings-message">
-          <span id="no-settings">no settings spotted as of </span>
           <span id="the-date" />
         </article>
-
+        <section>
+          <Orgform />
+        </section>
         <style jsx global>{`
           :root {
             --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto",
