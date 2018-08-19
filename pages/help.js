@@ -15,6 +15,9 @@ export default () => (
       <Dataentry />
 
       <Dataviews />
+
+      <h6>Data Overview</h6>
+      <li><a href="/Desk">Desk</a></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>

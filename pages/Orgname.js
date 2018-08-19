@@ -27,7 +27,7 @@ export default class Orgname extends Component {
     return (
       <div id="basicLayer">
         <aside id="orgInfo">
-          <spam id="orgNamePre">current org name:</spam> <span id="orgName">{this.state.orgName}</span>
+          <span id="orgNamePre">current org name:</span> <span id="orgName">{this.state.orgName}</span>
         </aside>
         <style>
           {`

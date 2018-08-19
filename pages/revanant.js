@@ -10,6 +10,15 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Revenant extends Component {
   state = {
     Ok: true,
@@ -159,6 +168,7 @@ export default class Revenant extends Component {
             console.log(myNewReturn);
             
             that.setState({ receivablesArray: myNewReturn });
+            that.setState({ org: getDOMtext() });
           });
       });
   }
@@ -257,6 +267,7 @@ export default class Revenant extends Component {
               </section>
             </form>
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {
