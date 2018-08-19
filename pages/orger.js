@@ -13,7 +13,7 @@ const defaultDate = convertDate();
 import { OrgContext } from './index';
 
 export default class Orger extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, orgName: 'The Company' };
 
   constructor(props) {
     super(props);
@@ -70,7 +70,15 @@ export default class Orger extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    if(!localStorage.getItem('org')) {
+      //org = 'The Company';
+      this.setState({orgName: 'The Company'});
+    } else {
+      let org = localStorage.getItem('org');
+      this.setState({orgName: org});
+    }
+  }
 
   render() {
     return (
@@ -80,14 +88,14 @@ export default class Orger extends Component {
 
             <h2 id="snapshot">Enter an Org Name</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
-              <section className="expense-form"><span className="input-span">Current Org Name: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
+              <section className="expense-form"><span className="input-span">New Org Name: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add org name" id="submit-expenses" /></section>
             </form>
           </section>
-          <OrgContext.Consumer>
-            {value => <button>{value}</button>}
-          </OrgContext.Consumer>
+          <aside>
+            <spam id="orgNamePre">current org name:</spam> <span id="orgName">{this.state.orgName}</span>
+          </aside>
         </div>
         <style jsx>{`
             div.pear-content {

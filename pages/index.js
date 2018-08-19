@@ -24,6 +24,7 @@ export default class Index extends Component {
       org = Company
     } else {
       org = localStorage.getItem('org');
+      this.setState({orgName: org});
     }
   }
 
