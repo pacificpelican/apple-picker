@@ -10,7 +10,6 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
-
 import Orgname from "./Orgname";
 
 const getDOMtext = function(inpSel="span#orgName") {

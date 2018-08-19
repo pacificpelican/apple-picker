@@ -10,6 +10,15 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Invoicer extends Component {
   state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', receivablesArray: [], arid: 0 };
 
@@ -104,6 +113,7 @@ export default class Invoicer extends Component {
       .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ receivablesArray: myReturn });
+        that.setState({ org: getDOMtext() });
       });
   }
 
@@ -135,6 +145,7 @@ export default class Invoicer extends Component {
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add receivable" id="submit-expenses" /></section>
             </form>
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {
