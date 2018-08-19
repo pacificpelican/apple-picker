@@ -5,7 +5,15 @@ import Link from "next/link";
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
-import Ladder from "./ladder";
+
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
 
 export default class Miler extends Component {
   state = { Ok: true, amountdate: '', amount: '', desc: '', payer: '', notes: null, dest: '', emb: '', roundTrip: true, org: 'null', ar: '0', receivablesArray: [] };
@@ -106,6 +114,7 @@ export default class Miler extends Component {
       .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ receivablesArray: myReturn });
+        that.setState({ org: getDOMtext() });
       });
   }
 
@@ -136,6 +145,7 @@ export default class Miler extends Component {
               </section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" /></section>
             </form>
+            <Orgname />
           </section>
         </div>
         <style jsx>
