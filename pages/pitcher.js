@@ -10,6 +10,15 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Pitcher extends Component {
   state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, prospect: null, prospectsArray: [] };
 
@@ -110,6 +119,7 @@ export default class Pitcher extends Component {
       .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ prospectsArray: myReturn });
+        that.setState({ org: getDOMtext() });
       });
   }
 
@@ -139,6 +149,7 @@ export default class Pitcher extends Component {
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add pitch" id="submit-expenses" /></section>
             </form>
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {

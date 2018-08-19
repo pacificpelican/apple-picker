@@ -10,8 +10,17 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Prospector extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, org: 'The Company' };
 
   constructor(props) {
     super(props);
@@ -84,7 +93,29 @@ export default class Prospector extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    let that = this;
+    let dest = "api/1/getprospects/org/lovebirdsconsulting/limit/1000";
+    fetch(dest, {}) //  idle, time-killing Fetch errand
+      .then(function(response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function(myReturn) {
+        console.log(myReturn);
+        that.noop();
+        that.setState({ org: getDOMtext() });
+      });
+  }
 
   render() {
     return (
@@ -103,6 +134,7 @@ export default class Prospector extends Component {
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add prospect" id="submit-expenses" /></section>
             </form>
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {
