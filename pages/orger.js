@@ -31,6 +31,8 @@ export default class Orger extends Component {
     //  let dest = "/api/1/addprospect/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
     let that = this;
 
+    localStorage.setItem('org', this.state.payee);
+
     fetch(dest, {})
       .then(function (response) {
         if (response.ok) {
@@ -84,7 +86,7 @@ export default class Orger extends Component {
             </form>
           </section>
           <OrgContext.Consumer>
-            {orgName => <button data-orgName={orgName}>{orgName}</button>}
+            {value => <button>{value}</button>}
           </OrgContext.Consumer>
         </div>
         <style jsx>{`
