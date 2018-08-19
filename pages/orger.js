@@ -8,9 +8,7 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
-//const OrgContext = React.createContext();
-
-import { OrgContext } from './index';
+import Orgname from "./Orgname";
 
 export default class Orger extends Component {
   state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', pid: null, orgName: 'The Company' };
@@ -37,11 +35,6 @@ export default class Orger extends Component {
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
           return response.json();
         }
         throw new Error("Network did not respond.");
@@ -49,8 +42,6 @@ export default class Orger extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -71,13 +62,7 @@ export default class Orger extends Component {
   UNSAFE_componentWillMount() { }
 
   componentDidMount() { 
-    if(!localStorage.getItem('org')) {
-      //org = 'The Company';
-      this.setState({orgName: 'The Company'});
-    } else {
-      let org = localStorage.getItem('org');
-      this.setState({orgName: org});
-    }
+    
   }
 
   render() {
@@ -93,9 +78,7 @@ export default class Orger extends Component {
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add org name" id="submit-expenses" /></section>
             </form>
           </section>
-          <aside>
-            <spam id="orgNamePre">current org name:</spam> <span id="orgName">{this.state.orgName}</span>
-          </aside>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {

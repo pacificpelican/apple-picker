@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Home from "./Home";
 
+//  index.js ReactJS component for apple-picker
+//  by Dan McKeown http://danmckeown.info copyright 2018
+
 import Textframe from "./textframe";
 
 let Company = "Lovebirdsconsulting.com";
@@ -9,11 +12,7 @@ let Company = "Lovebirdsconsulting.com";
 
 let org = Company;
 
-export const OrgContext = React.createContext(org);
-
-
-//  index.js ReactJS component for apple-picker
-//  by Dan McKeown http://danmckeown.info copyright 2018
+// export const OrgContext = React.createContext(org);
 
 export default class Index extends Component {
 
