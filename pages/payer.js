@@ -10,8 +10,18 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Payer extends Component {
-  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '' };
+  state = { Ok: true, amountdate: defaultDate, amount: '', desc: '', payee: '', notes: '', org: '' };
 
   constructor(props) {
     super(props);
@@ -79,7 +89,30 @@ export default class Payer extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { }
+  componentDidMount() { 
+    let that = this;
+    let dest = "/api/1/getclients/org/altaredwood/limit/100";
+    fetch(dest, {})
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          console.log(response.json);
+          for (var e in response.json) {
+            console.log(e.toString());
+          }
+          console.log(response.text);
+          that.noop();
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+        // that.setState({ receivablesArray: myReturn });
+        that.setState({ org: getDOMtext() });
+      });
+  }
 
   render() {
     return (
@@ -97,6 +130,7 @@ export default class Payer extends Component {
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add payable" id="submit-expenses" /></section>
             </form>
+            <Orgname />
           </section>
         </div>
         <style jsx>{`

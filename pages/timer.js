@@ -10,6 +10,15 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Timer extends Component {
   state = {
     Ok: true,
@@ -209,6 +218,7 @@ export default class Timer extends Component {
       .then(function(myReturn) {
         console.log(myReturn);
         that.setState({ prospectsArray: myReturn });
+        that.setState({ org: getDOMtext() });
       });
   }
 
@@ -321,6 +331,7 @@ export default class Timer extends Component {
                 <input type="submit" value="add time" id="submit-miles" />
               </section>
             </form>
+            <Orgname />
           </section>
         </div>
         <style jsx>{`

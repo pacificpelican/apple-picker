@@ -71,7 +71,7 @@ export default class Orger extends Component {
         <div className="pear-content">
           <section id="snapshot">
 
-            <h2 id="snapshot">Enter an Org Name</h2>
+            <h2 id="snapshot">Enter the Org Name</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form"><span className="input-span">New Org Name: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
