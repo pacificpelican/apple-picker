@@ -236,8 +236,8 @@ export default class Receiver extends Component {
                 />
               </section>
             </form>
-            <Orgname />
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
           div.pear-content {

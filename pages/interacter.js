@@ -10,6 +10,15 @@ import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
 
+import Orgname from "./Orgname";
+
+const getDOMtext = function(inpSel="span#orgName") {
+  let elem = document.querySelector(inpSel);
+  let dataset = elem.textContent;
+  // alert(dataset);
+  return dataset;
+}
+
 export default class Interacter extends Component {
   state = {
     Ok: true,
@@ -145,6 +154,7 @@ export default class Interacter extends Component {
       .then(function(myReturn) {
         console.log(myReturn);
         that.setState({ prospectsArray: myReturn });
+        that.setState({ org: getDOMtext() });
       });
   }
 
@@ -229,6 +239,7 @@ export default class Interacter extends Component {
               </section>
             </form>
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
           div.pear-content {

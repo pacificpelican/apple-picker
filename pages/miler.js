@@ -145,8 +145,8 @@ export default class Miler extends Component {
               </section>
               <section className="milage-form"><span className="input-span"></span><input type="submit" value="add miles" id="submit-miles" /></section>
             </form>
-            <Orgname />
           </section>
+          <Orgname />
         </div>
         <style jsx>
           {`

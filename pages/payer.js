@@ -91,7 +91,7 @@ export default class Payer extends Component {
   componentDidMount() { 
     let that = this;
     let dest = "/api/1/getclients/org/altaredwood/limit/100";
-    fetch(dest, {})
+    fetch(dest, {}) //  idle, time-killing Fetch errand
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
@@ -108,7 +108,7 @@ export default class Payer extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-        // that.setState({ receivablesArray: myReturn });
+        this.noop();
         that.setState({ org: getDOMtext() });
       });
   }
@@ -129,8 +129,8 @@ export default class Payer extends Component {
               {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add payable" id="submit-expenses" /></section>
             </form>
-            <Orgname />
           </section>
+          <Orgname />
         </div>
         <style jsx>{`
             div.pear-content {
