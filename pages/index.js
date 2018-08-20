@@ -14,23 +14,20 @@ let org = Company;
 
 // export const OrgContext = React.createContext(org);
 
+import Orgname from "./Orgname";
+
 export default class Index extends Component {
 
   state = {orgName: "AltaRedwood.work"}
 
   componentDidMount() {
-    if(!localStorage.getItem('org')) {
-      org = Company
-    } else {
-      org = localStorage.getItem('org');
-      this.setState({orgName: org});
-    }
   }
 
   render() {
     return (
       <div>
         <Home />
+        <Orgname />
       </div>
           
     )

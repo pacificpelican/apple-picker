@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.9.42",
+  "version": "0.9.43",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -20,11 +20,7 @@
     "lokijs": "^1.5.3",
     "object-array-converter": "~1.0.1",
     "react-modal": "^3.5.1",
-    "react-x-editable": "0.0.10-beta",
-    "react-redux": " ^5.0.7",
-    "redux": "^4.0.0",
-    "prop-types": "^15.6.2",
-    "redux-devtools-extension": "^2.13.5",
-    "redux-thunk": "^2.3.0"
+    "react-x-editable": "~0.0.10-beta",
+    "plotly": "^1.0.6"
   }
 }
