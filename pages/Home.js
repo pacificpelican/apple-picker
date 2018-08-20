@@ -8,6 +8,8 @@ import Textframe from "./textframe";
 
 import Driving from "./Driving";
 import Revenue from "./Revenue";
+import Expense from "./Expense";
+import Time from "./Time";
 
 export default class Homeß extends Component {
   state = { Ok: true };
@@ -35,8 +37,12 @@ export default class Homeß extends Component {
     return (
       <div id="apple-picker-home">
         <Textframe />
+        <h1 id="applePicker">Apple Picker</h1>
+        <h4 id="accounting">accounting software from <a href="http://altaredwood.work">AltaRedwood.work</a></h4>
         <Revenue />
+        <Expense />
         <Driving />
+        <Time />
         <section id="content-section" />
         <style jsx>
           {`
@@ -49,6 +55,9 @@ export default class Homeß extends Component {
             }
             ul.ladder-content li {
               font-family: "Hack", "Fira Code", "Menlo", monospace;
+            }
+            h1#applePicker, h4#accounting {
+              font-family: "Lato", "Lucida Sans", "Open Sans", sans-serif;
             }
             `}
         </style>

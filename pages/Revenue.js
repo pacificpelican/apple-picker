@@ -23,7 +23,7 @@ export default class Revenue extends Component {
   doLookupRevenues() {
     let that = this;
     let dest =
-      "/api/1/getrevenue/org/:org/limit/10000";
+      "/api/1/getrevenue/org/org/limit/10000";
     let rev = this.state.revenueTotal;
     fetch(dest, {})
       .then(function(response) {
