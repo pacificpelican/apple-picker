@@ -6,12 +6,9 @@ import Link from "next/link";
 
 import Textframe from "./textframe";
 
-import Driving from "./Driving";
-import Revenue from "./Revenue";
-import Expense from "./Expense";
-import Time from "./Time";
+//  import Totals from "./Totals";
 
-export default class Homeß extends Component {
+export default class Home extends Component {
   state = { Ok: true };
 
   constructor() {
@@ -39,10 +36,21 @@ export default class Homeß extends Component {
         <Textframe />
         <h1 id="applePicker">Apple Picker</h1>
         <h4 id="accounting">accounting software from <a href="http://altaredwood.work">AltaRedwood.work</a></h4>
-        <Revenue />
-        <Expense />
-        <Driving />
-        <Time />
+        <aside id="totals"><a href="/Totals" className="warning">View Data</a></aside>
+        <ul id="total-links">
+          <li>
+            <a href="/Expense">Expense</a>
+          </li>
+          <li>
+            <a href="/Revenue">Revenue</a>
+          </li>
+          <li>
+            <a href="/Time">Time</a>
+          </li>
+          <li>
+            <a href="/Driving">Driving</a>
+          </li>
+        </ul>
         <section id="content-section" />
         <style jsx>
           {`
@@ -53,11 +61,15 @@ export default class Homeß extends Component {
               display: inline-block;
               padding-right: 1rem;
             }
-            ul.ladder-content li {
+            ul.ladder-content li, aside#totals {
               font-family: "Hack", "Fira Code", "Menlo", monospace;
             }
-            h1#applePicker, h4#accounting {
+            h1#applePicker, h4#accounting, aside#totals a, ul#total-links li {
               font-family: "Lato", "Lucida Sans", "Open Sans", sans-serif;
+            }
+            .warning {
+              color: red;
+              text-decoration: none;
             }
             `}
         </style>

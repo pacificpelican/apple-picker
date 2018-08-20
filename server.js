@@ -137,8 +137,6 @@ app.prepare()
   var apiData = {};
 
   router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
 
     let umbrella = "revenues";
 
@@ -211,8 +209,6 @@ app.prepare()
   var apiDataPay = {};
 
   router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
 
     let umbrella = "payables";
 
@@ -439,8 +435,6 @@ app.prepare()
   var apiDataTime = {};
 
   router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
 
     let umbrella = "timesheet";
 
