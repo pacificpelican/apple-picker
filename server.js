@@ -404,7 +404,7 @@ app.prepare()
 
   router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
     console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+    // console.log("description: " + ctx.params.desc);
 
     let umbrella = "miles";
 
@@ -763,7 +763,7 @@ app.prepare()
 
       AccountsDB.saveDatabase();
     })
-    ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
+    ctx.response.body = Object.assign({}, {"update": "interactions", "success": "ok"});
   })
 
   var apiDataClients = {}
