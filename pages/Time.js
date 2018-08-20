@@ -41,7 +41,11 @@ export default class Time extends Component {
       })
       .then(function(myReturn) {
         console.log(myReturn);
-        let innerObject = myReturn[0].value;
+        let innerObject;
+        if (myReturn.length > 1) {
+          innerObject = myReturn[0].value;
+        }
+
         console.log(innerObject);
 
         let milesArray = [];

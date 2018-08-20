@@ -175,8 +175,6 @@ app.prepare()
   var apiDataExp = {};
 
   router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
 
     let umbrella = "expenses";
 

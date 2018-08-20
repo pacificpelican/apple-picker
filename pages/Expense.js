@@ -23,7 +23,7 @@ export default class Expense extends Component {
   doLookupRevenues() {
     let that = this;
     let dest =
-      "api/1/getexpenses/org/org/limit/10000";
+      "/api/1/getexpenses/org/org/limit/10000";
     let rev = this.state.revenueTotal;
     fetch(dest, {})
       .then(function(response) {
@@ -41,7 +41,12 @@ export default class Expense extends Component {
       })
       .then(function(myReturn) {
         console.log(myReturn);
-        let innerObject = myReturn[0].value;
+
+        let innerObject;
+        //  alert(myReturn);
+        if (myReturn.length > 1) {
+          innerObject = myReturn[0].value;
+        }
         console.log(innerObject);
 
         let milesArray = [];
