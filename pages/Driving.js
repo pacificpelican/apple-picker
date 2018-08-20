@@ -71,7 +71,7 @@ export default class Driving extends Component {
   render(props) {
     return (
       <div id="apple-picker-home">
-        <section id="revTot">__
+        <section className="totalSection" id="milesTot">__
           <label>Total Miles: </label>
           <span>{this.state.revenueTotal}</span>
         </section>

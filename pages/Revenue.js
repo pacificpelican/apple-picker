@@ -71,7 +71,7 @@ export default class Revenue extends Component {
   render(props) {
     return (
       <div id="apple-picker-home">
-        <section id="revTot">__
+        <section className="totalSection" id="revTot">__
           <label>Total Revenues: </label>
           <span>{this.state.revenueTotal}</span>
         </section>
