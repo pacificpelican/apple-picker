@@ -12,7 +12,7 @@ const defaultDate = convertDate();
 
 import Orgname from "./Orgname";
 
-const getDOMtext = function(inpSel="span#orgName") {
+const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
   // alert(dataset);
@@ -81,6 +81,10 @@ export default class Payer extends Component {
     this.setState({ desc: event.target.value });
   }
 
+  updateOrg() {
+    this.setState({ org: getDOMtext() });
+  }
+
 
   noop() {
     // do nothing
@@ -88,7 +92,7 @@ export default class Payer extends Component {
 
   UNSAFE_componentWillMount() { }
 
-  componentDidMount() { 
+  componentDidMount() {
     let that = this;
     let dest = "/api/1/getclients/org/altaredwood/limit/100";
     fetch(dest, {}) //  idle, time-killing Fetch errand
@@ -108,8 +112,7 @@ export default class Payer extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-        this.noop();
-        that.setState({ org: getDOMtext() });
+        that.updateOrg();
       });
   }
 

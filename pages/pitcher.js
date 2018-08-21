@@ -15,7 +15,6 @@ import Orgname from "./Orgname";
 const getDOMtext = function(inpSel="span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
   return dataset;
 }
 
@@ -36,7 +35,7 @@ export default class Pitcher extends Component {
 
   handleSubmitExpense(event) {
     console.log('Receivable data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee + " notes: " + this.state.notes);
-    //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
+
     event.preventDefault();
 
     let dest = "/api/1/addpitch/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/prospectid/" + this.state.prospect;
@@ -46,11 +45,7 @@ export default class Pitcher extends Component {
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
+          
           return response.json();
         }
         throw new Error("Network did not respond.");
@@ -58,8 +53,6 @@ export default class Pitcher extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -145,7 +138,6 @@ export default class Pitcher extends Component {
                     })}
                   </select>
               </section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add pitch" id="submit-expenses" /></section>
             </form>
           </section>

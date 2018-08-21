@@ -18,6 +18,12 @@ export default () => (
 
       <h6>Data Overview</h6>
       <li><a href="/Desk">Desk</a></li>
+      <li><a href="/Expensegraph">Expensegraph</a> [plotly does not work with SSR]</li>
+      <li><a href="/Expensetable">Expensetable</a></li>
+      <li><a href="/Expense">Expense</a></li>
+      <li><a href="/Revenue">Revenue</a></li>
+      <li><a href="/Driving">Driving</a></li>
+      <li><a href="/Time">Time</a></li>
       
       <h6>read API</h6>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>

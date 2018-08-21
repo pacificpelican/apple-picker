@@ -223,7 +223,7 @@ class Desk extends Component {
           ⬅️ back
         </button>
         <h1 id="desk">
-          mlBench Desk #1<span id="rollLink">
+          apple-picker Яecursive Object Desk<span id="rollLink">
             {" "}
             <a href="#" onClick={reloadOnce}>
               reload()
@@ -231,9 +231,10 @@ class Desk extends Component {
           </span>
         </h1>
         <aside>
-          database tables to look up: invoices, taxes, &c.
-          ("value" object contains data)
-          <br /><br />
+          database tables to look up: receivables, invoices, taxes, revenues, expenses, miles, payables, taxes, clients, prospects, pitches, interactions
+          <br />
+          
+        <br />
         </aside>
         <section id="user-input">
           <input
@@ -246,10 +247,17 @@ class Desk extends Component {
           </button>
         </section>
         <Spreadsheet dbdataArr={this.state.dbdataArr} />
+        <footer id="deskFooter">
+          powered by <b>mlBench Spreadsheetcore</b> by <a href="http://danmckeown.info">Dan McKeown</a>
+        </footer>
         <style jsx global>{`
           h1#desk, aside {
             font-family: Futura, "Ubuntu", "Lucida Grande", "Roboto", Helvetica,
               sans-serif;
+          }
+          footer#deskFooter {
+            margin-top: 2em;
+            font-family: Ubuntu, Roboto, Helvetica, sans-serif;
           }
         `}</style>
       </div>

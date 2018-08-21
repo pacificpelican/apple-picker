@@ -32,7 +32,7 @@ export default class Orgname extends Component {
         <style>
           {`
             aside {
-                font-family: "Hack", "Fira Code", "Menlo", monospace;
+                font-family: Hack, Fira Code, Menlo, monospace;
             }
             `}
         </style>

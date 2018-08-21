@@ -36,7 +36,7 @@ export default class Home extends Component {
         <Textframe />
         <h1 id="applePicker">Apple Picker</h1>
         <h4 id="accounting">accounting software from <a href="http://altaredwood.work">AltaRedwood.work</a></h4>
-        <aside id="totals"><a href="/Totals" className="warning">View Data</a></aside>
+        <aside id="totals"><a href="/Desk" className="warning">View Data</a></aside>
         <ul id="total-links">
           <li>
             <a href="/Expense">Expense</a>
@@ -55,17 +55,17 @@ export default class Home extends Component {
         <style jsx>
           {`
             div.pear-content {
-              font-family: "Hack", "Fira Code", "Menlo", monospace;
+              font-family: 'Hack', 'Fira Code', 'Menlo', monospace;
             }
             ul.ladder-content li {
               display: inline-block;
               padding-right: 1rem;
             }
             ul.ladder-content li, aside#totals {
-              font-family: "Hack", "Fira Code", "Menlo", monospace;
+              font-family: 'Hack', 'Fira Code', 'Menlo', monospace;
             }
             h1#applePicker, h4#accounting, aside#totals a, ul#total-links li {
-              font-family: "Lato", "Lucida Sans", "Open Sans", sans-serif;
+              font-family: 'Lato', 'Lucida Sans', 'Open Sans', sans-serif;
             }
             .warning {
               color: red;

@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.9.47",
+  "version": "0.9.48",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -20,7 +20,8 @@
     "lokijs": "^1.5.3",
     "object-array-converter": "~1.0.1",
     "react-modal": "^3.5.1",
-    "react-x-editable": "~0.0.10-beta",
-    "plotly": "^1.0.6"
+    "react-x-editable": "^0.0.10-beta",
+    "plotly.js": "^1.40.0",
+    "react-plotly.js": "^2.2.0"
   }
 }

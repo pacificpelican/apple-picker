@@ -7,17 +7,6 @@ import Link from "next/link";
 
 import Orger from "./orger";
 
-// import { connect } from 'react-redux'
-//  import { updateOrg, getOrg } from '../store'
-//  import { reducer } from '../store'
-
-// import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
-
-// var store = createStore(reducer);
-
-// const OrgContext = React.createContext('Company');
-
 class Orgform extends Component {
   state = { Ok: true, expeneseArray: [], store: {}, orgName: '' };
 
@@ -25,16 +14,6 @@ class Orgform extends Component {
     super();
     this.doLookup = this.doLookup.bind(this);
   }
-
-  // updateO = (newName) => {
-  //   const {dispatch} = this.props
-  //   dispatch(updateOrg(newName))
-  // }
-
-  // getO = () => {
-  //   const {dispatch} = this.props
-  //   dispatch(getOrg())
-  // }
 
   doLookup() {
     let that = this;
@@ -57,10 +36,6 @@ class Orgform extends Component {
         console.log(myReturn);
         that.setState({ expeneseArray: myReturn });
         that.setState({ store: myReturn[0] });
-
-        // console.log('updating Redux store:');
-        // console.log(myReturn[0].orgName)
-        //  that.updateO(myReturn[0].orgName);
       });
   }
 
@@ -71,8 +46,6 @@ class Orgform extends Component {
   }
 
   render() {
-    //  store = createStore(reducer);
-    //  let ctxVal = this.state.expeneseArray[0].orgName
     return (
       <div id="basicComponentDiv">
         <div className="apple-picker-header">apple-picker _ Org Name Update</div>
@@ -104,10 +77,3 @@ class Orgform extends Component {
 }
 
 export default Orgform;
-
-// function mapStateToProps (state) {
-//   const {org} = state
-//   return {org}
-// }
-
-// export default connect(mapStateToProps)(Orgform)

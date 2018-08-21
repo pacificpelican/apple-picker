@@ -227,7 +227,7 @@ export default class Revenant extends Component {
               </section>
               <section className="expense-form">
                 <span className="input-span" />
-                <input type="submit" value="add expense" id="submit-expenses" />
+                <input type="submit" value="add tax payment" id="submit-expenses" />
               </section>
             </form>
           </section>
