@@ -68,7 +68,7 @@ export default () => (
     </ul>
 
     <footer id="apple-picker-footer">
-      Apple Picker was created by <a href="http://danmckeown.info">Dan McKeown</a> at <a href="http://altaredwood.work">Alta Redwood</a>
+      <a href="https://djmblog.com/page/apple-picker">Apple Picker</a> was created by <a href="http://danmckeown.info">Dan McKeown</a> at <a href="http://altaredwood.work">Alta Redwood</a>
     </footer>
     <style>{`
             div#apple-picker-container {

@@ -34,8 +34,8 @@ export default class Home extends Component {
     return (
       <div id="apple-picker-home">
         <Textframe />
-        <h1 id="applePicker">Apple Picker</h1>
-        <h4 id="accounting">accounting software from <a href="http://altaredwood.work">AltaRedwood.work</a></h4>
+        <h1 id="applePicker"><a href="https://djmblog.com/page/apple-picker">Apple Picker</a></h1>
+        <h4 id="accounting">accounting software from <a id="alta" href="http://altaredwood.work">AltaRedwood.work</a></h4>
         <aside id="totals"><a href="/Desk" className="warning">View Data</a></aside>
         <ul id="total-links">
           <li>
@@ -70,6 +70,10 @@ export default class Home extends Component {
             .warning {
               color: red;
               text-decoration: none;
+            }
+            h1#applePicker, h1#applePicker a, a#alta {
+              text-decoration: none;
+              color: black;
             }
             `}
         </style>
