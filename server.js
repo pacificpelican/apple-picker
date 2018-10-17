@@ -14,6 +14,37 @@ const convertObj = require("object-array-converter");
 
 const locatorScale = 3000000;
 
+//  This pre-fetches the A/R data
+var apiDataRec = {};
+let umbrella = "receivables";
+let retData = {};
+
+function getData1() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(umbrella);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        umbrella
+      );
+      _collection = AccountsDB.addCollection(umbrella);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataRec = retData;
+  })
+}
+
+getData1(); //  invocation of A/R pre-fetch function
+//  endof: A/R pre-fetch
+
 let crypto;
 try {
   crypto = require("crypto");
@@ -42,1081 +73,1075 @@ const generateCrypto = function getCryptoNow() {
 const cryptoVal = generateCrypto();
 
 app.prepare()
-.then(() => {
-  const server = new Koa()
-  const router = new Router()
+  .then(() => {
+    const server = new Koa()
+    const router = new Router()
 
-  router.get('/a', async ctx => {
-    await app.render(ctx.req, ctx.res, '/b', ctx.query)
-    ctx.respond = false
-  })
-
-  router.get('/b', async ctx => {
-    await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    ctx.respond = false
-  })
-
-  router.get('/api/1/addexpense/amount/:total/user/:account/company/:enterprise/', async ctx => {
-
-    console.log(ctx.req.url);
-
-  })
-
-  router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
-
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "expenses";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        payee: ctx.params.payee,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        accountspayableid: ctx.params.arid
-      });
-
-      console.log("saving expense data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "expenses", "success": "ok"});
-  })
-
-  router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org/arid/:arid/invid/:inv', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-    console.log("payer: " + ctx.params.payer);
-
-    let umbrella = "revenues";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        payer: ctx.params.payer,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        accountsreceivableid: ctx.params.arid,
-        invoiceID: ctx.params.inv,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving revenue data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "revenues", "success": "ok"});
-  })
-
-  var apiData = {};
-
-  router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
-
-    let umbrella = "revenues";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiData = retData;
+    router.get('/a', async ctx => {
+      await app.render(ctx.req, ctx.res, '/b', ctx.query)
+      ctx.respond = false
     })
 
-    let respObj = Object.assign({}, apiData);
+    router.get('/b', async ctx => {
+      await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      ctx.respond = false
+    })
+
+    router.get('/api/1/addexpense/amount/:total/user/:account/company/:enterprise/', async ctx => {
+
+      console.log(ctx.req.url);
+
+    })
+
+    router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
+
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "expenses";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          payee: ctx.params.payee,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          accountspayableid: ctx.params.arid
+        });
+
+        console.log("saving expense data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "expenses", "success": "ok" });
+    })
+
+    router.get('/api/1/addrevenue/amount/:total/date/:paydate/payer/:payer/description/:desc/notes/:notes/org/:org/arid/:arid/invid/:inv', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+      console.log("payer: " + ctx.params.payer);
+
+      let umbrella = "revenues";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          payer: ctx.params.payer,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          accountsreceivableid: ctx.params.arid,
+          invoiceID: ctx.params.inv,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving revenue data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "revenues", "success": "ok" });
+    })
+
+    var apiData = {};
+
+    router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
+
+      let umbrella = "revenues";
+
+      let retData = {};
+
+      await AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiData = retData;
+      })
+
+      let respObj = Object.assign({}, apiData);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    var apiDataExp = {};
+
+    router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
+
+      let umbrella = "expenses";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataExp = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataExp);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    var apiDataPay = {};
+
+    router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
+
+      let umbrella = "payables";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataPay = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataPay);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    router.get('/api/1/getreceivables/org/:org/limit/:limit', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      AccountsDB.loadDatabase({}, () => { //  This runs to update the data while the app is running
+        let _collection = AccountsDB.getCollection(umbrella);
     
-    let respArr = convertObj.toArray(respObj);
-
-    ctx.response.body = respArr;
-  })
-
-  var apiDataExp = {};
-
-  router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
-
-    let umbrella = "expenses";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataExp = retData;
-    })
-
-    let respObj = Object.assign({}, apiDataExp);
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
     
-    let respArr = convertObj.toArray(respObj);
-
-    ctx.response.body = respArr;
-  })
-
-  var apiDataPay = {};
-
-  router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
-
-    let umbrella = "payables";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataPay = retData;
-    })
-
-    let respObj = Object.assign({}, apiDataPay);
+        retData = _collection.find();
     
-    let respArr = convertObj.toArray(respObj);
-
-    ctx.response.body = respArr;
-  })
-
-  var apiDataRec = {};
-
-  router.get('/api/1/getreceivables/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "receivables";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataRec = retData;
-    })
-
-    let respObj = Object.assign({}, apiDataRec);
+        console.log(retData);
     
-    let respArr = convertObj.toArray(respObj);
+        apiDataRec = retData;
+      })
 
-    ctx.response.body = respArr;
-  })
+      let respObj = Object.assign({}, apiDataRec);
 
-  var apiDataInv = {};
+      let respArr = convertObj.toArray(respObj);
 
-  router.get('/api/1/getinvoices/org/:org/limit/:limit', async ctx => {
-
-    let umbrella = "invoices";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataInv = retData;
+      ctx.response.body = respArr;
     })
 
-    let respObj = Object.assign({}, apiDataInv);
-    
-    let respArr = convertObj.toArray(respObj);
+    var apiDataInv = {};
 
-    ctx.response.body = respArr;
-  })
+    router.get('/api/1/getinvoices/org/:org/limit/:limit', async ctx => {
 
-  router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate/clientid/:clientid', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-    console.log("time: " + ctx.params.total);
+      let umbrella = "invoices";
 
-    let umbrella = "timesheet";
+      let retData = {};
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
 
-      _collection.insertOne({
-        timeWorked: ctx.params.total,
-        date: ctx.params.paydate,
-        stakeholder: ctx.params.dest,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        rate: ctx.params.rate,
-        org: ctx.params.org,
-        clientID: ctx.params.clientid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
+        retData = _collection.find();
 
-      console.log("saving time data");
+        console.log(retData);
 
-      AccountsDB.saveDatabase();
-      
-    })
-    ctx.response.body = Object.assign({}, {"update": "time", "success": "ok"});
+        apiDataInv = retData;
+      })
 
-  })
+      let respObj = Object.assign({}, apiDataInv);
 
-  router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org/clientid/:cid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-    console.log("miles: " + ctx.params.total);
+      let respArr = convertObj.toArray(respObj);
 
-    let umbrella = "miles";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        miles: ctx.params.total,
-        date: ctx.params.paydate,
-        destination: ctx.params.dest,
-        embarkment: ctx.params.emb,
-        roundtrip: ctx.params.round,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        clientID: ctx.params.cid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving revenue data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "miles", "success": "ok"});
-  })
-
-  var apiDataMiles = {};
-
-  router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    // console.log("description: " + ctx.params.desc);
-
-    let umbrella = "miles";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataMiles = retData;
+      ctx.response.body = respArr;
     })
 
-    let respObj = Object.assign({}, apiDataMiles);
-    
-    let respArr = convertObj.toArray(respObj);
+    router.get('/api/1/addtime/amount/:total/date/:paydate/client/:dest/description/:desc/notes/:notes/org/:org/rate/:rate/clientid/:clientid', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+      console.log("time: " + ctx.params.total);
 
-    ctx.response.body = respArr;
-  })
+      let umbrella = "timesheet";
 
-  var apiDataTime = {};
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-  router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
 
-    let umbrella = "timesheet";
+        _collection.insertOne({
+          timeWorked: ctx.params.total,
+          date: ctx.params.paydate,
+          stakeholder: ctx.params.dest,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          rate: ctx.params.rate,
+          org: ctx.params.org,
+          clientID: ctx.params.clientid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
 
-    let retData = {};
+        console.log("saving time data");
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+        AccountsDB.saveDatabase();
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
+      })
+      ctx.response.body = Object.assign({}, { "update": "time", "success": "ok" });
 
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataTime = retData;
     })
 
-    let respObj = Object.assign({}, apiDataTime);
-    
-    let respArr = convertObj.toArray(respObj);
+    router.get('/api/1/addmiles/amount/:total/date/:paydate/destination/:dest/embarkment/:emb/description/:desc/roundtrip/:round/notes/:notes/org/:org/clientid/:cid', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+      console.log("miles: " + ctx.params.total);
 
-    ctx.response.body = respArr;
-  })
+      let umbrella = "miles";
 
-  router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/client/:clientID', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-    let umbrella = "receivables";
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+        _collection.insertOne({
+          miles: ctx.params.total,
+          date: ctx.params.paydate,
+          destination: ctx.params.dest,
+          embarkment: ctx.params.emb,
+          roundtrip: ctx.params.round,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          clientID: ctx.params.cid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
+        console.log("saving revenue data");
 
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        debtor: ctx.params.payee,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        clientID: ctx.params.clientID,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving expense data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "receivables", "success": "ok"});
-  })
-
-  router.get('/api/1/addinvoice/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/arid/:arid', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "invoices";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      const cryptoValLocal = generateCrypto();
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        debtor: ctx.params.payee,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        accountsreceivableid: ctx.params.arid,
-        invoiceLocator: Math.floor(Math.random() * locatorScale + 1),
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving invoice data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "invoices", "success": "ok"});
-  })
-
-  router.get('/api/1/addpayable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "payables";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        creditor: ctx.params.payee,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving expense data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "payables", "success": "ok"});
-  })
-
-  router.get('/api/1/addclient/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "clients";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        client: ctx.params.payee,
-        date: ctx.params.paydate,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        expectedAmount: ctx.params.total,
-        org: ctx.params.org,
-        prospectID: ctx.params.pid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving expense data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "clients", "success": "ok"});
-  })
-
-  router.get('/api/1/addprospect/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "prospects";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        prospect: ctx.params.payee,
-        date: ctx.params.paydate,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        expectedAmount: ctx.params.total,
-        org: ctx.params.org,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving expense data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "prospects", "success": "ok"});
-    
-    //  ctx.respond = false;
-  })
-
-  var apiDataProspects = {};
-
-  router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "prospects";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataProspects = retData;
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "miles", "success": "ok" });
     })
 
-    let respObj = Object.assign({}, apiDataProspects);
-    
-    let respArr = convertObj.toArray(respObj);
+    var apiDataMiles = {};
 
-    ctx.response.body = respArr;
-  })
+    router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
+      console.log(ctx.req.url);
+      // console.log("description: " + ctx.params.desc);
 
-  router.get('/api/1/addpitch/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+      let umbrella = "miles";
 
-    let umbrella = "pitches";
+      let retData = {};
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
 
-      _collection.insertOne({
-        audience: ctx.params.payee,
-        date: ctx.params.paydate,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        companyMarketCap: ctx.params.total,
-        org: ctx.params.org,
-        prospectID: ctx.params.pid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
+        retData = _collection.find();
 
-      console.log("saving pitch data");
+        console.log(retData);
 
-      AccountsDB.saveDatabase();
+        apiDataMiles = retData;
+      })
 
-    })
-    ctx.response.body = Object.assign({}, {"update": "pitches", "success": "ok"});
-  })
+      let respObj = Object.assign({}, apiDataMiles);
 
-  router.get('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+      let respArr = convertObj.toArray(respObj);
 
-    let umbrella = "interactions";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        audience: ctx.params.payee,
-        date: ctx.params.paydate,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        estimatedValueAdded: ctx.params.total,
-        org: ctx.params.org,
-        clientID: ctx.params.pid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving pitch data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "interactions", "success": "ok"});
-  })
-
-  var apiDataClients = {}
-
-  router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "clients";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataClients = retData;
+      ctx.response.body = respArr;
     })
 
-    let respObj = Object.assign({}, apiDataClients);
-    
-    let respArr = convertObj.toArray(respObj);
+    var apiDataTime = {};
 
-    ctx.response.body = respArr;
-  })
+    router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
 
-  var apiDataPitches = {};
+      let umbrella = "timesheet";
 
-  router.get('/api/1/getpitches/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+      let retData = {};
 
-    let umbrella = "pitches";
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-    let retData = {};
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+        retData = _collection.find();
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
+        console.log(retData);
 
-      retData = _collection.find();
+        apiDataTime = retData;
+      })
 
-      console.log(retData);
+      let respObj = Object.assign({}, apiDataTime);
 
-      apiDataPitches = retData;
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
     })
 
-    let respObj = Object.assign({}, apiDataPitches);
-    
-    let respArr = convertObj.toArray(respObj);
+    router.get('/api/1/addreceivable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/client/:clientID', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
 
-    ctx.response.body = respArr;
-  })
+      let umbrella = "receivables";
 
-  var apiDataInter = {};
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-  router.get('/api/1/getinteractions/org/:org/limit/:limit', async ctx => {
-    //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
 
-    let umbrella = "interactions";
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          debtor: ctx.params.payee,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          clientID: ctx.params.clientID,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
 
-    let retData = {};
+        console.log("saving expense data");
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataInter = retData;
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "receivables", "success": "ok" });
     })
 
-    let respObj = Object.assign({}, apiDataInter);
-    
-    let respArr = convertObj.toArray(respObj);
+    router.get('/api/1/addinvoice/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/arid/:arid', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
 
-    ctx.response.body = respArr;
-  })
+      let umbrella = "invoices";
 
-  router.get('/api/1/addtax/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
+        const cryptoValLocal = generateCrypto();
 
-    let umbrella = "taxes";
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          debtor: ctx.params.payee,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          accountsreceivableid: ctx.params.arid,
+          invoiceLocator: Math.floor(Math.random() * locatorScale + 1),
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
+        console.log("saving invoice data");
 
-      _collection.insertOne({
-        amount: ctx.params.total,
-        date: ctx.params.paydate,
-        payee: ctx.params.payee,
-        description: ctx.params.desc,
-        notes: ctx.params.notes,
-        org: ctx.params.org,
-        accountspayableid: ctx.params.arid,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving tax data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "taxes", "success": "ok"});
-  })
-
-  var apiDataTax = {};
-
-  router.get('/api/1/gettaxes/org/:org/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "taxes";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataTax = retData;
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "invoices", "success": "ok" });
     })
 
-    let respObj = Object.assign({}, apiDataTax);
-    
-    let respArr = convertObj.toArray(respObj);
+    router.get('/api/1/addpayable/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
 
-    ctx.response.body = respArr;
-  })
+      let umbrella = "payables";
 
-  var apiDataInvOne = {};
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-  router.get('/api/1/getinvoice/org/:org/locator/:theid', async ctx => {
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
 
-    let umbrella = "invoices";
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          creditor: ctx.params.payee,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
 
-    let retData = {};
+        console.log("saving expense data");
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "payables", "success": "ok" });
+    })
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection " + umbrella + " exists");
-      }
+    router.get('/api/1/addclient/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
 
-    //  retData = _collection.find();
+      let umbrella = "clients";
 
-      console.log("ctx.params: ");
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          client: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          expectedAmount: ctx.params.total,
+          org: ctx.params.org,
+          prospectID: ctx.params.pid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving expense data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "clients", "success": "ok" });
+    })
+
+    router.get('/api/1/addprospect/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "prospects";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          prospect: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          expectedAmount: ctx.params.total,
+          org: ctx.params.org,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving expense data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "prospects", "success": "ok" });
+
+      //  ctx.respond = false;
+    })
+
+    var apiDataProspects = {};
+
+    router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "prospects";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataProspects = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataProspects);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    router.get('/api/1/addpitch/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "pitches";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          audience: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          companyMarketCap: ctx.params.total,
+          org: ctx.params.org,
+          prospectID: ctx.params.pid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving pitch data");
+
+        AccountsDB.saveDatabase();
+
+      })
+      ctx.response.body = Object.assign({}, { "update": "pitches", "success": "ok" });
+    })
+
+    router.get('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "interactions";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          audience: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          estimatedValueAdded: ctx.params.total,
+          org: ctx.params.org,
+          clientID: ctx.params.pid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving pitch data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "interactions", "success": "ok" });
+    })
+
+    var apiDataClients = {}
+
+    router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "clients";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataClients = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataClients);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    var apiDataPitches = {};
+
+    router.get('/api/1/getpitches/org/:org/limit/:limit', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "pitches";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataPitches = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataPitches);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    var apiDataInter = {};
+
+    router.get('/api/1/getinteractions/org/:org/limit/:limit', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "interactions";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataInter = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataInter);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    router.get('/api/1/addtax/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
+
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "taxes";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          amount: ctx.params.total,
+          date: ctx.params.paydate,
+          payee: ctx.params.payee,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          org: ctx.params.org,
+          accountspayableid: ctx.params.arid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving tax data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "taxes", "success": "ok" });
+    })
+
+    var apiDataTax = {};
+
+    router.get('/api/1/gettaxes/org/:org/limit/:limit', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "taxes";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataTax = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataTax);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    })
+
+    var apiDataInvOne = {};
+
+    router.get('/api/1/getinvoice/org/:org/locator/:theid', async ctx => {
+
+      let umbrella = "invoices";
+
+      let retData = {};
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection " + umbrella + " exists");
+        }
+
+        //  retData = _collection.find();
+
+        console.log("ctx.params: ");
+        console.log(ctx.params);
+
+        retData = _collection.find({ 'invoiceLocator': Number(ctx.params.theid) });
+
+        console.log(retData);
+
+        apiDataInvOne = retData[0];
+      })
+
+      let respObj = Object.assign({}, apiDataInvOne);
+
+      let respArr = convertObj.toArray(respObj);
+
+      //  ctx.response.body = respArr;
+      ctx.response.body = apiDataInvOne;
+    })
+
+    var apiDataDB = {};
+    //  http://localhost:3005/api/1/getdbdata/object/888
+    //  wildcard GET API call (via mlBench, to support Desk component)
+    router.get('/api/1/getdbdata/object/:obj', async ctx => {
+      //  server.get("/api/1/getdbdata/object/:obj", (req, res) => {
+      // res.header("Access-Control-Allow-Origin", "*");
+      // res.header(
+      //   "Access-Control-Allow-Headers",
+      //   "Origin, X-Requested-With, Content-Type, Accept"
+      // );
       console.log(ctx.params);
 
-      retData = _collection.find({'invoiceLocator': Number(ctx.params.theid)});
+      const theParam = ctx.params.obj.toString();
 
-      console.log(retData);
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(theParam);
 
-      apiDataInvOne = retData[0];
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            theParam
+          );
+          _collection = AccountsDB.addCollection(theParam);
+        }
+        else {
+          console.log("collection exists");
+        }
+
+        retData = _collection.find();
+
+        console.log(retData);
+
+        apiDataDB = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataDB);
+
+      let respArr = convertObj.toArray(respObj);
+
+      ctx.response.body = respArr;
+    });
+
+    router.get('/api/1/updateorg/date/:paydate/name/:orgname', async ctx => {
+
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "orgs";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          orgName: ctx.params.orgname,
+          date: ctx.params.paydate,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving tax data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "orgname", "success": "ok" });
     })
 
-    let respObj = Object.assign({}, apiDataInvOne);
-    
-    let respArr = convertObj.toArray(respObj);
+    var apiDataOrgs = {};
 
-  //  ctx.response.body = respArr;
-  ctx.response.body = apiDataInvOne;
-  })
+    router.get('/api/1/getorgs/limit/:limit', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
 
-  var apiDataDB = {};
-  //  http://localhost:3005/api/1/getdbdata/object/888
-  //  wildcard GET API call (via mlBench, to support Desk component)
-  router.get('/api/1/getdbdata/object/:obj', async ctx => {
-//  server.get("/api/1/getdbdata/object/:obj", (req, res) => {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header(
-    //   "Access-Control-Allow-Headers",
-    //   "Origin, X-Requested-With, Content-Type, Accept"
-    // );
-    console.log(ctx.params);
+      let umbrella = "orgs";
 
-    const theParam = ctx.params.obj.toString();
+      let retData = {};
 
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(theParam);
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
 
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          theParam
-        );
-        _collection = AccountsDB.addCollection(theParam);
-      }
-      else {
-        console.log("collection exists");
-      }
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+        else {
+          console.log("collection exists");
+        }
 
-      retData = _collection.find();
+        retData = _collection.find();
 
-      console.log(retData);
+        console.log(retData);
 
-      apiDataDB = retData;
+        apiDataOrgs = retData;
+      })
+
+      let respObj = Object.assign({}, apiDataOrgs);
+
+      let respArr = convertObj.toArray(respObj);
+
+      respArr.reverse();
+
+      ctx.response.body = respArr;
     })
 
-    let respObj = Object.assign({}, apiDataDB);
-    
-    let respArr = convertObj.toArray(respObj);
 
-    ctx.response.body = respArr;
+    router.get('*', async ctx => {
+      await handle(ctx.req, ctx.res)
+      ctx.respond = false
+    });
+
+    server.use(async (ctx, next) => {
+      ctx.res.statusCode = 200
+      await next()
+    });
+
+    server.use(router.routes())
+    server.listen(port, () => {
+      console.log(`> Ready on http://localhost:${port}`)
+    });
   });
-
-  router.get('/api/1/updateorg/date/:paydate/name/:orgname', async ctx => {
-
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "orgs";
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-
-      _collection.insertOne({
-        orgName: ctx.params.orgname,
-        date: ctx.params.paydate,
-        locator: Math.floor(Math.random() * locatorScale + 1)
-      });
-
-      console.log("saving tax data");
-
-      AccountsDB.saveDatabase();
-    })
-    ctx.response.body = Object.assign({}, {"update": "orgname", "success": "ok"});
-  })
-
-  var apiDataOrgs = {};
-
-  router.get('/api/1/getorgs/limit/:limit', async ctx => {
-    console.log(ctx.req.url);
-    console.log("description: " + ctx.params.desc);
-
-    let umbrella = "orgs";
-
-    let retData = {};
-
-    AccountsDB.loadDatabase({}, function() {
-      let _collection = AccountsDB.getCollection(umbrella);
-
-      if (!_collection) {
-        console.log(
-          "Collection %s does not exist. Creating ... 🎮",
-          umbrella
-        );
-        _collection = AccountsDB.addCollection(umbrella);
-      }
-      else {
-        console.log("collection exists");
-      }
-
-      retData = _collection.find();
-
-      console.log(retData);
-
-      apiDataOrgs = retData;
-    })
-
-    let respObj = Object.assign({}, apiDataOrgs);
-    
-    let respArr = convertObj.toArray(respObj);
-
-    respArr.reverse();
-
-    ctx.response.body = respArr;
-  })
-  
-
-  router.get('*', async ctx => {
-    await handle(ctx.req, ctx.res)
-    ctx.respond = false
-  });
-
-  server.use(async (ctx, next) => {
-    ctx.res.statusCode = 200
-    await next()
-  });
-
-  server.use(router.routes())
-  server.listen(port, () => {
-    console.log(`> Ready on http://localhost:${port}`)
-  });
-});
