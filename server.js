@@ -1138,26 +1138,7 @@ app.prepare()
 
       // let retData = {};
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(taxes);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            taxes
-          );
-          _collection = AccountsDB.addCollection(taxes);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataTax = retData;
-      })
+      getDataTax();
 
       let respObj = Object.assign({}, apiDataTax);
 
