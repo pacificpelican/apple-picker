@@ -19,6 +19,8 @@ var apiDataRec = {};
 let umbrella = "receivables";
 let retData = {};
 
+var apiDataTime = {};
+
 function getData1() {
   AccountsDB.loadDatabase({}, () => {
     let _collection = AccountsDB.getCollection(umbrella);
@@ -42,7 +44,33 @@ function getData1() {
   })
 }
 
-getData1(); //  invocation of A/R pre-fetch function
+let timesheet = "timesheet";
+
+function getDataTime() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(timesheet);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        timesheet
+      );
+      _collection = AccountsDB.addCollection(timesheet);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataTime = retData;
+  })
+}
+
+//  getData1(); //  invocation of A/R pre-fetch function
+getDataTime() //  invocation of time sheet pre-fetch function
 //  endof: A/R pre-fetch
 
 let crypto;
@@ -457,23 +485,23 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-    var apiDataTime = {};
+  //  var apiDataTime = {};
 
     router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
 
-      let umbrella = "timesheet";
+      // let umbrella = "timesheet";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(timesheet);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            timesheet
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(timesheet);
         }
         else {
           console.log("collection exists");
