@@ -225,6 +225,32 @@ function getDataInt() {
   })
 }
 
+var apiDataPitches = {};
+let pitches = "pitches";
+
+function getDataPit() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(pitches);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        pitches
+      );
+      _collection = AccountsDB.addCollection(pitches);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataPitches = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
@@ -232,7 +258,8 @@ function getDataInt() {
 //  getDataPro();
 //  getDataCli();
 //  getDataTax();
-getDataInt();
+//  getDataInt();
+getDataPit();
 
 
 //  endof: A/R pre-fetch
@@ -255,9 +282,6 @@ const generateCrypto = function getCryptoNow() {
     );
     let rValHTML = `<span>${rVal}</span>`;
     retVal = rVal;
-    // that.setState({
-    //   cryptonow: retVal
-    // });
   });
   return retVal;
 }
@@ -393,13 +417,7 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-  //  var apiDataExp = {};
-
     router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
-
-      // let umbrella = "expenses";
-
-      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
         let _collection = AccountsDB.getCollection(expenses);
@@ -429,13 +447,7 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-  //  var apiDataPay = {};
-
     router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
-
-      // let umbrella = "payables";
-
-      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
         let _collection = AccountsDB.getCollection(payables);
@@ -1014,26 +1026,26 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-    var apiDataPitches = {};
+  //  var apiDataPitches = {};
 
     router.get('/api/1/getpitches/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      let umbrella = "pitches";
+      // let umbrella = "pitches";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(pitches);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            pitches
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(pitches);
         }
         else {
           console.log("collection exists");
