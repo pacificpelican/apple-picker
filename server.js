@@ -277,6 +277,32 @@ function getDataInv() {
   })
 }
 
+var apiDataMiles = {};
+let miles = "miles";
+
+function getDataMil() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(miles);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        miles
+      );
+      _collection = AccountsDB.addCollection(miles);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataMiles = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
@@ -286,7 +312,8 @@ function getDataInv() {
 //  getDataTax();
 //  getDataInt();
 //  getDataPit();
-getDataInv();
+//  getDataInv();
+getDataMil();
 
 //  endof: A/R pre-fetch
 
@@ -648,24 +675,24 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "miles", "success": "ok" });
     })
 
-    var apiDataMiles = {};
+  //  var apiDataMiles = {};
 
     router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
       console.log(ctx.req.url);
 
-      let umbrella = "miles";
+      // let umbrella = "miles";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(miles);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            miles
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(miles);
         }
         else {
           console.log("collection exists");
