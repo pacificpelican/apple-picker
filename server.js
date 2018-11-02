@@ -123,7 +123,6 @@ function getDataExp() {
 
 var apiDataProspects = {};
 let prospects = "prospects";
-var apiDataExp = {};
 
 function getDataPro() {
   AccountsDB.loadDatabase({}, () => {
@@ -148,11 +147,38 @@ function getDataPro() {
   })
 }
 
+var apiDataClients = {};
+let clients = "clients";
+
+function getDataCli() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(clients);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        clients
+      );
+      _collection = AccountsDB.addCollection(clients);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataClients = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
 //  getDataExp();
-getDataPro();
+//  getDataPro();
+getDataCli();
 
 
 //  endof: A/R pre-fetch
@@ -895,26 +921,26 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "interactions", "success": "ok" });
     })
 
-    var apiDataClients = {}
+  //  var apiDataClients = {}
 
     router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      let umbrella = "clients";
+      // let umbrella = "clients";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(clients);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            clients
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(clients);
         }
         else {
           console.log("collection exists");
