@@ -121,10 +121,38 @@ function getDataExp() {
   })
 }
 
+var apiDataProspects = {};
+let prospects = "prospects";
+var apiDataExp = {};
+
+function getDataPro() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(prospects);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        prospects
+      );
+      _collection = AccountsDB.addCollection(prospects);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataProspects = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
-getDataExp();
+//  getDataExp();
+getDataPro();
 
 
 //  endof: A/R pre-fetch
@@ -755,26 +783,26 @@ app.prepare()
       //  ctx.respond = false;
     })
 
-    var apiDataProspects = {};
+    // var apiDataProspects = {};
 
     router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      let umbrella = "prospects";
+      // let umbrella = "prospects";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(prospects);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            prospects
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(prospects);
         }
         else {
           console.log("collection exists");
