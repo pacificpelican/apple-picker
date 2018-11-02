@@ -69,8 +69,37 @@ function getDataTime() {
   })
 }
 
+let payables = "payables";
+var apiDataPay = {};
+
+function getDataPay() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(payables);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        payables
+      );
+      _collection = AccountsDB.addCollection(payables);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataPay = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
-getDataTime() //  invocation of time sheet pre-fetch function
+//  getDataTime(); //  invocation of time sheet pre-fetch function
+getDataPay();
+
+
 //  endof: A/R pre-fetch
 
 let crypto;
@@ -265,23 +294,23 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-    var apiDataPay = {};
+  //  var apiDataPay = {};
 
     router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
 
-      let umbrella = "payables";
+      // let umbrella = "payables";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(payables);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            payables
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(payables);
         }
         else {
           console.log("collection exists");
