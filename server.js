@@ -14,12 +14,10 @@ const convertObj = require("object-array-converter");
 
 const locatorScale = 3000000;
 
-//  This fetches the A/R data
 var apiDataRec = {};
-let umbrella = "receivables";
 let retData = {};
 
-var apiDataTime = {};
+let umbrella = "receivables";
 
 function getData1() {
   AccountsDB.loadDatabase({}, () => {
@@ -45,6 +43,7 @@ function getData1() {
 }
 
 let timesheet = "timesheet";
+var apiDataTime = {};
 
 function getDataTime() {
   AccountsDB.loadDatabase({}, () => {
@@ -340,7 +339,7 @@ function getDataRev() {
 //  getDataPit();
 //  getDataInv();
 //  getDataMil();
-getDataRev();
+//  getDataRev();
 
 //  endof: A/R pre-fetch
 
@@ -465,30 +464,7 @@ app.prepare()
 
     router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
 
-      // let umbrella = "revenues";
-
-      // let retData = {};
-
-      await AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(revenues);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            revenues
-          );
-          _collection = AccountsDB.addCollection(revenues);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiData = retData;
-      })
+      getDataRev();
 
       let respObj = Object.assign({}, apiData);
 
@@ -499,26 +475,7 @@ app.prepare()
 
     router.get('/api/1/getexpenses/org/:org/limit/:limit', async ctx => {
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(expenses);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            expenses
-          );
-          _collection = AccountsDB.addCollection(expenses);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataExp = retData;
-      })
+      getDataExp();
 
       let respObj = Object.assign({}, apiDataExp);
 
@@ -529,26 +486,7 @@ app.prepare()
 
     router.get('/api/1/getpayables/org/:org/limit/:limit', async ctx => {
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(payables);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            payables
-          );
-          _collection = AccountsDB.addCollection(payables);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataPay = retData;
-      })
+      getDataPay();
 
       let respObj = Object.assign({}, apiDataPay);
 
@@ -561,26 +499,7 @@ app.prepare()
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      AccountsDB.loadDatabase({}, () => { //  This runs to update the data while the app is running
-        let _collection = AccountsDB.getCollection(umbrella);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            umbrella
-          );
-          _collection = AccountsDB.addCollection(umbrella);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataRec = retData;
-      })
+      getData1();
 
       let respObj = Object.assign({}, apiDataRec);
 
@@ -589,34 +508,9 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-  //  var apiDataInv = {};
-
     router.get('/api/1/getinvoices/org/:org/limit/:limit', async ctx => {
 
-      // let umbrella = "invoices";
-
-      // let retData = {};
-
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(invoices);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            invoices
-          );
-          _collection = AccountsDB.addCollection(invoices);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataInv = retData;
-      })
+      getDataInv();
 
       let respObj = Object.assign({}, apiDataInv);
 
@@ -702,35 +596,10 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "miles", "success": "ok" });
     })
 
-  //  var apiDataMiles = {};
-
     router.get('/api/1/getmiles/org/:org/limit/:limit', async ctx => {
       console.log(ctx.req.url);
 
-      // let umbrella = "miles";
-
-      // let retData = {};
-
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(miles);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            miles
-          );
-          _collection = AccountsDB.addCollection(miles);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataMiles = retData;
-      })
+      getDataMil();
 
       let respObj = Object.assign({}, apiDataMiles);
 
@@ -741,26 +610,7 @@ app.prepare()
 
     router.get('/api/1/gettime/org/:org/limit/:limit', async ctx => {
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(timesheet);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            timesheet
-          );
-          _collection = AccountsDB.addCollection(timesheet);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataTime = retData;
-      })
+      getDataTime();
 
       let respObj = Object.assign({}, apiDataTime);
 
@@ -944,40 +794,14 @@ app.prepare()
       })
       ctx.response.body = Object.assign({}, { "update": "prospects", "success": "ok" });
 
-      //  ctx.respond = false;
     })
-
-    // var apiDataProspects = {};
 
     router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      // let umbrella = "prospects";
-
-      // let retData = {};
-
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(prospects);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            prospects
-          );
-          _collection = AccountsDB.addCollection(prospects);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataProspects = retData;
-      })
+      getDataPro();
 
       let respObj = Object.assign({}, apiDataProspects);
 
@@ -1064,26 +888,7 @@ app.prepare()
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(clients);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            clients
-          );
-          _collection = AccountsDB.addCollection(clients);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataClients = retData;
-      })
+      getDataCli();
 
       let respObj = Object.assign({}, apiDataClients);
 
@@ -1097,26 +902,7 @@ app.prepare()
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(pitches);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            pitches
-          );
-          _collection = AccountsDB.addCollection(pitches);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataPitches = retData;
-      })
+      getDataPit();
 
       let respObj = Object.assign({}, apiDataPitches);
 
@@ -1126,30 +912,10 @@ app.prepare()
     })
 
     router.get('/api/1/getinteractions/org/:org/limit/:limit', async ctx => {
-      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(interactions);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            interactions
-          );
-          _collection = AccountsDB.addCollection(interactions);
-        }
-        else {
-          console.log("collection exists");
-        }
-
-        retData = _collection.find();
-
-        console.log(retData);
-
-        apiDataInt = retData;
-      })
+      getDataInt();
 
       let respObj = Object.assign({}, apiDataInt);
 
@@ -1215,29 +981,7 @@ app.prepare()
 
       let retData = {};
 
-      AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
-
-        if (!_collection) {
-          console.log(
-            "Collection %s does not exist. Creating ... 🎮",
-            umbrella
-          );
-          _collection = AccountsDB.addCollection(umbrella);
-        }
-        else {
-          console.log("collection " + umbrella + " exists");
-        }
-
-        console.log("ctx.params: ");
-        console.log(ctx.params);
-
-        retData = _collection.find({ 'invoiceLocator': Number(ctx.params.theid) });
-
-        console.log(retData);
-
-        apiDataInvOne = retData[0];
-      })
+      getDataInv();
 
       let respObj = Object.assign({}, apiDataInvOne);
 
@@ -1358,7 +1102,6 @@ app.prepare()
 
       ctx.response.body = respArr;
     })
-
 
     router.get('*', async ctx => {
       await handle(ctx.req, ctx.res)
