@@ -173,12 +173,39 @@ function getDataCli() {
   })
 }
 
+var apiDataTax = {};
+let taxes = "taxes";
+
+function getDataTax() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(taxes);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        taxes
+      );
+      _collection = AccountsDB.addCollection(taxes);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataTax = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
 //  getDataExp();
 //  getDataPro();
-getDataCli();
+//  getDataCli();
+getDataTax();
 
 
 //  endof: A/R pre-fetch
@@ -1074,25 +1101,25 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "taxes", "success": "ok" });
     })
 
-    var apiDataTax = {};
+  //  var apiDataTax = {};
 
     router.get('/api/1/gettaxes/org/:org/limit/:limit', async ctx => {
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      let umbrella = "taxes";
+      // let umbrella = "taxes";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(taxes);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            taxes
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(taxes);
         }
         else {
           console.log("collection exists");
