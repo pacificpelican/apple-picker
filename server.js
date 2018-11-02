@@ -199,13 +199,40 @@ function getDataTax() {
   })
 }
 
+var apiDataInt = {};
+let interactions = "interactions";
+
+function getDataInt() {
+  AccountsDB.loadDatabase({}, () => {
+    let _collection = AccountsDB.getCollection(interactions);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        interactions
+      );
+      _collection = AccountsDB.addCollection(interactions);
+    }
+    else {
+      console.log("collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataInt = retData;
+  })
+}
+
 //  getData1(); //  invocation of A/R pre-fetch function
 //  getDataTime(); //  invocation of time sheet pre-fetch function
 //  getDataPay();
 //  getDataExp();
 //  getDataPro();
 //  getDataCli();
-getDataTax();
+//  getDataTax();
+getDataInt();
 
 
 //  endof: A/R pre-fetch
@@ -1026,26 +1053,26 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-    var apiDataInter = {};
+  // var apiDataInter = {};
 
     router.get('/api/1/getinteractions/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
-      let umbrella = "interactions";
+      // let umbrella = "interactions";
 
-      let retData = {};
+      // let retData = {};
 
       AccountsDB.loadDatabase({}, function () {
-        let _collection = AccountsDB.getCollection(umbrella);
+        let _collection = AccountsDB.getCollection(interactions);
 
         if (!_collection) {
           console.log(
             "Collection %s does not exist. Creating ... 🎮",
-            umbrella
+            interactions
           );
-          _collection = AccountsDB.addCollection(umbrella);
+          _collection = AccountsDB.addCollection(interactions);
         }
         else {
           console.log("collection exists");
@@ -1055,10 +1082,10 @@ app.prepare()
 
         console.log(retData);
 
-        apiDataInter = retData;
+        apiDataInt = retData;
       })
 
-      let respObj = Object.assign({}, apiDataInter);
+      let respObj = Object.assign({}, apiDataInt);
 
       let respArr = convertObj.toArray(respObj);
 
