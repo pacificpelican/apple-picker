@@ -341,47 +341,71 @@ function getDataRev() {
 //  getDataMil();
 //  getDataRev();
 
-new Promise(function(resolve, reject) {
+new Promise(function (resolve, reject) {
 
   getData1();
   setTimeout(() => resolve(1), 1000); // (*)
 
-}).then(function(result) { // (**)
+}).then(function (result) { // (**)
 
-  new Promise(function(resolve, reject) {
+  new Promise(function (resolve, reject) {
 
-      getDataTime();
+    getDataTime();
+    setTimeout(() => resolve(1), 1000); // (*)
+
+  }).then(function (result) { // (**)
+
+    new Promise(function (resolve, reject) {
+
+      getDataPay();
       setTimeout(() => resolve(1), 1000); // (*)
 
-  }).then(function(result) { // (**)
+    }).then(function (result) { // (**)
 
-    new Promise(function(resolve, reject) {
-  
-        getDataPay();
+      new Promise(function (resolve, reject) {
+
+        getDataExp();
         setTimeout(() => resolve(1), 1000); // (*)
-  
-    }).then(function(result) { // (**)
 
-      new Promise(function(resolve, reject) {
-    
-          getDataExp();
+      }).then(function (result) { // (**)
+
+        new Promise(function (resolve, reject) {
+
+          getDataPro();
           setTimeout(() => resolve(1), 1000); // (*)
-    
-      }).then(function(result) { // (**)
 
-        new Promise(function(resolve, reject) {
-      
-            getDataPro();
+        }).then(function (result) { // (**)
+
+          new Promise(function (resolve, reject) {
+
+            getDataCli();
             setTimeout(() => resolve(1), 1000); // (*)
-      
-        }).then(function(result) { // (**)
 
-          new Promise(function(resolve, reject) {
-        
-              getDataCli();
+          }).then(function (result) { // (**)
+
+            new Promise(function (resolve, reject) {
+
+              getDataTax();
               setTimeout(() => resolve(1), 1000); // (*)
-        
-          })
+
+            }).then(function (result) { // (**)
+
+              new Promise(function (resolve, reject) {
+
+                getDataInt();
+                setTimeout(() => resolve(1), 1000); // (*)
+
+              }).then(function (result) { // (**)
+
+                new Promise(function (resolve, reject) {
+
+                  getDataPit();
+                  setTimeout(() => resolve(1), 1000); // (*)
+
+                })
+              });
+            });
+          });
         });
       });
     });
@@ -521,7 +545,7 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "revenues", "success": "ok" });
     })
 
-  //  var apiData = {};
+    //  var apiData = {};
 
     router.get('/api/1/getrevenue/org/:org/limit/:limit', async ctx => {
 
