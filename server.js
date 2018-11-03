@@ -341,6 +341,43 @@ function getDataRev() {
 //  getDataMil();
 //  getDataRev();
 
+new Promise(function(resolve, reject) {
+
+  getData1();
+  setTimeout(() => resolve(1), 1000); // (*)
+
+}).then(function(result) { // (**)
+
+  new Promise(function(resolve, reject) {
+
+      getDataTime();
+      setTimeout(() => resolve(1), 1000); // (*)
+
+  }).then(function(result) { // (**)
+
+    new Promise(function(resolve, reject) {
+  
+        getDataPay();
+        setTimeout(() => resolve(1), 1000); // (*)
+  
+    })
+  });
+});
+
+// }).then(function(result) { // (***)
+
+// //  getDataPay();
+//   console.log(result); // 2
+//   return result * 2;
+
+// }).then(function(result) {
+
+// //  getDataExp();
+//   console.log(result); // 4
+//   return result * 2;
+
+// });
+
 //  endof: A/R pre-fetch
 
 let crypto;
