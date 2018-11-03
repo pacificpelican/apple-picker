@@ -360,7 +360,31 @@ new Promise(function(resolve, reject) {
         getDataPay();
         setTimeout(() => resolve(1), 1000); // (*)
   
-    })
+    }).then(function(result) { // (**)
+
+      new Promise(function(resolve, reject) {
+    
+          getDataExp();
+          setTimeout(() => resolve(1), 1000); // (*)
+    
+      }).then(function(result) { // (**)
+
+        new Promise(function(resolve, reject) {
+      
+            getDataPro();
+            setTimeout(() => resolve(1), 1000); // (*)
+      
+        }).then(function(result) { // (**)
+
+          new Promise(function(resolve, reject) {
+        
+              getDataCli();
+              setTimeout(() => resolve(1), 1000); // (*)
+        
+          })
+        });
+      });
+    });
   });
 });
 
