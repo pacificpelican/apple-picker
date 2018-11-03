@@ -2,6 +2,8 @@ const Koa = require('koa');
 const next = require('next');
 const Router = require('koa-router');
 
+//  server.js [Koa] for apple-picker accounting app; copyright 2018 Dan McKeown
+
 const port = parseInt(process.env.PORT, 10) || 3005;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -328,22 +330,9 @@ function getDataRev() {
   })
 }
 
-//  getData1(); //  invocation of A/R pre-fetch function
-//  getDataTime(); //  invocation of time sheet pre-fetch function
-//  getDataPay();
-//  getDataExp();
-//  getDataPro();
-//  getDataCli();
-//  getDataTax();
-//  getDataInt();
-//  getDataPit();
-//  getDataInv();
-//  getDataMil();
-//  getDataRev();
-
 new Promise(function (resolve, reject) {
 
-  getData1();
+  getData1(); //  invocation of A/R pre-fetch function
   setTimeout(() => resolve(1), 1000); // (*)
 
 }).then(function (result) { // (**)
@@ -402,7 +391,31 @@ new Promise(function (resolve, reject) {
                   getDataPit();
                   setTimeout(() => resolve(1), 1000); // (*)
 
-                })
+                }).then(function (result) { // (**)
+
+                  new Promise(function (resolve, reject) {
+  
+                    getDataInv();
+                    setTimeout(() => resolve(1), 1000); // (*)
+  
+                  }).then(function (result) { // (**)
+
+                    new Promise(function (resolve, reject) {
+    
+                      getDataMil();
+                      setTimeout(() => resolve(1), 1000); // (*)
+    
+                    }).then(function (result) { // (**)
+
+                      new Promise(function (resolve, reject) {
+      
+                        getDataRev();
+                        setTimeout(() => resolve(1), 1000); // (*)
+      
+                      })
+                    });
+                  });
+                });
               });
             });
           });
@@ -411,22 +424,7 @@ new Promise(function (resolve, reject) {
     });
   });
 });
-
-// }).then(function(result) { // (***)
-
-// //  getDataPay();
-//   console.log(result); // 2
-//   return result * 2;
-
-// }).then(function(result) {
-
-// //  getDataExp();
-//   console.log(result); // 4
-//   return result * 2;
-
-// });
-
-//  endof: A/R pre-fetch
+//  endof: DB pre-fetch
 
 let crypto;
 try {
@@ -983,7 +981,6 @@ app.prepare()
     })
 
     router.get('/api/1/getpitches/org/:org/limit/:limit', async ctx => {
-      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
