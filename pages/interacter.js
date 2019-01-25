@@ -77,7 +77,7 @@ export default class Interacter extends Component {
       this.state.prospect;
     let that = this;
 
-    fetch(dest, {})
+    fetch(dest, {method: 'post'})
       .then(function(response) {
         if (response.ok) {
           console.log("response ok");

@@ -966,6 +966,42 @@ app.prepare()
       ctx.response.body = Object.assign({}, { "update": "interactions", "success": "ok" });
     })
 
+    router.post('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "interactions";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          audience: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          estimatedValueAdded: ctx.params.total,
+          org: ctx.params.org,
+          clientID: ctx.params.pid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving pitch data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "interactions", "success": "ok" });
+    })
+
     router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
