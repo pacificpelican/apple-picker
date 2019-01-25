@@ -879,6 +879,41 @@ app.prepare()
 
     })
 
+    router.post('/api/1/addprospect/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org', async ctx => {
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "prospects";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          prospect: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          expectedAmount: ctx.params.total,
+          org: ctx.params.org,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving expense data");
+
+        AccountsDB.saveDatabase();
+      })
+      ctx.response.body = Object.assign({}, { "update": "prospects", "success": "ok" });
+
+    })
+
     router.get('/api/1/getprospects/org/:org/limit/:limit', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
@@ -894,6 +929,43 @@ app.prepare()
     })
 
     router.get('/api/1/addpitch/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
+      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+      console.log(ctx.req.url);
+      console.log("description: " + ctx.params.desc);
+
+      let umbrella = "pitches";
+
+      AccountsDB.loadDatabase({}, function () {
+        let _collection = AccountsDB.getCollection(umbrella);
+
+        if (!_collection) {
+          console.log(
+            "Collection %s does not exist. Creating ... 🎮",
+            umbrella
+          );
+          _collection = AccountsDB.addCollection(umbrella);
+        }
+
+        _collection.insertOne({
+          audience: ctx.params.payee,
+          date: ctx.params.paydate,
+          description: ctx.params.desc,
+          notes: ctx.params.notes,
+          companyMarketCap: ctx.params.total,
+          org: ctx.params.org,
+          prospectID: ctx.params.pid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
+        });
+
+        console.log("saving pitch data");
+
+        AccountsDB.saveDatabase();
+
+      })
+      ctx.response.body = Object.assign({}, { "update": "pitches", "success": "ok" });
+    })
+
+    router.post('/api/1/addpitch/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
       //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);

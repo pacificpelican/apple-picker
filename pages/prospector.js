@@ -40,7 +40,7 @@ export default class Prospector extends Component {
     let dest = "/api/1/addprospect/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
     let that = this;
 
-    fetch(dest, {})
+    fetch(dest, {method: 'post'})
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
