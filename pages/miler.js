@@ -42,7 +42,7 @@ export default class Miler extends Component {
       let dest = "/api/1/addmiles/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/destination/" + this.state.dest + "/embarkment/" + this.state.emb + "/description/" + this.state.desc + "/roundtrip/" + this.state.round + "/notes/" + this.state.notes + "/org/" + this.state.org + "/clientid/" + this.state.ar;
       let that = this;
   
-      fetch(dest, {})
+      fetch(dest, {method: 'post'})
         .then(function(response) {
           if (response.ok) {
             console.log("response ok");
