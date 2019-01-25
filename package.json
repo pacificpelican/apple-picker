@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.9.83",
+  "version": "0.9.84",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",

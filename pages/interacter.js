@@ -176,7 +176,7 @@ export default class Interacter extends Component {
                 />
               </section>
               <section className="expense-form">
-                <span className="input-span">Estimated value added: $</span>
+                <span className="input-span">Estimated value added (non-zero): $</span>
                 <input
                   required
                   id="input-amount"
