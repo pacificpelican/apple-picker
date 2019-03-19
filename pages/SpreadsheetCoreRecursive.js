@@ -3,6 +3,8 @@
 //  mlBench
 import React, { Component } from "react";
 
+let lastkey = null;
+
 class SpreadsheetCoreRecursive extends Component {
   constructor() {
     super();
@@ -78,6 +80,10 @@ class SpreadsheetCoreRecursive extends Component {
             let keyArr = Object.keys(interVal);
             let valArr = Object.values(interVal);
 
+            if (keyArr[0] === "key") {
+              lastkey = valArr[0];
+            }
+
             let retSet = [];
 
             for (let i = 0; i < keyArr.length; i++) {
@@ -94,6 +100,7 @@ class SpreadsheetCoreRecursive extends Component {
               }
             }
 
+            
             for (let i = 0; i < valArr.length; i++) {
               if (typeof valArr[i] === "object") {
                 // retSet.push(
@@ -104,10 +111,12 @@ class SpreadsheetCoreRecursive extends Component {
                     <SpreadsheetCoreRecursive spreadsheetdata={valArr[i]} />
                   </span>
                 );
-              } else {
+              } 
+              else {
+                
                 retSet.push(
                   <span key={valArr[i]} className="valSheetRow">
-                    {valArr[i] + " "}
+                    <a href={"/api/v/1/tuple/" + lastkey + "/val/" + valArr[i]}>{valArr[i] + " "}</a>
                   </span>
                 );
               }

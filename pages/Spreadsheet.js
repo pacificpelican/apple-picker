@@ -4,8 +4,7 @@
 import React, { Component } from "react";
 import Link from "next/link";
 
-import SpreadsheetCore from "./SpreadsheetCore";
-import SpreadsheetCoreRecursive from "./SpreadsheetCoreRecursive";
+import SpreadsheetCoreRecursiveClick from "./SpreadsheetCoreRecursiveClick";
 
 let crypto;
 try {
@@ -126,7 +125,7 @@ class Spreadsheet extends Component {
 
     return (
       <div id="desk-wrapper" className="mlBench-content">
-        <SpreadsheetCoreRecursive spreadsheetdata={g} />
+        <SpreadsheetCoreRecursiveClick spreadsheetdata={g} />
         <style>{`
         .spread {
           font-family: "Ubuntu Mono", "Inconsolata", "Hack", "Fira Code", Menlo, monospace;
