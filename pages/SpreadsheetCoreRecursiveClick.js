@@ -47,7 +47,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
 
     return (
       <div id="desk" className="mlBench-content">
-        <section id="keylibrary">
+        <section className="keylibrary">
           {g.map(function (interVal) {
             let valArr = Object.keys(interVal);
 
@@ -68,7 +68,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
             }
           })}
         </section>
-        <section id="datalibrary">
+        <section className="datalibrary">
           {g.map(function (interVal) {
             let keyArr = Object.keys(interVal);
             let valArr = Object.values(interVal);
@@ -117,8 +117,32 @@ class SpreadsheetCoreRecursiveClick extends Component {
             return [...retSet];
           })}
         </section>
-        <style>{`
-       
+        <style jsx>{`
+          .spread {
+            font-family: "Ubuntu Mono", "Inconsolata", "Hack", "Fira Code", Menlo, monospace;
+          }
+          .keylibrary {
+            display: flex;
+            flex-direction: row;
+          }
+          span.valHeaderRow {
+            background-color: lightblue;
+            margin-top: 12px;
+            margin-right: 10px;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            text-align: left;
+            padding-right: calc(1rem + 3vw);
+          }
+          span.valSheetRow {
+            background-color: lightgray;
+            margin-top: 12px;
+            margin-right: 10px;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+            text-align: left;
+            padding-right: calc(1rem);
+          }
         `}</style>
       </div>
     );

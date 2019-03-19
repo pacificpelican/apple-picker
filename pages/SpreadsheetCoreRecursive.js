@@ -116,7 +116,7 @@ class SpreadsheetCoreRecursive extends Component {
                 
                 retSet.push(
                   <span key={valArr[i]} className="valSheetRow">
-                    <a href={"/api/v/1/tuple/" + lastkey + "/val/" + valArr[i]}>{valArr[i] + " "}</a>
+                    {valArr[i] + " "}
                   </span>
                 );
               }
@@ -129,7 +129,23 @@ class SpreadsheetCoreRecursive extends Component {
           })}
         </section>
         <style>{`
-       
+          .spread {
+            font-family: "Ubuntu Mono", "Inconsolata", "Hack", "Fira Code", Menlo, monospace;
+          }
+          span.valSheetRow {
+            background-color: lightgray;
+            margin-top: 12px;
+            margin-right: 10px;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+          }
+          span.valHeaderRow {
+            background-color: lightblue;
+            margin-top: 12px;
+            margin-right: 10px;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+          }
         `}</style>
       </div>
     );

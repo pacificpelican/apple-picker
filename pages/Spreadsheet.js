@@ -127,23 +127,7 @@ class Spreadsheet extends Component {
       <div id="desk-wrapper" className="mlBench-content">
         <SpreadsheetCoreRecursiveClick spreadsheetdata={g} />
         <style>{`
-        .spread {
-          font-family: "Ubuntu Mono", "Inconsolata", "Hack", "Fira Code", Menlo, monospace;
-        }
-        span.valSheetRow {
-          background-color: lightgray;
-          margin-top: 12px;
-          margin-right: 10px;
-          margin-bottom: 0.6rem;
-          line-height: 1.3;
-        }
-        span.valHeaderRow {
-          background-color: lightblue;
-          margin-top: 12px;
-          margin-right: 10px;
-          margin-bottom: 0.6rem;
-          line-height: 1.3;
-        }
+        
         `}</style>
       </div>
     );
