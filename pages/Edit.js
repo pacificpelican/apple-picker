@@ -31,6 +31,14 @@ class Edit extends Component {
 
   }
 
+  static async getInitialProps({ req }) {
+    
+    console.log(req);
+    const tuple = req ? req.headers['tuple'] : navigator.tuple;
+    console.log("props: " + tuple);
+    return { tuple }
+  }
+
 
   handlecValueChange(event) {
     let capturedVal = event.target.value;
@@ -38,10 +46,17 @@ class Edit extends Component {
   }
 
   componentDidMount(props) {
-    this.setState({ entry: this.props.val})
+    //this.setState({ entry: this.props.val})
+
+    // let url_string = Window.location.href;
+    // let url = new URL(url_string);
+    // var val = url.searchParams.get("val");
+    // console.log(val);
   }
 
   render(props) {
+
+    console.log(this.props);
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
@@ -68,7 +83,9 @@ class Edit extends Component {
           </Button>
         </section>
         <section>
-          <span>val: {this.state.entry} {this.props.val}</span>
+          <span>val: {this.props.val}
+            <br />
+          tuple: {this.props.tuple}</span>
         </section>
         {/* <Card id="results">
           <Spreadsheet dbdataArr={this.state.dbdataArr} />

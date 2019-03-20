@@ -106,8 +106,11 @@ class SpreadsheetCoreRecursiveClick extends Component {
 
                 retSet.push(
                   <span key={valArr[i]} className="valSheetRow">
-                    <Link href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]} title="Edit Page">
+                    {/* <Link href="/Edit" tuple={lastkey} val={valArr[i]}>
                       <a>{valArr[i] + " "}</a>
+                    </Link> */}
+                    <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i] } }}>
+                    <a>{valArr[i] + " "}</a>
                     </Link>
                     {/* <a href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]}></a> */}
                   </span>
