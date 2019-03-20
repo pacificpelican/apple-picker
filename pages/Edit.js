@@ -22,7 +22,7 @@ class Edit extends Component {
     Ok: true,
     entry: '',
     cryptonowNumber: 0,
-    userObjectAsk: ""
+    userObjectAsk: '_'
   };
 
   constructor(props) {
@@ -42,6 +42,7 @@ class Edit extends Component {
 
 
   handlecValueChange(event) {
+    console.log(event.target.value)
     let capturedVal = event.target.value;
     this.setState({ userObjectAsk: capturedVal });
   }
@@ -53,13 +54,19 @@ class Edit extends Component {
     // let url = new URL(url_string);
     // var val = url.searchParams.get("val");
     // console.log(val);
+
+    this.setState({userObjectAsk : this.props.url.query.val});
+  }
+
+  goBack() {
+    window.history.back();
   }
 
   render(props) {
 
-    console.log(this.props);
-    console.log(this.props.url.query.tuple);
-    console.log(this.props.url.query.val);
+    // console.log(this.props);
+    // console.log(this.props.url.query.tuple);
+    // console.log(this.props.url.query.val);
 
     const tuple = this.props.url.query.tuple;
     let val = this.props.url.query.val;
