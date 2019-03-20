@@ -6,6 +6,10 @@ import Link from "next/link";
 
 import Spreadsheet from "./Spreadsheet";
 
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import Card from '@material-ui/core/Card';
+
 let crypto;
 try {
   crypto = require("crypto");
@@ -237,19 +241,23 @@ class Desk extends Component {
         <br />
         </aside>
         <section id="user-input">
-          <input
+          <Input
             id="crypto_output"
             onChange={this.handlecValueChange}
             value={this.state.userObjectAsk}
           />
-          <button onClick={this.handleLookupButton} id="lookupDB">
+          <Button variant="contained" color="primary" onClick={this.handleLookupButton} id="lookupDB">
             lookup in DB
-          </button>
+          </Button>
         </section>
-        <Spreadsheet dbdataArr={this.state.dbdataArr} />
+        <Card id="results">
+          <Spreadsheet dbdataArr={this.state.dbdataArr} />
+        </Card>
+
         <footer id="deskFooter">
           powered by <b>mlBench Spreadsheetcore</b> by <a href="http://danmckeown.info">Dan McKeown</a>
         </footer>
+        
         <style jsx global>{`
           h1#desk, aside {
             font-family: Futura, "Ubuntu", "Lucida Grande", "Roboto", Helvetica,
@@ -258,6 +266,18 @@ class Desk extends Component {
           footer#deskFooter {
             margin-top: 2em;
             font-family: Ubuntu, Roboto, Helvetica, sans-serif;
+          }
+          section#user-input {
+            margin-bottom: calc(3vh + 10px);
+          }
+          #lookupDB {
+            margin-left: calc(1vh + 10px);
+          }
+          #results {
+            font-family: "Inconsolata", "Anonymous Pro", "Hack", Menlo, monospace;
+          }
+          div#deskContainer {
+            background: #f7f8f9;
           }
         `}</style>
       </div>

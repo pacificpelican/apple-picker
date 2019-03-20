@@ -132,7 +132,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
             margin-bottom: 0.6rem;
             line-height: 1.3;
             text-align: left;
-            padding-right: calc(1rem + 3vw);
+            padding-right: calc(1rem + 2.1vw);
           }
           span.valSheetRow {
             background-color: lightgray;
@@ -142,6 +142,10 @@ class SpreadsheetCoreRecursiveClick extends Component {
             line-height: 1.3;
             text-align: left;
             padding-right: calc(1rem);
+          }
+          span.valSheetRow a {
+            text-decoration: none;
+            color: black;
           }
         `}</style>
       </div>
