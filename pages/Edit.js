@@ -9,6 +9,7 @@ import Spreadsheet from "./Spreadsheet";
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
+import { Tab } from "@material-ui/core";
 
 function reloadOnce() {
   console.log("about to reload");
@@ -31,13 +32,13 @@ class Edit extends Component {
 
   }
 
-  static async getInitialProps({ req }) {
+  // static async getInitialProps({ req }) {
     
-    console.log(req);
-    const tuple = req ? req.headers['tuple'] : navigator.tuple;
-    console.log("props: " + tuple);
-    return { tuple }
-  }
+  //   console.log(req);
+  //   const tuple = req ? req.headers['tuple'] : navigator.tuple;
+  //   console.log("props: " + tuple);
+  //   return { tuple }
+  // }
 
 
   handlecValueChange(event) {
@@ -57,6 +58,13 @@ class Edit extends Component {
   render(props) {
 
     console.log(this.props);
+    console.log(this.props.url.query.tuple);
+    console.log(this.props.url.query.val);
+
+    const tuple = this.props.url.query.tuple;
+    let val = this.props.url.query.val;
+    let store = this.props.url.query.store;
+    let table = this.props.url.query.table;
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
@@ -64,7 +72,7 @@ class Edit extends Component {
           ⬅️ back
         </button>
         <h1 id="desk">
-          apple-picker Object Editor<span id="rollLink">
+          apple-picker Object Prop Editor<span id="rollLink">
             {" "}
             <a href="#" onClick={reloadOnce}>
               reload()
@@ -82,11 +90,17 @@ class Edit extends Component {
             update in DB
           </Button>
         </section>
-        <section>
-          <span>val: {this.props.val}
+        <Card>
+          <section id="propsInfo">
+            <span>val: {val}
+              <br />
+            tuple: {tuple}
             <br />
-          tuple: {this.props.tuple}</span>
-        </section>
+            table: {table}
+            <br />
+            store: {store}</span>
+          </section>
+        </Card>
         {/* <Card id="results">
           <Spreadsheet dbdataArr={this.state.dbdataArr} />
         </Card> */}
@@ -115,6 +129,9 @@ class Edit extends Component {
           }
           div#deskContainer {
             background: #f7f8f9;
+          }
+          section#propsInfo {
+            font-family: "Roboto", "Ubuntu Sans", "Segoe UI", "Lucida Sans", Helvetica, sans-serif;
           }
         `}</style>
       </div>

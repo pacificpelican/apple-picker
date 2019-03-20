@@ -105,7 +105,11 @@ class Spreadsheet extends Component {
   }
 
   render(props) {
+    console.log("table prop in Spreadsheet: " + this.props.table);
     let g = noTrueArraysMan(this.props.dbdataArr);
+
+    const theStore = this.props.store;
+    const theTable = this.props.table;
 
     const map1 = g.map(
       x =>
@@ -125,7 +129,7 @@ class Spreadsheet extends Component {
 
     return (
       <div id="desk-wrapper" className="mlBench-content">
-        <SpreadsheetCoreRecursiveClick spreadsheetdata={g} />
+        <SpreadsheetCoreRecursiveClick spreadsheetdata={g} store={theStore} table={theTable} />
         <style>{`
         
         `}</style>

@@ -7,6 +7,8 @@ import Link from 'next/link';
 let lastkey = null;
 
 class SpreadsheetCoreRecursiveClick extends Component {
+  table = null;
+
   constructor() {
     super();
 
@@ -37,6 +39,9 @@ class SpreadsheetCoreRecursiveClick extends Component {
   }
 
   render(props) {
+
+    let theStore = 'accountsDB';
+    let theTable = this.props.table;
 
     var g;
     if (this.props.spreadsheetdata[0] !== undefined) {
@@ -98,7 +103,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
               if (typeof valArr[i] === "object") {
                 retSet.push(
                   <span key={valArr[i]} className="valSheetRow">
-                    <SpreadsheetCoreRecursiveClick spreadsheetdata={valArr[i]} />
+                    <SpreadsheetCoreRecursiveClick spreadsheetdata={valArr[i]} table={theTable} store={theStore} />
                   </span>
                 );
               }
@@ -109,7 +114,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
                     {/* <Link href="/Edit" tuple={lastkey} val={valArr[i]}>
                       <a>{valArr[i] + " "}</a>
                     </Link> */}
-                    <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i] } }}>
+                    <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i], store: theStore, table: theTable} }}>
                     <a>{valArr[i] + " "}</a>
                     </Link>
                     {/* <a href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]}></a> */}

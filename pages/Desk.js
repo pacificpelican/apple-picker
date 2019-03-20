@@ -251,7 +251,7 @@ class Desk extends Component {
           </Button>
         </section>
         <Card id="results">
-          <Spreadsheet dbdataArr={this.state.dbdataArr} />
+          <Spreadsheet dbdataArr={this.state.dbdataArr} table={this.state.userObjectAsk} store="accountsDB" />
         </Card>
 
         <footer id="deskFooter">
