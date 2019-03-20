@@ -235,7 +235,7 @@ class Desk extends Component {
           </span>
         </h1>
         <aside>
-          database tables to look up: receivables, invoices, taxes, revenues, expenses, miles, payables, taxes, clients, prospects, pitches, interactions
+          database tables to look up: receivables, invoices, taxes, revenues, expenses, miles, payables, taxes, clients, prospects, pitches, interactions, timesheet
           <br />
           
         <br />

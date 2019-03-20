@@ -2,6 +2,7 @@
 //  SpreadsheetCore.js
 //  mlBench
 import React, { Component } from "react";
+import Link from 'next/link';
 
 let lastkey = null;
 
@@ -105,7 +106,10 @@ class SpreadsheetCoreRecursiveClick extends Component {
 
                 retSet.push(
                   <span key={valArr[i]} className="valSheetRow">
-                    <a href={"/api/v/1/tuple/" + lastkey + "/val/" + valArr[i]}>{valArr[i] + " "}</a>
+                    <Link href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]} title="Edit Page">
+                      <a>{valArr[i] + " "}</a>
+                    </Link>
+                    {/* <a href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]}></a> */}
                   </span>
                 );
               }
