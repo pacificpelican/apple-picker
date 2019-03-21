@@ -397,10 +397,19 @@ function postDataWildcard(db, table, tuple, objval, objkey = "description", newV
     console.log(record);
     console.log(newVal);
 
-    record[objkeyString] = newVal;
+    // let bigObject = Object.assign(record, {[objkeyString] : objvalString});
 
-    _collection.update(objkey);
+    // record = bigObject;
+
+    record[`${objkeyString}`] = newVal;
+
+    //  record.date = newVal;
+
+    _collection.update(record);
+
+    db2.saveDatabase();
   });
+
 }
 
 new Promise(function (resolve, reject) {
