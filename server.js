@@ -330,6 +330,34 @@ function getDataRev() {
   })
 }
 
+var apiDataWild = {};
+//  let revenues = "revenues";
+
+function getDataWildcard(db, table) {
+  let dbDirectory = "/db/"
+  let db2 = new loki(__dirname + dbDirectory + db + ".json");
+  db2.loadDatabase({}, () => {
+    let _collection = db2.getCollection(table);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Creating ... 🎮",
+        table
+      );
+      _collection = db2.addCollection(table);
+    }
+    else {
+      console.log(table + "collection exists");
+    }
+
+    retData = _collection.find();
+
+    console.log(retData);
+
+    apiDataWild = retData;
+  })
+}
+
 new Promise(function (resolve, reject) {
 
   getData1(); //  invocation of A/R pre-fetch function
@@ -1330,6 +1358,71 @@ app.prepare()
 
       ctx.response.body = respArr;
     })
+
+    //  wildcard-er GET API call
+  router.get("/api/1/getdbdata/db/:db/object/:obj", async ctx => {
+    // res.header("Access-Control-Allow-Origin", "*");
+    // res.header(
+    //   "Access-Control-Allow-Headers",
+    //   "Origin, X-Requested-With, Content-Type, Accept"
+    // );
+    let req = ctx;
+    console.log(req.params);
+    // var dbDirectory = "/db/";
+    // let db2 = new loki(__dirname + dbDirectory + req.params.db + ".json");
+
+    const theParam = req.params.obj;
+
+    let respArr = [];
+    var fileList;
+
+    getDataWildcard(req.params.db, req.params.obj);
+
+    // db2.loadDatabase({}, function() {
+    //   let _collection = db2.getCollection(theParam);
+
+    //   if (!_collection) {
+    //     console.log("Collection %s does not exist.", theParam);
+    //   }
+
+    //   if (_collection) {
+    //     fileList = _collection.find();
+    //     //  res.send(fileList);
+    //     console.log("collection:");
+    //     console.log(fileList);
+    //   //  ctx.response.body = fileList;
+    //     // respArr = convertObj.toArray(fileList);
+
+    //     //ctx.response.body = respArr;
+    //   } 
+    //   // else {
+    //   //   fileList = Object.assign(
+    //   //     {},
+    //   //     { error: "Collection does not exist.", btcprice: "not found" }
+    //   //   );
+    //   //   ctx.response.body = [
+    //   //     Object.assign(
+    //   //       {},
+    //   //       { error: "Collection does not exist.", btcprice: "not found" }
+    //   //     )
+    //   //   ];
+    //   // }
+
+    //   console.log("fileList: " + fileList);
+
+    // respArr = convertObj.toArray(fileList);
+
+    // console.log("respArr: " + respArr);
+
+    // });
+
+
+    respArr = convertObj.toArray(apiDataWild);
+    console.log("respArr: " + respArr);
+  //  ctx.response.body = respArr;
+
+    ctx.response.body = apiDataWild;
+  });
 
     router.get('*', async ctx => {
       await handle(ctx.req, ctx.res)
