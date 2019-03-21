@@ -26,6 +26,7 @@ export default () => (
       <li><a href="/Time">Time</a></li>
       
       <h6>read API</h6>
+      <li><Link href="http://localhost:3005/api/1/getdbdata/db/accountsdb/object/clients">wild card API route searching the accountsdb database for clients</Link></li>
       <li><Link href='/api/1/getexpenses/org/lovebirdsconsulting/limit/100'><a>Get expenses as a JSON array</a></Link></li>
       <li><Link href='/api/1/getrevenue/org/lovebirdsconsulting/limit/100'><a>Get revenue as a JSON array</a></Link></li>
       <li><Link href='/api/1/getmiles/org/altaredwood/limit/100'><a>Get miles as a JSON array</a></Link></li>

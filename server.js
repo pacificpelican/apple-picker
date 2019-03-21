@@ -358,6 +358,49 @@ function getDataWildcard(db, table) {
   })
 }
 
+function postDataWildcard(db, table, tuple, objval, objkey = "description") {
+  
+  let dbDirectory = "/db/"
+  let db2 = new loki(__dirname + dbDirectory + db + ".json");
+  db2.loadDatabase({}, () => {
+    let _collection = db2.getCollection(table);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Aborting attempt to edit ",
+        table
+      );
+     // _collection = db2.addCollection(table);
+     // EXIT
+     throw new Error('ERROR: collection does not exist');
+    }
+    else {
+      console.log(table + " collection exists");
+    }
+    console.log(_collection);
+    console.log(objkey);
+    console.log(objval);
+    let objkeyString = objkey.toString();
+    let objvalString = objval.toString();
+  //  let record = _collection.findOne({key: tuple });
+
+  //  let record = _collection.findOne({objkey: {$aeq: objval} });
+
+  console.log(`${objkeyString}`);
+
+  //  let record = _collection.findOne({ (`${objkeyString}`) : objvalString });
+
+  //  let record = _collection.findOne({ 'date' : { '$contains' : '2019-01-01' } });
+
+  let record = _collection.findOne({ [objkeyString] : { '$contains' : objvalString } });
+
+    console.log(record);
+
+    record[objkey] = objval;
+    record.update(objkey);
+  });
+}
+
 new Promise(function (resolve, reject) {
 
   getData1(); //  invocation of A/R pre-fetch function
@@ -1359,70 +1402,41 @@ app.prepare()
       ctx.response.body = respArr;
     })
 
-    //  wildcard-er GET API call
-  router.get("/api/1/getdbdata/db/:db/object/:obj", async ctx => {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header(
-    //   "Access-Control-Allow-Headers",
-    //   "Origin, X-Requested-With, Content-Type, Accept"
-    // );
-    let req = ctx;
-    console.log(req.params);
-    // var dbDirectory = "/db/";
-    // let db2 = new loki(__dirname + dbDirectory + req.params.db + ".json");
+    //  wildcard-est GET API call
+    router.get("/api/1/getdbdata/db/:db/object/:obj", async ctx => {
+      let req = ctx;
+      console.log(req.params);
 
-    const theParam = req.params.obj;
+      const theParam = req.params.obj;
 
-    let respArr = [];
-    var fileList;
+      let respArr = [];
+      var fileList;
 
-    getDataWildcard(req.params.db, req.params.obj);
+      getDataWildcard(req.params.db, req.params.obj);
 
-    // db2.loadDatabase({}, function() {
-    //   let _collection = db2.getCollection(theParam);
+      respArr = convertObj.toArray(apiDataWild);
+      console.log("respArr: " + respArr);
 
-    //   if (!_collection) {
-    //     console.log("Collection %s does not exist.", theParam);
-    //   }
+      ctx.response.body = apiDataWild;
+    });
 
-    //   if (_collection) {
-    //     fileList = _collection.find();
-    //     //  res.send(fileList);
-    //     console.log("collection:");
-    //     console.log(fileList);
-    //   //  ctx.response.body = fileList;
-    //     // respArr = convertObj.toArray(fileList);
+    router.get("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey", async ctx => {
 
-    //     //ctx.response.body = respArr;
-    //   } 
-    //   // else {
-    //   //   fileList = Object.assign(
-    //   //     {},
-    //   //     { error: "Collection does not exist.", btcprice: "not found" }
-    //   //   );
-    //   //   ctx.response.body = [
-    //   //     Object.assign(
-    //   //       {},
-    //   //       { error: "Collection does not exist.", btcprice: "not found" }
-    //   //     )
-    //   //   ];
-    //   // }
+      let req = ctx;
+      console.log(req.params);
 
-    //   console.log("fileList: " + fileList);
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey);
 
-    // respArr = convertObj.toArray(fileList);
+    });
 
-    // console.log("respArr: " + respArr);
+    router.post("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop", async ctx => {
 
-    // });
+      let req = ctx;
+      console.log(req.params);
 
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.tuple);
 
-    respArr = convertObj.toArray(apiDataWild);
-    console.log("respArr: " + respArr);
-  //  ctx.response.body = respArr;
-
-    ctx.response.body = apiDataWild;
-  });
+    });
 
     router.get('*', async ctx => {
       await handle(ctx.req, ctx.res)
