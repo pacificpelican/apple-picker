@@ -22,7 +22,8 @@ class Edit extends Component {
     Ok: true,
     entry: '',
     cryptonowNumber: 0,
-    userObjectAsk: '_'
+    userObjectAsk: '_',
+    wildMode: false
   };
 
   constructor(props) {
@@ -41,6 +42,12 @@ class Edit extends Component {
   //   return { tuple }
   // }
 
+  toggleWildMode = () => {
+    console.log("toggling wild mode");
+    let currentWild = this.state.wildMode;
+    this.setState({wildMode: !currentWild});
+  }
+
 
   handlecValueChange = (event) => {
     console.log(event.target.value)
@@ -58,7 +65,14 @@ class Edit extends Component {
   letServerUpdate(store, obj, tuple, objprop, objkey, newval) {
     console.log("running letServerUpdate");
     let apiUrlPrefix = '';
-    let dest = apiUrlPrefix + '/api/1/updatedata/db/' + store + '/object/' + obj + '/tuple/' + tuple + '/objprop/' + objprop + '/objkey/' + objkey + '/newval/' + newval;
+    let dest;
+    
+    if (this.state.wildMode !== true) {
+      dest = apiUrlPrefix + '/api/1/updatedata/db/' + store + '/object/' + obj + '/objprop/' + objprop + '/objkey/' + objkey + '/newval/' + newval;
+    }
+    else {
+      dest = apiUrlPrefix + '/api/1/updatedata/db/' + store + '/object/' + obj + '/tuple/' + tuple + '/objprop/' + objprop + '/objkey/' + objkey + '/newval/' + newval;
+    }
 
     console.log("dest: " + dest);
     //  /api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval
@@ -138,6 +152,9 @@ class Edit extends Component {
             update in DB
           </Button>
         </section>
+        <aside id="wildmode">
+          <span id="wild" onClick={this.toggleWildMode}>Current Wild Mode Setting: {this.state.wildMode.toString()}</span>
+        </aside>
         <Card>
           <section id="propsInfo">
             <span>val: {val}

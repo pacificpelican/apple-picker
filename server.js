@@ -356,7 +356,7 @@ function getDataWildcard(db, table) {
   })
 }
 
-function postDataWildcard(db, table, tuple, objval, objkey = "description", newVal = "__") { // deprecated at 0.10.1
+function postDataWildcard(db, table, tuple, objval, objkey = "description", newVal = "__") { // used with route that doesn't contain tuple
 
   let dbDirectory = "/db/"
   let db2 = new loki(__dirname + dbDirectory + db + ".json");
@@ -1450,6 +1450,26 @@ app.prepare()
       console.log("respArr: " + respArr);
 
       ctx.response.body = apiDataWild;
+    });
+
+    router.get("/api/1/updatedata/db/:db/object/:obj/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
+
+      let req = ctx;
+      console.log(req.params);
+
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
+
+      ctx.response.body = Object.assign({}, { Response: 'ok' });
+    });
+
+    router.post("/api/1/updatedata/db/:db/object/:obj/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
+
+      let req = ctx;
+      console.log(req.params);
+
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
+
+      ctx.response.body = Object.assign({}, { Response: 'ok' });
     });
 
     router.get("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
