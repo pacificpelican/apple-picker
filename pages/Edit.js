@@ -29,7 +29,7 @@ class Edit extends Component {
     super();
 
     this.handlecValueChange = this.handlecValueChange.bind(this);
-    this.handleLookupButton = this.handleLookupButton.bind(this);
+  //  this.handleLookupButton = this.handleLookupButton.bind(this);
 
   }
 
@@ -42,20 +42,25 @@ class Edit extends Component {
   // }
 
 
-  handlecValueChange(event) {
+  handlecValueChange = (event) => {
     console.log(event.target.value)
     let capturedVal = event.target.value;
     this.setState({ userObjectAsk: capturedVal });
   }
 
-  handleLookupButton(event) {
-    let cont = this.letServerUpdate(this.props.url.query.store, this.props.url.query.tuple, this.props.url.query.objprop, this.props.url.query.val, this.state.userObjectAsk);
+  handlesubmit = (event) => {
+    console.log("about to update collection");
+    let cont = this.letServerUpdate(this.props.url.query.store, this.props.url.query.table, this.props.url.query.tuple, this.props.url.query.val, this.props.url.query.objprop, this.state.userObjectAsk);
   }
 
-  letServerUpdate(obj, tuple, objprop, objkey, newval) {
-      let apiUrlPrefix = '';
-      let dest = apiUrlPrefix + '/api/1/updatedata/db/' + obj + '/' + tuple + '/' + objprop + '/' + objkey + '/' + newval;
+//  /api/1/updatedata/db/accountsDB/obj/0/tuple/client/objprop/Paul Cook/objkey/Donald Duck/newval/undefined
 
+  letServerUpdate(store, obj, tuple, objprop, objkey, newval) {
+    console.log("running letServerUpdate");
+    let apiUrlPrefix = '';
+    let dest = apiUrlPrefix + '/api/1/updatedata/db/' + store + '/object/' + obj + '/tuple/' + tuple + '/objprop/' + objprop + '/objkey/' + objkey + '/newval/' + newval;
+
+    console.log("dest: " + dest);
     //  /api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval
 
       fetch(dest, {method: 'post'})
@@ -129,7 +134,7 @@ class Edit extends Component {
             onChange={this.handlecValueChange}
             value={this.state.userObjectAsk}
           />
-          <Button variant="contained" color="primary" onClick={this.handleLookupButton} id="lookupDB">
+          <Button onClick={this.handlesubmit} variant="contained" color="primary" id="lookupDB">
             update in DB
           </Button>
         </section>

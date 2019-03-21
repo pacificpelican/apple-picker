@@ -40,7 +40,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
 
   render(props) {
 
-    let theStore = 'accountsDB';
+    let theStore = 'accountsdb';
     let theTable = this.props.table;
 
     var g;
@@ -115,7 +115,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
                       <a>{valArr[i] + " "}</a>
                     </Link> */}
                     <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i], store: theStore, table: theTable, objprop: keyArr[i]} }}>
-                    <a>{valArr[i] + " "}</a>
+                      <a>{valArr[i] + " "}</a>
                     </Link>
                     {/* <a href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]}></a> */}
                   </span>

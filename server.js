@@ -347,12 +347,12 @@ function getDataWildcard(db, table) {
       _collection = db2.addCollection(table);
     }
     else {
-      console.log(table + "collection exists");
+      console.log(table + "collection exists [getDataWildcard]");
     }
 
     retData = _collection.find();
 
-    console.log(retData);
+  //  console.log(retData);
 
     apiDataWild = retData;
   })
