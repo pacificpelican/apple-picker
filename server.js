@@ -358,7 +358,7 @@ function getDataWildcard(db, table) {
   })
 }
 
-function postDataWildcard(db, table, tuple, objval, objkey = "description") {
+function postDataWildcard(db, table, tuple, objval, objkey = "description", newVal = "__") {
   
   let dbDirectory = "/db/"
   let db2 = new loki(__dirname + dbDirectory + db + ".json");
@@ -378,7 +378,7 @@ function postDataWildcard(db, table, tuple, objval, objkey = "description") {
       console.log(table + " collection exists");
     }
     console.log(_collection);
-    console.log(objkey);
+  //  console.log(objkey);
     console.log(objval);
     let objkeyString = objkey.toString();
     let objvalString = objval.toString();
@@ -392,12 +392,14 @@ function postDataWildcard(db, table, tuple, objval, objkey = "description") {
 
   //  let record = _collection.findOne({ 'date' : { '$contains' : '2019-01-01' } });
 
-  let record = _collection.findOne({ [objkeyString] : { '$contains' : objvalString } });
+    let record = _collection.findObject({ [objkeyString] : { '$contains' : objvalString } });
 
     console.log(record);
+    console.log(newVal);
 
-    record[objkey] = objval;
-    record.update(objkey);
+    record[objkeyString] = newVal;
+
+    _collection.update(objkey);
   });
 }
 
@@ -1420,21 +1422,21 @@ app.prepare()
       ctx.response.body = apiDataWild;
     });
 
-    router.get("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey", async ctx => {
+    router.get("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
 
       let req = ctx;
       console.log(req.params);
 
-      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey);
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
     });
 
-    router.post("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop", async ctx => {
+    router.post("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
 
       let req = ctx;
       console.log(req.params);
 
-      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.tuple);
+      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
     });
 
