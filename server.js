@@ -2,7 +2,8 @@ const Koa = require('koa');
 const next = require('next');
 const Router = require('koa-router');
 
-//  server.js [Koa] for apple-picker accounting app; copyright 2018 Dan McKeown
+//  server.js [Koa] for apple-picker accounting app; copyright 2018-2019 Dan McKeown
+//  http://danmckeown.info
 
 const port = parseInt(process.env.PORT, 10) || 3005;
 const dev = process.env.NODE_ENV !== 'production';
@@ -331,7 +332,6 @@ function getDataRev() {
 }
 
 var apiDataWild = {};
-//  let revenues = "revenues";
 
 function getDataWildcard(db, table) {
   let dbDirectory = "/db/"
@@ -352,14 +352,12 @@ function getDataWildcard(db, table) {
 
     retData = _collection.find();
 
-  //  console.log(retData);
-
     apiDataWild = retData;
   })
 }
 
-function postDataWildcard(db, table, tuple, objval, objkey = "description", newVal = "__") {
-  
+function postDataWildcard(db, table, tuple, objval, objkey = "description", newVal = "__") { // deprecated at 0.10.1
+
   let dbDirectory = "/db/"
   let db2 = new loki(__dirname + dbDirectory + db + ".json");
   db2.loadDatabase({}, () => {
@@ -370,40 +368,68 @@ function postDataWildcard(db, table, tuple, objval, objkey = "description", newV
         "Collection %s does not exist. Aborting attempt to edit ",
         table
       );
-     // _collection = db2.addCollection(table);
-     // EXIT
-     throw new Error('ERROR: collection does not exist');
+      // _collection = db2.addCollection(table);
+      // EXIT
+      throw new Error('ERROR: collection does not exist');
     }
     else {
       console.log(table + " collection exists");
     }
     console.log(_collection);
-  //  console.log(objkey);
+
     console.log(objval);
     let objkeyString = objkey.toString();
     let objvalString = objval.toString();
-  //  let record = _collection.findOne({key: tuple });
 
-  //  let record = _collection.findOne({objkey: {$aeq: objval} });
+    console.log(`${objkeyString}`);
 
-  console.log(`${objkeyString}`);
-
-  //  let record = _collection.findOne({ (`${objkeyString}`) : objvalString });
-
-  //  let record = _collection.findOne({ 'date' : { '$contains' : '2019-01-01' } });
-
-    let record = _collection.findObject({ [objkeyString] : { '$contains' : objvalString } });
+    let record = _collection.findObject({ [objkeyString]: { '$contains': objvalString } });
 
     console.log(record);
     console.log(newVal);
 
-    // let bigObject = Object.assign(record, {[objkeyString] : objvalString});
-
-    // record = bigObject;
-
     record[`${objkeyString}`] = newVal;
 
-    //  record.date = newVal;
+    _collection.update(record);
+
+    db2.saveDatabase();
+  });
+
+}
+
+function postDataWildcard2(db, table, tuple, objval, objkey = "description", newVal = "__") {
+
+  let dbDirectory = "/db/"
+  let db2 = new loki(__dirname + dbDirectory + db + ".json");
+  db2.loadDatabase({}, () => {
+    let _collection = db2.getCollection(table);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Aborting attempt to edit ",
+        table
+      );
+      // EXIT
+      throw new Error('ERROR: collection does not exist');
+    }
+    else {
+      console.log(table + " collection exists");
+    }
+    console.log(_collection);
+
+    console.log(objval);
+    let objkeyString = objkey.toString();
+    let objvalString = objval.toString();
+
+    console.log(`${objkeyString}`);
+    console.log("setting record: " + objvalString + " " + tuple);
+
+    let record = _collection.findObject({ [objkeyString]: { '$contains': objvalString }, locator: { '$aeq': tuple } });
+
+    console.log(record);
+    console.log(newVal);
+
+    record[`${objkeyString}`] = newVal;
 
     _collection.update(record);
 
@@ -476,24 +502,24 @@ new Promise(function (resolve, reject) {
                 }).then(function (result) { // (**)
 
                   new Promise(function (resolve, reject) {
-  
+
                     getDataInv();
                     setTimeout(() => resolve(1), 1000); // (*)
-  
+
                   }).then(function (result) { // (**)
 
                     new Promise(function (resolve, reject) {
-    
+
                       getDataMil();
                       setTimeout(() => resolve(1), 1000); // (*)
-    
+
                     }).then(function (result) { // (**)
 
                       new Promise(function (resolve, reject) {
-      
+
                         getDataRev();
                         setTimeout(() => resolve(1), 1000); // (*)
-      
+
                       })
                     });
                   });
@@ -1159,7 +1185,7 @@ app.prepare()
     })
 
     router.post('/api/1/addinteraction/amount/:total/date/:paydate/client/:payee/description/:desc/notes/:notes/org/:org/prospectid/:pid', async ctx => {
-      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
@@ -1195,7 +1221,7 @@ app.prepare()
     })
 
     router.get('/api/1/getclients/org/:org/limit/:limit', async ctx => {
-      //  await app.render(ctx.req, ctx.res, '/a', ctx.query)
+
       console.log(ctx.req.url);
       console.log("description: " + ctx.params.desc);
 
@@ -1304,12 +1330,7 @@ app.prepare()
     //  http://localhost:3005/api/1/getdbdata/object/888
     //  wildcard GET API call (via mlBench, to support Desk component)
     router.get('/api/1/getdbdata/object/:obj', async ctx => {
-      //  server.get("/api/1/getdbdata/object/:obj", (req, res) => {
-      // res.header("Access-Control-Allow-Origin", "*");
-      // res.header(
-      //   "Access-Control-Allow-Headers",
-      //   "Origin, X-Requested-With, Content-Type, Accept"
-      // );
+
       console.log(ctx.params);
 
       const theParam = ctx.params.obj.toString();
@@ -1436,9 +1457,9 @@ app.prepare()
       let req = ctx;
       console.log(req.params);
 
-      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
+      postDataWildcard2(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
-      ctx.response.body = Object.assign({}, {Response: 'ok'});
+      ctx.response.body = Object.assign({}, { Response: 'ok' });
     });
 
     router.post("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
@@ -1446,9 +1467,9 @@ app.prepare()
       let req = ctx;
       console.log(req.params);
 
-      postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
+      postDataWildcard2(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
-      ctx.response.body = Object.assign({}, {Response: 'ok'});
+      ctx.response.body = Object.assign({}, { Response: 'ok' });
     });
 
     router.get('*', async ctx => {

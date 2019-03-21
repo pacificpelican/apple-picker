@@ -79,13 +79,18 @@ class SpreadsheetCoreRecursiveClick extends Component {
             let keyArr = Object.keys(interVal);
             let valArr = Object.values(interVal);
 
-            if (keyArr[0] === "key") {
-              lastkey = valArr[0];
-            }
-
             let retSet = [];
 
             for (let i = 0; i < keyArr.length; i++) {
+
+              // if (keyArr[i] === "$loki") {
+              //   lastkey = valArr[i];
+              // }
+
+              if (keyArr[i] === "locator") {
+                lastkey = valArr[i];
+              }
+
               if (typeof keyArr[i] === "object") {
               } else {
                 retSet.push(
