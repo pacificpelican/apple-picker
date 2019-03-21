@@ -1438,6 +1438,7 @@ app.prepare()
 
       postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
+      ctx.response.body = Object.assign({}, {Response: 'ok'});
     });
 
     router.post("/api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval", async ctx => {
@@ -1447,6 +1448,7 @@ app.prepare()
 
       postDataWildcard(req.params.db, req.params.obj, req.params.tuple, req.params.objprop, req.params.objkey, req.params.newval);
 
+      ctx.response.body = Object.assign({}, {Response: 'ok'});
     });
 
     router.get('*', async ctx => {

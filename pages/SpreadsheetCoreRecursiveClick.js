@@ -114,7 +114,7 @@ class SpreadsheetCoreRecursiveClick extends Component {
                     {/* <Link href="/Edit" tuple={lastkey} val={valArr[i]}>
                       <a>{valArr[i] + " "}</a>
                     </Link> */}
-                    <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i], store: theStore, table: theTable} }}>
+                    <Link href={{ pathname: '/Edit', query: { tuple: lastkey, val: valArr[i], store: theStore, table: theTable, objprop: keyArr[i]} }}>
                     <a>{valArr[i] + " "}</a>
                     </Link>
                     {/* <a href={"/Edit/tuple/" + lastkey + "/val/" + valArr[i]}></a> */}

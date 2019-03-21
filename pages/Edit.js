@@ -29,6 +29,7 @@ class Edit extends Component {
     super();
 
     this.handlecValueChange = this.handlecValueChange.bind(this);
+    this.handleLookupButton = this.handleLookupButton.bind(this);
 
   }
 
@@ -45,6 +46,40 @@ class Edit extends Component {
     console.log(event.target.value)
     let capturedVal = event.target.value;
     this.setState({ userObjectAsk: capturedVal });
+  }
+
+  handleLookupButton(event) {
+    let cont = this.letServerUpdate(this.props.url.query.store, this.props.url.query.tuple, this.props.url.query.objprop, this.props.url.query.val, this.state.userObjectAsk);
+  }
+
+  letServerUpdate(obj, tuple, objprop, objkey, newval) {
+      let apiUrlPrefix = '';
+      let dest = apiUrlPrefix + '/api/1/updatedata/db/' + obj + '/' + tuple + '/' + objprop + '/' + objkey + '/' + newval;
+
+    //  /api/1/updatedata/db/:db/object/:obj/tuple/:tuple/objprop/:objprop/objkey/:objkey/newval/:newval
+
+      fetch(dest, {method: 'post'})
+        .then(function(response) {
+          if (response.ok) {
+            console.log("response ok");
+            // console.log(response.json);
+            // for (var e in response.json) {
+            //   console.log(e.toString());
+            // }
+            // console.log(response.text);
+            return response.json();
+          }
+          else {
+            throw new Error(response.Error);
+          }
+          // throw new Error("Network did not respond.");
+          // return response.blob();
+      })
+        .then(function(myReturn) {
+          console.log(myReturn);
+          
+        //  that.setState({ pricesAndCaps: oldArr });
+      });
   }
 
   componentDidMount(props) {
@@ -72,6 +107,7 @@ class Edit extends Component {
     let val = this.props.url.query.val;
     let store = this.props.url.query.store;
     let table = this.props.url.query.table;
+    let prop = this.props.url.query.objprop;
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
@@ -105,7 +141,9 @@ class Edit extends Component {
             <br />
             table: {table}
             <br />
-            store: {store}</span>
+            store: {store}
+            <br />
+            prop: {prop}</span>
           </section>
         </Card>
         {/* <Card id="results">
