@@ -1,6 +1,6 @@
 {
   "name": "apple-picker",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -23,6 +23,8 @@
     "react-x-editable": "^0.0.10-beta",
     "plotly.js": "^1.40.0",
     "react-plotly.js": "^2.2.0",
-    "@material-ui/core": "^3.9.2"
+    "@material-ui/core": "^3.9.2",
+    "styled-components": "^4.2.0",
+    "@smooth-ui/core-sc": "^10.0.4"
   }
 }

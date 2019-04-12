@@ -438,6 +438,42 @@ function postDataWildcard2(db, table, tuple, objval, objkey = "description", new
 
 }
 
+function deleteDataWildcard(
+  db,
+  table,
+  tuple,
+  objval,
+  objkey = "description",
+  newVal = "__"
+) { //  the last 3 parameters can be null
+  console.log(db, tuple, table);
+  console.log("collection to update: " + table);
+  let dbDirectory = __dirname + "/db/" + db + ".json";
+  console.log("loki dir: " + dbDirectory);
+  let db2 = new loki(dbDirectory);
+
+  db2.loadDatabase({}, () => {
+    let _collection = db2.getCollection(table);
+
+    if (!_collection) {
+      console.log(
+        "Collection %s does not exist. Aborting attempt to edit ",
+        table
+      );
+      throw new Error("ERROR: collection does not exist");
+    } else {
+      console.log(table + " collection exists");
+    }
+    console.log(_collection);
+    console.log("tuple: " + tuple);
+
+    _collection.findAndRemove({ locator: { $aeq: tuple } });
+    db2.saveDatabase();
+
+    console.log("record " + tuple + " removed (💣🤷)");
+  });
+}
+
 new Promise(function (resolve, reject) {
 
   getData1(); //  invocation of A/R pre-fetch function
@@ -579,7 +615,7 @@ app.prepare()
 
     })
 
-    var apiDataDB = {};
+    var apiDataDB0 = {};
     router.get("/api/1/getdbdata/db/:db/object/:obj", async ctx => {
     const AccountsDB = new loki(__dirname + "/db/" + ctx.params.db + ".json");
     console.log(ctx.params);
@@ -598,14 +634,12 @@ app.prepare()
 
       retData = _collection.find();
       console.log(retData);
-      //  console.log(newData);
-    //  apiDataDB = retData;
 
       let respObj = Object.assign({}, retData);
       let respArr = convertObj.toArray(respObj);
-      apiDataDB = respArr;
+      apiDataDB0 = respArr;
     });
-    ctx.response.body = apiDataDB;
+    ctx.response.body = apiDataDB0;
   });
 
     var apiDataDB1 = {};
@@ -630,14 +664,11 @@ app.prepare()
         locator: { $aeq: tuple }
       });
       console.log(retData);
-      //  console.log(newData);
+
       
       let respObj = Object.assign({}, retData);
       let respArr = convertObj.toArray(respObj);
       apiDataDB1 = respObj;
-
-     // apiDataDB1 = respObj;
-    //  let respArr = convertObj.toArray(respObj);
       
     });
     ctx.response.body = apiDataDB1;
@@ -1555,6 +1586,25 @@ app.prepare()
 
       ctx.response.body = Object.assign({}, { Response: 'ok' });
     });
+
+    router.post(
+      "/api/1/deletedata/db/:db/object/:obj/tuple/:tuple",
+      async ctx => {
+        console.log("running (simple) delete POST route");
+        console.log("obj: " + ctx.params.obj);
+  
+        deleteDataWildcard(
+          ctx.params.db,
+          ctx.params.obj,
+          ctx.params.tuple,
+          null,
+          null,
+          null
+        );  //  the last 3 parameters can be null
+  
+        ctx.response.body = Object.assign({}, { Response: "ok - POST update (remove)" });
+      }
+    );
 
     router.get('*', async ctx => {
       await handle(ctx.req, ctx.res)
