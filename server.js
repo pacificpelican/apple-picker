@@ -579,6 +579,70 @@ app.prepare()
 
     })
 
+    var apiDataDB = {};
+    router.get("/api/1/getdbdata/db/:db/object/:obj", async ctx => {
+    const AccountsDB = new loki(__dirname + "/db/" + ctx.params.db + ".json");
+    console.log(ctx.params);
+    const theParam = ctx.params.obj.toString();
+    let newData = ctx.params.newdata;
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(theParam);
+
+      if (!_collection) {
+        console.log("Collection %s does not exist. Creating ... 🎮", theParam);
+        _collection = AccountsDB.addCollection(theParam);
+      } else {
+        console.log("collection exists");
+      }
+
+      retData = _collection.find();
+      console.log(retData);
+      //  console.log(newData);
+    //  apiDataDB = retData;
+
+      let respObj = Object.assign({}, retData);
+      let respArr = convertObj.toArray(respObj);
+      apiDataDB = respArr;
+    });
+    ctx.response.body = apiDataDB;
+  });
+
+    var apiDataDB1 = {};
+    router.get("/api/1/getdbdata/db/:db/object/:obj/tuple/:tuple", async ctx => {
+    const AccountsDB = new loki(__dirname + "/db/" + ctx.params.db + ".json");
+    console.log(ctx.params);
+    const theParam = ctx.params.obj.toString();
+    let newData = ctx.params.newdata;
+
+    AccountsDB.loadDatabase({}, function() {
+      let _collection = AccountsDB.getCollection(theParam);
+
+      if (!_collection) {
+        console.log("Collection %s does not exist. Creating ... 🎮", theParam);
+        _collection = AccountsDB.addCollection(theParam);
+      } else {
+        console.log("collection exists");
+      }
+
+      let tuple = ctx.params.tuple;
+      retData = _collection.findObject({
+        locator: { $aeq: tuple }
+      });
+      console.log(retData);
+      //  console.log(newData);
+      
+      let respObj = Object.assign({}, retData);
+      let respArr = convertObj.toArray(respObj);
+      apiDataDB1 = respObj;
+
+     // apiDataDB1 = respObj;
+    //  let respArr = convertObj.toArray(respObj);
+      
+    });
+    ctx.response.body = apiDataDB1;
+  });
+
     router.get('/api/1/addexpense/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/apid/:arid', async ctx => {
 
       console.log(ctx.req.url);

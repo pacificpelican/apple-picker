@@ -1,8 +1,7 @@
-//  danmckeown.info copyright 2017-2018
+//  seis copyright 2017-2019
 //  Desk.js
-//  mlBench
+//  via mlBench & danmckeown.info
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Spreadsheet from "./Spreadsheet";
 
@@ -10,44 +9,12 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 
-let crypto;
-try {
-  crypto = require("crypto");
-} catch (err) {
-  console.log("crypto not available in this NodeJS version");
-}
-
-const numberScale = 100000000000000;
-
-function math_floor_random_number(scale) {
-  var newdigit = Math.floor(Math.random() * scale + 1);
-  return newdigit;
-}
-
-function noTrueArraysMan(objArr) {
-  let returnArr = [];
-  for (let i = 0; i < objArr.length; i++) {
-    returnArr.push(objArr[i]);
-  }
-  return returnArr;
-}
-
-function noTrueArraysMan2(objArr) {
-  let returnArr = [];
-  for (let f in objArr) {
-    returnArr.push(f);
-  }
-  return returnArr;
-}
-
-function createMarkup(html) {
-  return { __html: html };
-}
+import Headernav from "./Headernav";
+import Footernav from "./Footernav";
 
 function reloadOnce() {
   console.log("about to reload");
   return window.location.reload();
-  return false;
 }
 
 function eqSet(as, bs) {
@@ -60,15 +27,14 @@ function eqSet(as, bs) {
 class Desk extends Component {
   state = {
     Ok: true,
-    cryptonowNumber: 0,
     userObjectAsk: "",
+    userDBrequest: "accountsdb",
     dbdata: "-",
-    dbdataArr: [],
-    indexURL: "",
-    lastHeader: []
+    dbdataArr: []
   };
   keyLibrary = new Set();
   lastOne = [];
+
   constructor() {
     super();
 
@@ -76,53 +42,16 @@ class Desk extends Component {
     this.handleLookupButton = this.handleLookupButton.bind(this);
   }
 
-  getCryptoNow() {
-    var retVal;
+  runDBlookup(dbOBJ, db = 'seisdb') {
     let that = this;
-    crypto.randomBytes(8, (err, buf) => {
-      if (err) throw err;
-      let rVal = buf.toString("hex");
-      console.log(
-        `${buf.length} bytes of random hex data: ${buf.toString("hex")}`
-      );
-      let rValHTML = `<span>${rVal}</span>`;
-      retVal = rVal;
-      that.setState({
-        cryptonow: retVal
-      });
-    });
-    return retVal;
-  }
-
-  getCryptoNowNotHex() {
-    var retVal;
-    let that = this;
-    crypto.randomBytes(32, (err, buf) => {
-      if (err) throw err;
-      let rVal = buf.toString("ascii");
-      console.log(
-        `${buf.length} bytes of random ASCII data: ${buf.toString("hex")}`
-      );
-      let rValHTML = `<span>${rVal}</span>`;
-      var re = / /;
-      let newstr = rVal.replace(re, "");
-      retVal = newstr;
-      that.setState({
-        cryptonowNH: retVal
-      });
-    });
-    return retVal;
-  }
-
-  runDBlookup(dbOBJ) {
-    let that = this;
-    let dest = "/api/1/getdbdata/object/" + dbOBJ;
+    let dest = "/api/1/getdbdata/db/" + db + "/object/" + dbOBJ;
     console.log("FETCH REQUEST URL:")
     console.log(dest);
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           for (var e in response.json) {
+            console.log(e);
           }
 
           return response.json();
@@ -130,8 +59,7 @@ class Desk extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
-        //      console.log(myReturn);
+      .then(function (myReturn) {
         that.setState({ dbdata: myReturn, dbdataArr: myReturn });
       });
   }
@@ -140,27 +68,22 @@ class Desk extends Component {
     window.history.back();
   }
 
+  pickSeis = () => {
+    this.setState({ userObjectAsk: "revenues"});
+  }
+
   handlecValueChange(event) {
     let capturedVal = event.target.value;
     this.setState({ userObjectAsk: capturedVal });
   }
 
+  handleDBvalChange = (event) => {
+    let capturedVal = event.target.value;
+    this.setState({ userDBrequest: capturedVal });
+  }
+
   handleLookupButton(event) {
-    let cont = this.runDBlookup(this.state.userObjectAsk);
-  }
-
-  UNSAFE_componentWillMount() {
-    var newCrypto3 = math_floor_random_number(numberScale);
-    this.setState(prevState => ({
-      cryptonowNumber: newCrypto3
-    }));
-  }
-
-  componentDidMount() {
-    var newCrypto2 = this.getCryptoNowNotHex();
-    this.setState(prevState => ({
-      cryptonowNH: newCrypto2
-    }));
+    let cont = this.runDBlookup(this.state.userObjectAsk, this.state.userDBrequest);
   }
 
   forEachDb(objArr) {
@@ -177,11 +100,7 @@ class Desk extends Component {
   }
 
   forEachDbEntry(objArr) {
-    let retArr = [];
-
     for (let o of objArr) {
-      //    console.log(o);
-
       let innerSet = new Set(Object.keys(o));
       let innerLibrary = new Set([...this.keyLibrary]);
 
@@ -202,23 +121,16 @@ class Desk extends Component {
     return null;
   }
 
+  componentDidMount = () => {
+    if (this.props.userObjectAsk) {
+      this.setState({userObjectAsk: this.props.userObjectAsk})
+    }
+    if (this.props.userDBrequest) {
+      this.setState({userDBrequest: this.props.userDBrequest})
+    }
+  }
+
   render() {
-    let g = noTrueArraysMan(this.state.dbdataArr);
-
-    const map1 = g.map(
-      x =>
-        '<span class="spread btc">Bitcoin: ' +
-        x.btcprice +
-        "</span> " +
-        '<span class="spread eth">Ethereum:' +
-        x.ethprice +
-        "</span>"
-    );
-
-    const mapX = this.forEachDbEntry(g);
-
-    let fowlfivedata = "btc-eth-bch-ltc-dsh-data";
-
     console.log("keyLibrary: " + this.keyLibrary);
 
     return (
@@ -226,6 +138,9 @@ class Desk extends Component {
         <button id="backButton" href="#" onClick={this.goBack}>
           ⬅️ back
         </button>
+
+        <Headernav />
+
         <h1 id="desk">
           apple-picker Яecursive Object Desk<span id="rollLink">
             {" "}
@@ -234,11 +149,18 @@ class Desk extends Component {
             </a>
           </span>
         </h1>
+
+        <section id="dbInput">
+          <section id="user-db-input">
+            <span id="db-label">database: </span><Input id="user-db-name-input" onChange={this.handleDBvalChange} value={this.state.userDBrequest} />
+          </section>
+        </section>
+        
         <aside>
-          database tables to look up: receivables, invoices, taxes, revenues, expenses, miles, payables, taxes, clients, prospects, pitches, interactions, timesheet
+          app database table: [<span id="clickSeis" onClick={this.pickSeis}>revenues</span>]
           <br />
-          
-        <br />
+          <span>database tables to look up: receivables, invoices, taxes, revenues, expenses, miles, payables, taxes, clients, prospects, pitches, interactions, timesheet</span>
+          <br />
         </aside>
         <section id="user-input">
           <Input
@@ -251,13 +173,11 @@ class Desk extends Component {
           </Button>
         </section>
         <Card id="results">
-          <Spreadsheet dbdataArr={this.state.dbdataArr} table={this.state.userObjectAsk} store="accountsdb" />
+          <Spreadsheet dbdataArr={this.state.dbdataArr} table={this.state.userObjectAsk} store={this.state.userDBrequest} />
         </Card>
 
-        <footer id="deskFooter">
-          powered by <b>mlBench Spreadsheetcore</b> by <a href="http://danmckeown.info">Dan McKeown</a>
-        </footer>
-        
+        <Footernav />
+
         <style jsx global>{`
           h1#desk, aside {
             font-family: Futura, "Ubuntu", "Lucida Grande", "Roboto", Helvetica,
@@ -278,6 +198,12 @@ class Desk extends Component {
           }
           div#deskContainer {
             background: #f7f8f9;
+          }
+          section#dbInput {
+            margin-bottom: calc(3vh + 10px);
+          }
+          span#db-label {
+            font-family: Courier, sans-serif;
           }
         `}</style>
       </div>
