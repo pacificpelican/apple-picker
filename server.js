@@ -276,6 +276,7 @@ function getDataInv() {
     console.log(retData);
 
     apiDataInv = retData;
+    apiDataInvOne = retData[0];
   })
 }
 
@@ -1418,7 +1419,7 @@ app.prepare()
 
       let respArr = convertObj.toArray(respObj);
 
-      ctx.response.body = apiDataInvOne;
+      ctx.response.body = apiDataInv[0];
     })
 
     var apiDataDB = {};
