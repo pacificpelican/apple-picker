@@ -25,11 +25,22 @@ export default class Index extends Component {
 
   render() {
     return (
-      <div>
+      <div id="applePickerContainer">
         <Home />
         <Orgname />
+        <style jsx global>{`
+            :root {
+              --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
+              --fonts-ui: "Hack", "Fira Code", "Menlo", monospace;
+            }
+            body {
+              background: #f2f5f9;
+            }
+            div#applePickerContainer {
+              background: white;
+            }
+            `}</style>
       </div>
-          
     )
   }
 }

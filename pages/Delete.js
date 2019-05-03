@@ -7,7 +7,7 @@ import { withRouter } from 'next/router';
 import { Button } from '@smooth-ui/core-sc';
 import Card from '@material-ui/core/Card';
 
-import Headernav from "./Headernav";
+import Textframe from "./textframe";
 import Footernav from "./Footernav";
 
 function reloadOnce() {
@@ -83,11 +83,10 @@ class Delete extends Component {
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
+        <Textframe />
         <button id="backButton" href="#" onClick={this.goBack}>
           ⬅️ back
         </button>
-
-        <Headernav />
         
         <h1 id="desk">
           apple-picker Object Deleter<span id="rollLink">

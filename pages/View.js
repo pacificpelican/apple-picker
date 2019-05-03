@@ -7,7 +7,7 @@ import { withRouter } from 'next/router';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 
-import Headernav from "./Headernav";
+import Textframe from "./textframe";
 import Footernav from "./Footernav";
 
 import SpreadsheetcoreRecursive from "./SpreadsheetCoreRecursive";
@@ -70,11 +70,10 @@ class View extends Component {
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
+        <Textframe />
         <button id="backButton" href="#" onClick={this.goBack}>
           ⬅️ back
         </button>
-
-        <Headernav />
         
         <h1 id="desk">
           Seis Object Viewer<span id="rollLink">

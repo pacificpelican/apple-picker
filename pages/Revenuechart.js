@@ -52,8 +52,8 @@ export default class Revenuechart extends Component {
     //  this.doLookup();
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ Revenue Data </div>
         <Textframe />
+        <div className="apple-picker-header">apple-picker _ Revenue Data </div>
         <div id="data-container">
           <div id="dataHeader" className="dataZone">
             <span className="expense-date" key="date-header">

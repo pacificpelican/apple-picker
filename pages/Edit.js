@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 import { Tab } from "@material-ui/core";
+import Textframe from "./textframe";
 
 function reloadOnce() {
   console.log("about to reload");
@@ -130,9 +131,11 @@ class Edit extends Component {
 
     return (
       <div id="editContainer" className="mlBench-content-wrappers">
+        <Textframe />
         <button id="backButton" href="#" onClick={this.goBack}>
           ⬅️ back
         </button>
+        
         <h1 id="desk">
           apple-picker Object Prop Editor<span id="rollLink">
             {" "}

@@ -45,8 +45,8 @@ export default class Taxeschart extends Component {
   render() {
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ Tax Payments Data </div>
         <Textframe />
+        <div className="apple-picker-header">apple-picker _ Tax Payments Data </div>
         <div id="data-container">
         <div id="dataHeader" className="dataZone"><span className="expense-date" key="date-header">date</span><span className="expense-amount" key="amount-header">amount</span><span className="expense-description" key="description-header">description</span><span className="expense-payee" key="payee-header">payee</span><span className="expense-notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {

@@ -48,6 +48,18 @@ export default class Textframe extends Component {
             ul.ladder-content li {
               font-family: 'Hack', 'Fira Code', 'Menlo', monospace;
             }
+            div#ladder {
+              background: rgb(191,187,255);
+              background: linear-gradient(90deg, rgba(191,187,255,0.7791317210477942) 0%, rgba(255,210,133,1) 64%, rgba(189,195,215,1) 74%);
+              padding-block-start: calc(2vh + 5px);
+              padding-block-end: calc(1vh + 5px);
+              padding-inline-start: calc(3vh + 10px);
+              padding-inline-end: calc(3vh + 10px);
+              border-top-left-radius: calc(0.3rem);
+            }
+            a {
+              color: inherit;
+            }
             `}
         </style>
       </div>

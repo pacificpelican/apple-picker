@@ -34,7 +34,7 @@ export default class Mileschart extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-        that.setState({ expeneseArray: myReturn });
+        that.setState({ expeneseArray: myReturn.reverse() });
       });
   }
 
@@ -45,8 +45,8 @@ export default class Mileschart extends Component {
   render() {
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ Milage Data </div>
         <Textframe />
+        <div className="apple-picker-header">apple-picker _ Milage Data </div>
         <div id="data-container">
         <div id="dataHeader" className="dataZone"><span className="expense-date" key="date-header">date</span><span className="expense-amount" key="amount-header">miles</span><span className="expense-description" key="description-header">description</span><span className="expense-payee" key="payee-header">destination</span><span className="expense-notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {

@@ -34,7 +34,7 @@ export default class Clientschart extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-        that.setState({ expeneseArray: myReturn });
+        that.setState({ expeneseArray: myReturn.reverse() });
       });
   }
 
@@ -45,8 +45,8 @@ export default class Clientschart extends Component {
   render() {
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ Client Data </div>
         <Textframe />
+        <div className="apple-picker-header">apple-picker _ Client Data </div>
         <div id="data-container">
         <div id="dataHeader" className="dataZone"><span className="accountrecievable-date" key="date-header">date</span><span className="accountrecievable--amount" key="amount-header">client</span><span className="accountrecievable--description" key="accountrecievable--header">description</span><span className="accountrecievable--payee" key="payee-header">expected revenue</span><span className="accountrecievable--notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {

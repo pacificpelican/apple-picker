@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Card from '@material-ui/core/Card';
 
-import Headernav from "./Headernav";
+import Textframe from "./textframe";
 import Footernav from "./Footernav";
 
 function reloadOnce() {
@@ -135,11 +135,11 @@ class Desk extends Component {
 
     return (
       <div id="deskContainer" className="mlBench-content-wrappers">
+        <Textframe />
+        
         <button id="backButton" href="#" onClick={this.goBack}>
           ⬅️ back
         </button>
-
-        <Headernav />
 
         <h1 id="desk">
           apple-picker Яecursive Object Desk<span id="rollLink">
