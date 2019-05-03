@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  prospector.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
-
 import convertDate from "./convert-date";
 
 const defaultDate = convertDate();
@@ -15,7 +13,6 @@ import Orgname from "./Orgname";
 const getDOMtext = function(inpSel="span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
   return dataset;
 }
 
@@ -44,11 +41,7 @@ export default class Prospector extends Component {
       .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
+         
           return response.json();
         }
         throw new Error("Network did not respond.");
@@ -56,8 +49,6 @@ export default class Prospector extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -123,6 +114,7 @@ export default class Prospector extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <div className="apple-picker-header">apple-picker _ Prospect Onboarding</div>
             <h2 id="snapshot">Enter a new Prospect</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
             <section className="expense-form"><span className="input-span">Prospect: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
@@ -130,7 +122,6 @@ export default class Prospector extends Component {
               <section className="expense-form"><span className="input-span">Date: </span><input type="date" id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input required id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input required id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add prospect" id="submit-expenses" /></section>
             </form>
           </section>

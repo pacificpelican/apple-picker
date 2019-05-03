@@ -15,7 +15,7 @@ import Orgname from "./Orgname";
 const getDOMtext = function(inpSel="span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
+
   return dataset;
 }
 
@@ -35,7 +35,6 @@ export default class Invoicer extends Component {
 
   handleSubmitExpense(event) {
     console.log('Receivable data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " payee: " + this.state.payee + " notes: " + this.state.notes);
-    //  /api/1/addinvoice/amount/:total/date/:paydate/payee/:payee/description/:desc/notes/:notes/org/:org/arid/:arid
     event.preventDefault();
 
     let dest = "/api/1/addinvoice/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/payee/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org + "/arid/" + this.state.arid;
@@ -52,8 +51,6 @@ export default class Invoicer extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -123,6 +120,7 @@ export default class Invoicer extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <div className="apple-picker-header">apple-picker _ Invoice Entry </div>
             <h2 id="snapshot">Enter an Invoice</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form"><span className="input-span">Amount: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
@@ -141,8 +139,7 @@ export default class Invoicer extends Component {
                   </select>
                 </span>
               </section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
-              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add receivable" id="submit-expenses" /></section>
+              <section className="expense-form"><span className="input-span"></span><input type="submit" value="add invoice" id="submit-expenses" /></section>
             </form>
           </section>
           <Orgname />

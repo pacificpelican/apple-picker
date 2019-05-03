@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  miler.js starter ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -8,7 +7,7 @@ import Textframe from "./textframe";
 
 import Orgname from "./Orgname";
 
-const getDOMtext = function(inpSel="span#orgName") {
+const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
   // alert(dataset);
@@ -24,9 +23,6 @@ export default class Miler extends Component {
     this.updateAmount = this.updateAmount.bind(this);                // utilized in Miler
     this.updateDate = this.updateDate.bind(this);                     // utilized in Miler
     this.updateDescription = this.updateDescription.bind(this);       // utilized in Miler
-    // this.updatePayer = this.updatePayer.bind(this);
-    // this.updateNotes = this.updateNotes.bind(this);
-
     this.updateDest = this.updateDest.bind(this);                     // utilized in Miler
     this.updateEmb = this.updateEmb.bind(this);                      // utilized in Miler
     this.updateRound = this.updateRound.bind(this);                      // utilized in Miler
@@ -34,62 +30,55 @@ export default class Miler extends Component {
   }
 
   handleSubmitMilage(event) {
-  //  window.alert();
+
     console.log('Milage data: ' + this.state.amount + " date: " + this.state.amountdate + " description: " + this.state.desc + " destination: " + this.state.dest);
-    /////  http://localhost:3005/api/1/addmiles/amount/50/date/paydate/destination/dest/embarkment/emb/description/desc/roundtrip/round/notes/notes/org/org
+
     event.preventDefault();
-  
-      let dest = "/api/1/addmiles/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/destination/" + this.state.dest + "/embarkment/" + this.state.emb + "/description/" + this.state.desc + "/roundtrip/" + this.state.round + "/notes/" + this.state.notes + "/org/" + this.state.org + "/clientid/" + this.state.ar;
-      let that = this;
-  
-      fetch(dest, {method: 'post'})
-        .then(function(response) {
-          if (response.ok) {
-            console.log("response ok");
-            // console.log(response.json);
-            // for (var e in response.json) {
-            //   console.log(e.toString());
-            // }
-            // console.log(response.text);
-            return response.json();
-          }
-          throw new Error("Network did not respond.");
-          return response.blob();
-        })
-        .then(function(myReturn) {
-          console.log(myReturn);
-          
-        //  that.setState({ pricesAndCaps: oldArr });
-        });
+
+    let dest = "/api/1/addmiles/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/destination/" + this.state.dest + "/embarkment/" + this.state.emb + "/description/" + this.state.desc + "/roundtrip/" + this.state.round + "/notes/" + this.state.notes + "/org/" + this.state.org + "/clientid/" + this.state.ar;
+    let that = this;
+
+    fetch(dest, { method: 'post' })
+      .then(function (response) {
+        if (response.ok) {
+          console.log("response ok");
+          return response.json();
+        }
+        throw new Error("Network did not respond.");
+        return response.blob();
+      })
+      .then(function (myReturn) {
+        console.log(myReturn);
+      });
   }
   updateAmount(event) {
     console.log("updated amount value: " + event.target.value)
-    this.setState({amount: event.target.value});
+    this.setState({ amount: event.target.value });
   }
   updateDate(event) {
     console.log("updated date value: " + event.target.value)
-    this.setState({amountdate: event.target.value});
+    this.setState({ amountdate: event.target.value });
   }
   updateDescription(event) {
     console.log("updated description value: " + event.target.value)
-    this.setState({desc: event.target.value});
+    this.setState({ desc: event.target.value });
   }
   updateDest(event) {
     console.log("updated destination value: " + event.target.value)
-    this.setState({dest: event.target.value});
+    this.setState({ dest: event.target.value });
   }
   updateEmb(event) {
     console.log("updated embarkment point value: " + event.target.value)
-    this.setState({emb: event.target.value});
+    this.setState({ emb: event.target.value });
   }
   updateRound(event) {
     console.log("updated roundtrip value: " + event.target.value)
-    this.setState({roundTrip: event.target.value});
+    this.setState({ roundTrip: event.target.value });
   }
 
   updateap(event) {
     console.log("updated ap: " + event.target.value)
-    this.setState({ar: event.target.value});
+    this.setState({ ar: event.target.value });
   }
 
   UNSAFE_componentWillMount() { }
@@ -124,6 +113,7 @@ export default class Miler extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <div className="apple-picker-content">apple-picker _ Car Trip Entry </div>
             <h2 id="snapshot">Enter a Milage Estimate</h2>
             <form id="expense" onSubmit={this.handleSubmitMilage}>
               <section className="milage-form"><span className="input-span">Miles: </span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>

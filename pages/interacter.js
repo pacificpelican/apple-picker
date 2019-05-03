@@ -15,7 +15,6 @@ import Orgname from "./Orgname";
 const getDOMtext = function(inpSel="span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
   return dataset;
 }
 
@@ -81,11 +80,6 @@ export default class Interacter extends Component {
       .then(function(response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
           return response.json();
         }
         throw new Error("Network did not respond.");
@@ -93,8 +87,6 @@ export default class Interacter extends Component {
       })
       .then(function(myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -164,6 +156,7 @@ export default class Interacter extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ Interaction Tracking </div>
             <h2 id="snapshot">Enter a new Interaction</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form">

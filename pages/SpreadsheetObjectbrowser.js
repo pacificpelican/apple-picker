@@ -2,9 +2,7 @@
 //  SpreadsheetObjectbrowser.js
 //  mlBench
 import React, { Component } from "react";
-import Link from "next/link";
 
-import SpreadsheetCore from "./SpreadsheetCore";
 import SpreadsheetCoreRecursive from "./SpreadsheetCoreRecursive";
 
 let crypto;

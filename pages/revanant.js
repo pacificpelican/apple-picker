@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  revenant.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -12,10 +11,9 @@ const defaultDate = convertDate();
 
 import Orgname from "./Orgname";
 
-const getDOMtext = function(inpSel="span#orgName") {
+const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
   return dataset;
 }
 
@@ -48,17 +46,17 @@ export default class Revenant extends Component {
   handleSubmitExpense(event) {
     console.log(
       "Revenue data: " +
-        this.state.amount +
-        " date: " +
-        this.state.amountdate +
-        " description: " +
-        this.state.desc +
-        " payer: " +
-        this.state.payer +
-        " notes: " +
-        this.state.notes
+      this.state.amount +
+      " date: " +
+      this.state.amountdate +
+      " description: " +
+      this.state.desc +
+      " payer: " +
+      this.state.payer +
+      " notes: " +
+      this.state.notes
     );
-    /////  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payer/danco/description/0009/notes/9023j/org/283
+
     event.preventDefault();
 
     let dest =
@@ -82,7 +80,7 @@ export default class Revenant extends Component {
     let that = this;
 
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
           return response.json();
@@ -90,7 +88,7 @@ export default class Revenant extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
       });
   }
@@ -140,18 +138,18 @@ export default class Revenant extends Component {
     let dest2 = "api/1/getreceivables/org/lovebirdsconsulting/limit/1000";
     let dest = "api/1/getinvoices/org/lovebirdsconsulting/limit/1000";
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           return response.json();
         }
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
 
         that.setState({ invoicesArray: myReturn });
         fetch(dest2, {})
-          .then(function(response) {
+          .then(function (response) {
             if (response.ok) {
               console.log("response ok");
               console.log(response.json);
@@ -164,9 +162,9 @@ export default class Revenant extends Component {
             throw new Error("Network did not respond.");
             return response.blob();
           })
-          .then(function(myNewReturn) {
+          .then(function (myNewReturn) {
             console.log(myNewReturn);
-            
+
             that.setState({ receivablesArray: myNewReturn });
             that.setState({ org: getDOMtext() });
           });
@@ -179,6 +177,7 @@ export default class Revenant extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ Revenue Entry </div>
             <h2 id="snapshot">Enter a Payment</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="revenue-form">
@@ -231,7 +230,7 @@ export default class Revenant extends Component {
                 <span className="input-span">A/R:</span>
                 <select value={this.state.ar} onChange={this.updateap}>
                   <option value={null}>none</option>
-                  {this.state.receivablesArray.map(function(interVal) {
+                  {this.state.receivablesArray.map(function (interVal) {
                     console.log(
                       "interVal.value.debtor: " + interVal.value.debtor
                     );
@@ -248,7 +247,7 @@ export default class Revenant extends Component {
                 <span className="input-span">Invoice:</span>
                 <select value={this.state.iState} onChange={this.updatei}>
                   <option value={null}>none</option>
-                  {this.state.invoicesArray.map(function(interVal2) {
+                  {this.state.invoicesArray.map(function (interVal2) {
                     console.log(
                       "interVal2.value.debtor: " + interVal2.value.debtor
                     );

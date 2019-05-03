@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Textframe from "./textframe";
 import Expensechartrow from "./Expensechartrow";
@@ -48,7 +47,7 @@ export default class Expensechart extends Component {
         <Textframe />
         <div className="apple-picker-header">apple-picker _ Expense Data </div>
         <div id="data-container">
-        <div id="dataHeader" className="dataZone"><span className="expense-date" key="date-header">date</span><span className="expense-amount" key="amount-header">amount</span><span className="expense-description" key="description-header">description</span><span className="expense-payee" key="payee-header">payee</span><span className="expense-notes" key="notes-header">notes</span></div>
+          <div id="dataHeader" className="dataZone"><span className="expense-date" key="date-header">date</span><span className="expense-amount" key="amount-header">amount</span><span className="expense-description" key="description-header">description</span><span className="expense-payee" key="payee-header">payee</span><span className="expense-notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {
             console.log("interVal.value.amount: " + interVal.value.amount);
             console.log("interVal: " + interVal);
@@ -56,7 +55,7 @@ export default class Expensechart extends Component {
             return <Expensechartrow key={interVal.key + 1} interVal={interVal} />
           })}
         </div>
-       
+
         <style jsx global>{`
             :root {
               --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;

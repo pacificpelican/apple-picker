@@ -3,6 +3,7 @@ import Link from "next/link";
 
 //  ladder.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
+//  deprecated in favor of textframe component
 
 export default class Ladder extends Component {
   state = { Ok: true };

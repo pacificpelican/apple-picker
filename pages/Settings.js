@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Textframe from "./textframe";
-import Expensechartrow from "./Expensechartrow";
-
 import Orgform from "./Orgform";
 
 //  Settings.js ReactJS 16.3+ component for apple-picker
@@ -11,10 +8,6 @@ import Orgform from "./Orgform";
 
 export default class Settings extends Component {
   state = { Ok: true, expeneseArray: [] };
-
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     let theDate = Date.now();

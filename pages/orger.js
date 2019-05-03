@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  orger.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -26,7 +25,7 @@ export default class Orger extends Component {
     event.preventDefault();
 
     let dest = "/api/1/updateorg/date/" + this.state.amountdate + "/name/" + this.state.payee;
-    //  let dest = "/api/1/addprospect/amount/" + this.state.amount + "/date/" + this.state.amountdate + "/client/" + this.state.payee + "/description/" + this.state.desc + "/notes/" + this.state.notes + "/org/" + this.state.org;
+   
     let that = this;
 
     localStorage.setItem('org', this.state.payee);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  Accountsreceivableform.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -20,7 +19,6 @@ export default class Accountsreceivableform extends Component {
   render() {
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ A/R Entry </div>
         <Receiver />
         <style jsx global>
           {`

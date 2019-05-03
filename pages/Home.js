@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  Home.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -20,14 +19,6 @@ export default class Home extends Component {
     console.log("about to reload");
     return window.location.reload();
     return false;
-  }
-
-  UNSAFE_componentWillMount() {
-  //  this.doLookupRevenues();
-  }
-
-  componentDidMount() {
-   
   }
 
   render(props) {

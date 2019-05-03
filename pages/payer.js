@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  payer.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -15,7 +14,6 @@ import Orgname from "./Orgname";
 const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
   return dataset;
 }
 
@@ -51,8 +49,6 @@ export default class Payer extends Component {
       })
       .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -122,6 +118,7 @@ export default class Payer extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <div className="apple-picker-header">apple-picker _ A/P Entry </div>
             <h2 id="snapshot">Enter an Accounts Payable item</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form"><span className="input-span">Amount: $</span><input required id="input-amount" value={this.state.amount} onChange={this.updateAmount} /></section>
@@ -129,7 +126,6 @@ export default class Payer extends Component {
               <section className="expense-form"><span className="input-span">Creditor: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>
               <section className="expense-form"><span className="input-span">Description: </span><input required id="input-description" value={this.state.desc} onChange={this.updateDescription} /></section>
               <section className="expense-form"><span className="input-span">Notes: </span><input required id="input-notes" value={this.state.notes} onChange={this.updateNotes} /></section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form"><span className="input-span"></span><input type="submit" value="add payable" id="submit-expenses" /></section>
             </form>
           </section>

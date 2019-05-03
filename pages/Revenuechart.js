@@ -13,7 +13,6 @@ export default class Revenuechart extends Component {
   constructor() {
     super();
     this.doLookup = this.doLookup.bind(this);
-  //  this.doLookup();
   }
 
   doLookup() {
@@ -49,7 +48,6 @@ export default class Revenuechart extends Component {
   }
 
   render() {
-    //  this.doLookup();
     return (
       <div id="basicComponentDiv">
         <Textframe />

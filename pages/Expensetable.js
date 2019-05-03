@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  Expensetable.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
 
 import Textframe from "./textframe";
-
-//  import document from "react-document";
 
 export default class Expensetable extends Component {
   state = { Ok: true, revenueTotal: Number(0), milesArray: [], datesArray: [], interVals: [] };
@@ -28,7 +25,7 @@ export default class Expensetable extends Component {
       "/api/1/getexpenses/org/org/limit/10000";
     let rev = this.state.revenueTotal;
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response 2 ok");
           console.log(response.json);
@@ -41,11 +38,11 @@ export default class Expensetable extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
 
         let innerObject;
-        //  alert(myReturn);
+
         if (myReturn.length > 1) {
           innerObject = myReturn[0].value;
         }
@@ -54,27 +51,23 @@ export default class Expensetable extends Component {
         let milesArray = [];
         let datesArray = [];
 
-        myReturn.map(function(interVal) {
+        myReturn.map(function (interVal) {
           console.log(
             "interVal.value.amount: " + interVal.value.amount
           );
           milesArray.push(Number(interVal.value.amount));
           datesArray.push(Number(interVal.value.date));
 
-      
+
           rev = Number(rev) + Number(interVal.value.amount);
-      
+
         });
-        
+
         that.setState({ revenueTotal: Number(rev) });
-        that.setState({ milesArray: milesArray});
+        that.setState({ milesArray: milesArray });
         that.setState({ datesArray: datesArray });
         that.setState({ interVals: myReturn });
       });
-  }
-
-  UNSAFE_componentWillMount() {
-  //  this.doLookupRevenues();
   }
 
   componentDidMount() {
@@ -99,7 +92,7 @@ export default class Expensetable extends Component {
             return <tr key={interVal.key + 1}><td>{interVal.value.date}</td><td>{interVal.value.amount}</td></tr>
           })}
         </tbody></table>
-       
+
         <section id="content-section" />
         <style jsx>
           {`

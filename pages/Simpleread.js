@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Textframe from "./textframe";
 import Dataviews from "./dataviews";
@@ -9,14 +8,6 @@ import Dataviews from "./dataviews";
 
 export default class Simpleread extends Component {
   state = { Ok: true, expeneseArray: [] };
-
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
-
-  }
 
   render() {
     return (

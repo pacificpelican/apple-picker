@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Textframe from "./textframe";
 import Dataentry from "./dataentry";
@@ -9,14 +8,6 @@ import Dataentry from "./dataentry";
 
 export default class Simplewrite extends Component {
   state = { Ok: true, expeneseArray: [] };
-
-  constructor() {
-    super();
-  }
-
-  componentDidMount() {
-
-  }
 
   render() {
     return (

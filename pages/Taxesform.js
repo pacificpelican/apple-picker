@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  Expenseform.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -7,20 +6,9 @@ import Link from "next/link";
 import Taxer from "./taxer";
 
 export default class Expenseform extends Component {
-  state = { Ok: true };
-
-  constructor() {
-    super();
-  }
-
-  UNSAFE_componentWillMount() {}
-
-  componentDidMount() {}
-
   render() {
     return (
       <div id="basicComponentDiv">
-        <div className="apple-picker-header">apple-picker _ Tax Payment Entry </div>
         <Taxer />
         <style jsx global>
           {`

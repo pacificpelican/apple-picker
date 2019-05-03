@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  Expense.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -63,10 +62,6 @@ export default class Expense extends Component {
         that.setState({ revenueTotal: Number(rev) });
         that.setState({ milesArray: milesArray});
       });
-  }
-
-  UNSAFE_componentWillMount() {
-  //  this.doLookupRevenues();
   }
 
   componentDidMount() {

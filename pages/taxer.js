@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  revenant.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -11,10 +10,10 @@ const defaultDate = convertDate();
 
 import Orgname from "./Orgname";
 
-const getDOMtext = function(inpSel="span#orgName") {
+const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
+
   return dataset;
 }
 
@@ -44,15 +43,15 @@ export default class Revenant extends Component {
   handleSubmitExpense(event) {
     console.log(
       "Expense data: " +
-        this.state.amount +
-        " date: " +
-        this.state.amountdate +
-        " description: " +
-        this.state.desc +
-        " payee: " +
-        this.state.payee +
-        " notes: " +
-        this.state.notes
+      this.state.amount +
+      " date: " +
+      this.state.amountdate +
+      " description: " +
+      this.state.desc +
+      " payee: " +
+      this.state.payee +
+      " notes: " +
+      this.state.notes
     );
     //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
@@ -75,7 +74,7 @@ export default class Revenant extends Component {
     let that = this;
 
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
           // console.log(response.json);
@@ -88,7 +87,7 @@ export default class Revenant extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
 
         //  that.setState({ pricesAndCaps: oldArr });
@@ -129,13 +128,13 @@ export default class Revenant extends Component {
     // do nothing
   }
 
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() { }
 
   componentDidMount() {
     let that = this;
     let dest = "api/1/getpayables/org/lovebirdsconsulting/limit/1000";
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
           console.log(response.json);
@@ -148,7 +147,7 @@ export default class Revenant extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ receivablesArray: myReturn });
         that.setState({ org: getDOMtext() });
@@ -161,6 +160,7 @@ export default class Revenant extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ Tax Payment Entry </div>
             <h2 id="snapshot">Enter a Tax Payment</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form">
@@ -208,12 +208,11 @@ export default class Revenant extends Component {
                   onChange={this.updateNotes}
                 />
               </section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form" id="dropdown">
                 <span className="input-span">A/P:</span>
                 <select value={this.state.ar} onChange={this.updateap}>
                   <option value={null}>none</option>
-                  {this.state.receivablesArray.map(function(interVal) {
+                  {this.state.receivablesArray.map(function (interVal) {
                     console.log(
                       "interVal.value.creditor: " + interVal.value.creditor
                     );

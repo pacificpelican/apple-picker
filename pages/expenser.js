@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  revenant.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -161,6 +160,7 @@ export default class Revenant extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ Expense Entry </div>
             <h2 id="snapshot">Enter an Expense</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form">

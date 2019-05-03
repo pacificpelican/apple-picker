@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Textframe from "./textframe";
 import Clientschartrow from "./Clientschartrow";
@@ -48,13 +47,13 @@ export default class Clientschart extends Component {
         <Textframe />
         <div className="apple-picker-header">apple-picker _ Client Data </div>
         <div id="data-container">
-        <div id="dataHeader" className="dataZone"><span className="accountrecievable-date" key="date-header">date</span><span className="accountrecievable--amount" key="amount-header">client</span><span className="accountrecievable--description" key="accountrecievable--header">description</span><span className="accountrecievable--payee" key="payee-header">expected revenue</span><span className="accountrecievable--notes" key="notes-header">notes</span></div>
+          <div id="dataHeader" className="dataZone"><span className="accountrecievable-date" key="date-header">date</span><span className="accountrecievable--amount" key="amount-header">client</span><span className="accountrecievable--description" key="accountrecievable--header">description</span><span className="accountrecievable--payee" key="payee-header">expected revenue</span><span className="accountrecievable--notes" key="notes-header">notes</span></div>
           {this.state.expeneseArray.map(function (interVal) {
             console.log("interVal.value.amount: " + interVal.value.amount);
             return <Clientschartrow interVal={interVal} />
           })}
         </div>
-       
+
         <style jsx global>{`
             :root {
               --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;

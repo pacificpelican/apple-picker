@@ -15,7 +15,7 @@ import Orgname from "./Orgname";
 const getDOMtext = function(inpSel="span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
+  
   return dataset;
 }
 
@@ -228,6 +228,7 @@ export default class Timer extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-content">apple-picker _ Time Sheet Entry </div>
             <header id="timer-section">
               <section id="timer-readout">
                 <span id="seconds-timer-view">{this.state.seconds}</span>
@@ -252,7 +253,6 @@ export default class Timer extends Component {
                   onChange={this.updateAmount}
                 />
               </section>
-              {/* <section className="milage-form"><span className="input-span">Date: </span><input id="input-date" value={this.state.amountdate} onChange={this.updateDate} /></section> */}
               <section className="milage-form">
                 <span className="input-span">Date: </span>
                 <input

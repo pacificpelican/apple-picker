@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  pitcher.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -122,6 +121,7 @@ export default class Pitcher extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9"></Textframe>
+            <div className="apple-picker-header">apple-picker _ Pitch Tracking </div>
             <h2 id="snapshot">Enter a new Pitch</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
             <section className="expense-form"><span className="input-span">Audience: </span><input required id="payee-description" value={this.state.payee} onChange={this.updatePayee} /></section>

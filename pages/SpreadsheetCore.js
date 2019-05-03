@@ -12,12 +12,7 @@ class SpreadsheetCore extends Component {
     }
     else {
       g = [this.props.spreadsheetdata];
-    //  g = [{}, this.props.spreadsheetdata];
-    //   alert("abortion " + this.props.spreadsheetdata[1]);
-    // g = [{},{}]
-    
     }
-    
 
     return (
       <div id="desk" className="mlBench-content">
@@ -40,8 +35,6 @@ class SpreadsheetCore extends Component {
                 lastOne = valArr;
               }
             }
-
-            //     return [...retSet];
           })}
         </section>
         <section id="datalibrary">
@@ -67,9 +60,6 @@ class SpreadsheetCore extends Component {
 
             for (let i = 0; i < valArr.length; i++) {
               if (typeof valArr[i] === "object") {
-                // retSet.push(
-                //   <span><Spreadsheet dbdataArr={ valArr[i] } /></span>
-                // );
                  retSet.push(
                   <span key={valArr[i]} className="valSheetRow">_</span>
                 );

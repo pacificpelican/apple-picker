@@ -65,10 +65,6 @@ export default class Revenue extends Component {
       });
   }
 
-  UNSAFE_componentWillMount() {
-  //  this.doLookupRevenues();
-  }
-
   componentDidMount() {
     this.doLookupRevenues();
   }

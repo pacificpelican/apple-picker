@@ -700,7 +700,8 @@ app.prepare()
           description: ctx.params.desc,
           notes: ctx.params.notes,
           org: ctx.params.org,
-          accountspayableid: ctx.params.arid
+          accountspayableid: ctx.params.arid,
+          locator: Math.floor(Math.random() * locatorScale + 1)
         });
 
         console.log("saving expense data");

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 import Invoiceprintout from "./Invoiceprintout";
 
@@ -18,10 +17,6 @@ export default class Invoicechart extends Component {
   }
 
   render(props) {
-    // let printoutid = "1975177";
-    // if (this.props.invoicetracker) {
-    //   printoutid = this.props.invoicetracker;
-    // }
     return (
       <div id="basicComponentDiv">
        

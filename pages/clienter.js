@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  clienter.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -164,6 +163,7 @@ export default class Clienter extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ Client Onboarding </div>
             <h2 id="snapshot">Enter a new Client</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form">

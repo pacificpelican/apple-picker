@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Link from "next/link";
 
 //  receiver.js ReactJS 16.3+ component for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2018
@@ -12,10 +11,10 @@ const defaultDate = convertDate();
 
 import Orgname from "./Orgname";
 
-const getDOMtext = function(inpSel="span#orgName") {
+const getDOMtext = function (inpSel = "span#orgName") {
   let elem = document.querySelector(inpSel);
   let dataset = elem.textContent;
-  // alert(dataset);
+
   return dataset;
 }
 
@@ -46,15 +45,15 @@ export default class Receiver extends Component {
   handleSubmitExpense(event) {
     console.log(
       "Receivable data: " +
-        this.state.amount +
-        " date: " +
-        this.state.amountdate +
-        " description: " +
-        this.state.desc +
-        " payee: " +
-        this.state.payee +
-        " notes: " +
-        this.state.notes
+      this.state.amount +
+      " date: " +
+      this.state.amountdate +
+      " description: " +
+      this.state.desc +
+      " payee: " +
+      this.state.payee +
+      " notes: " +
+      this.state.notes
     );
     //  http://localhost:3005/api/1/addexpense/amount/8/date/djm/payee/danco/description/0009/notes/9023j/org/283
     event.preventDefault();
@@ -77,23 +76,17 @@ export default class Receiver extends Component {
     let that = this;
 
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
-          // console.log(response.json);
-          // for (var e in response.json) {
-          //   console.log(e.toString());
-          // }
-          // console.log(response.text);
+
           return response.json();
         }
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
-
-        //  that.setState({ pricesAndCaps: oldArr });
       });
   }
 
@@ -131,13 +124,13 @@ export default class Receiver extends Component {
     // do nothing
   }
 
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() { }
 
   componentDidMount() {
     let that = this;
     let dest = "api/1/getclients/org/lovebirdsconsulting/limit/1000";
     fetch(dest, {})
-      .then(function(response) {
+      .then(function (response) {
         if (response.ok) {
           console.log("response ok");
           console.log(response.json);
@@ -150,7 +143,7 @@ export default class Receiver extends Component {
         throw new Error("Network did not respond.");
         return response.blob();
       })
-      .then(function(myReturn) {
+      .then(function (myReturn) {
         console.log(myReturn);
         that.setState({ prospectsArray: myReturn });
         that.setState({ org: getDOMtext() });
@@ -163,6 +156,7 @@ export default class Receiver extends Component {
         <div className="pear-content">
           <section id="snapshot">
             <Textframe notData="9" />
+            <div className="apple-picker-header">apple-picker _ A/R Entry </div>
             <h2 id="snapshot">Enter an Accounts Receivable item</h2>
             <form id="expense" onSubmit={this.handleSubmitExpense}>
               <section className="expense-form">
@@ -210,12 +204,11 @@ export default class Receiver extends Component {
                   onChange={this.updateNotes}
                 />
               </section>
-              {/* <section className="expense-form" id="org"><span className="input-span">Org: </span><input type="radio" id="radioButton-roundTrip" /></section> */}
               <section className="expense-form" id="dropdown">
                 <span className="input-span">Client:</span>
                 <select value={this.state.prospect} onChange={this.updateNOW}>
                   <option value={null}>none</option>
-                  {this.state.prospectsArray.map(function(interVal) {
+                  {this.state.prospectsArray.map(function (interVal) {
                     console.log(
                       "interVal.value.client: " + interVal.value.client
                     );
