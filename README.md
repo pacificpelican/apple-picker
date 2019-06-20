@@ -6,8 +6,8 @@ A software tool for accountancy by [Dan McKeown](http://danmckeown.info) & [Alta
 Scaffolded with [create-next-app](create-next-app-info.md)
 
 ***QuickStart***
-- `yarn`
-- `yarn dev`
+- `npm install`
+- `npm run dev`
 - `open http://localhost:3005`
 
 ----
