@@ -8,7 +8,7 @@ import Spreadsheet from "./Spreadsheet";
 //  withChart.js ReactJS 16.8+ higher-order component Genericchart for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2019
 
-export default function withChart(WrappedComponent, selectData, apiURL) {
+export default function withChart(WrappedComponent, selectData, apiURL, Type) {
   return class Genericchart extends Component {
     state = { Ok: true, expeneseArray: [] };
 
@@ -51,7 +51,7 @@ export default function withChart(WrappedComponent, selectData, apiURL) {
           <div className="apple-picker-header">apple-picker _ Data View</div>
           <div id="data-container">
            
-            <Spreadsheet dbdataArr={this.state.expeneseArray} />
+            <Spreadsheet dbdataArr={this.state.expeneseArray} table={Type} store={`accountsdb`} />
           </div>
 
           <style jsx global>{`
