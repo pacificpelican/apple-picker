@@ -6,11 +6,11 @@ export default () => (
 
      <h6>Main Components - Data Views</h6>
      <ul>
-      <li><Link href='/Expensechart'><a>Expensechart</a></Link></li>
+      <li><Link href='/Expensechart'><a>Expensechart</a></Link> | <Link href='/Expensechart2'><a>Expensechart2</a></Link></li>
       <li><Link href='/Revenuechart'><a>Revenuechart</a></Link></li>
       <li><Link href='/Mileschart'><a>Mileschart</a></Link></li>
       <li><Link href='/Timechart'><a>Timechart</a></Link></li>
-      <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link></li>
+      <li><Link href='/Accountspayablechart'><a>Accountspayablechart</a></Link> | <Link href='/Accountspayablechart2'><a>Accountspayablechart2</a></Link></li>
       <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link></li>
       <li><Link href='/Invoicechart'><a>Invoicechart</a></Link></li>
       <li><Link href='/Clientschart'><a>Clientschart</a></Link></li>

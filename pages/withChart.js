@@ -5,19 +5,19 @@ import Expensechartrow from "./Expensechartrow";
 
 import Spreadsheet from "./Spreadsheet";
 
-//  withChart.js ReactJS 16.8+ higher-order component for apple-picker
+//  withChart.js ReactJS 16.8+ higher-order component Genericchart for apple-picker
 //  by Dan McKeown http://danmckeown.info copyright 2019
 
 export default function withChart(WrappedComponent, selectData, apiURL) {
-  return class Expensechart extends Component {
+  return class Genericchart extends Component {
     state = { Ok: true, expeneseArray: [] };
 
     constructor() {
       super();
-      this.doLookupExpenses = this.doLookupExpenses.bind(this);
+    //  this.doLookupData = this.doLookupData.bind(this);
     }
 
-    doLookupExpenses() {
+    doLookupData = () => {
       let that = this;
       let dest = apiURL;
       fetch(dest, {})
@@ -41,23 +41,29 @@ export default function withChart(WrappedComponent, selectData, apiURL) {
     }
 
     componentDidMount() {
-      this.doLookupExpenses();
+      this.doLookupData();
     }
 
     render() {
       return (
         <div id="basicComponentDiv">
           <Textframe />
-          <div className="apple-picker-header">apple-picker _ Expense Data </div>
+          <div className="apple-picker-header">apple-picker _ Data View</div>
           <div id="data-container">
            
-            <Spreadsheet dbdataArr={this.state.expeneseArray} table={this.state.userObjectAsk} store={this.state.userDBrequest} />
+            <Spreadsheet dbdataArr={this.state.expeneseArray} />
           </div>
 
           <style jsx global>{`
               :root {
                 --fonts-default: "Ubuntu", "Lucida Sans", "Segoe UI", "Roboto", sans-serif;
                 --fonts-ui: "Hack", "Fira Code", "Menlo", monospace;
+              }
+              span.valHeaderRow {
+                line-height: 2.3 !important;
+              }
+              span.valSheetRow {
+                line-height: 2.3 !important;
               }
               div.apple-picker-header {
                 font-family: var(--fonts-default, "sans-serif");
