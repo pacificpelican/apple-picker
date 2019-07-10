@@ -14,7 +14,7 @@ export default () => (
       <li><Link href='/Accountsreceivablechart'><a>Accountsreceivablechart</a></Link> | <Link href='/Accountsreceivablechart2'><a>Accountsreceivablechart2</a></Link></li>
       <li><Link href='/Invoicechart'><a>Invoicechart</a></Link> | <Link href='/Invoicechart2'><a>Invoicechart2</a></Link></li>
       <li><Link href='/Clientschart'><a>Clientschart</a></Link> | <Link href='/Clientschart2'><a>Clientschart2</a></Link></li>
-      <li><Link href='/Prospectschart'><a>Prospectschart</a></Link> | <Link href='/Prospectschart'><a>Prospectschart</a></Link></li>
+      <li><Link href='/Prospectschart'><a>Prospectschart</a></Link> | <Link href='/Prospectschart2'><a>Prospectschart2</a></Link></li>
       <li><Link href='/Pitcheschart'><a>Pitcheschart</a></Link> | <Link href='/Pitcheschart2'><a>Pitcheschart2</a></Link></li>
       <li><Link href='/Interactionschart'><a>Interactionschart</a></Link> | <Link href='/Interactionschart2'><a>Interactionschart2</a></Link></li>
       <li><Link href='/Taxeschart'><a>Taxeschart</a></Link> | <Link href='/Taxeschart2'><a>Taxeschart2</a></Link></li>
